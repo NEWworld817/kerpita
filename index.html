@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ankai Writers | Earn Weekly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    header {
+      background: #1e293b;
+      padding: 20px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #1e293b;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        padding: 20px;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+
+    .cta-bar {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-bar span {
+      font-weight: bold;
+    }
+
+    .cta-bar .close {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #666;
+    }
+
+    .beep-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .beep-dot {
+      width: 20px;
+      height: 20px;
+      background-color: #10b981;
+      border-radius: 50%;
+      margin-right: 10px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+
+    .dashboard-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 40px;
+    }
+
+    .metric-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .metric-box h3 {
+      margin-bottom: 10px;
+    }
+
+    .metric-box p {
+      color: #888;
+    }
+
+
+
+
+
+
+
+    .reviews {
+      background: #f1f5f9;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .reviews h2 {
+      margin-bottom: 30px;
+    }
+
+    .review {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-align: left;
+    }
+
+    .review img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .review-content {
+      flex: 1;
+    }
+
+    .review-content strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    footer {
+      background: #1e293b;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cta-bar">
+    <span>Pay KES 3,129 and start earning instantly. Renewable yearly. We invest heavily to win jobs for you with a dedicated team.</span>
+    <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+  </div>
+
+  <header>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <div class="logo">Ankai Writers</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    <nav id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Our Services</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="contactus.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+      <a href="starttasking.html">Start Tasking</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Earn Over KES 5,000 Weekly with Ankai Writers</h1>
+    <p>We pay over KES 600 per 800 words. Weekly payouts. No delays. High quality work = high rewards.</p>
+    <div class="beep-indicator">
+      <div class="beep-dot"></div>
+      <strong>10K+ jobs available</strong>
+    </div>
+  </section>
+
+  <section class="dashboard-metrics">
+    <div class="metric-box">
+      <h3><i class="fas fa-wallet"></i> Your Earnings This Week</h3>
+      <p>You don’t have an account</p>
+    </div>
+    <div class="metric-box">
+      <h3><i class="fas fa-money-bill-wave"></i> Available for Withdrawal</h3>
+      <p>You don’t have an account</p>
+    </div>
+    <div class="metric-box">
+      <h3><i class="fas fa-check-circle"></i> Total Tasks Completed</h3>
+      <p>You don’t have an account</p>
+    </div>
+    <div class="metric-box">
+      <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
+      <p><i class="fab fa-cc-mastercard" style="color: green;"></i> M-Pesa every Friday</p>
+    </div>
+  </section>
+  
+
+  <section class="reviews">
+    <h2>Success Stories</h2>
+    <div class="review">
+      <img src="KW2.PNG" alt="Christine">
+      <div class="review-content">
+        <strong>Christine Wanjiku</strong>
+        "I earned over KES 15,000 in my first three weeks with Ankai Writers! Reliable and transparent team."
+      </div>
+    </div>
+    <div class="review">
+      <img src="KM3.PNG" alt="Brian">
+      <div class="review-content">
+        <strong>Brian Otieno</strong>
+        "I love how Ankai pays weekly without delays. They value quality and always keep you updated."
+      </div>
+    </div>
+    <div class="review">
+      <img src="KM1.PNG" alt="Moses">
+      <div class="review-content">
+        <strong>Moses Kiprono</strong>
+        "Thanks to Ankai, I cleared my college fee through writing. Real deal!"
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Ankai Writers. All Rights Reserved.</p>
+    
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navMenu');
+      nav.classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>
+
+

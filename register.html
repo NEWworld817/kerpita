@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Ankai Writers</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .profile-photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            margin-top: 10px;
+            border: 2px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .profile-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-preview::before {
+            content: "No Image";
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .profile-preview.has-image::before {
+            display: none;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 12px;
+            background-color: #f0f0f0;
+            border: 1px dashed #999;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .file-input-label:hover {
+            background-color: #e0e0e0;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        button:hover:not(:disabled) {
+            background-color: #357ab8;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .login-link a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register - Ankai Writers</h1>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="fullName">Your Full Names</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nationalId">Your National ID Number</label>
+                <input type="text" id="nationalId" name="nationalId" required>
+            </div>
+            
+            <div class="form-group profile-photo-container">
+                <label for="profilePhoto">Your Profile Photo</label>
+                <div class="file-input-wrapper">
+                    <label class="file-input-label" id="fileInputLabel">Choose file</label>
+                    <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" required>
+                </div>
+                <div class="profile-preview" id="profilePreview"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="phoneNumber">Your Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" required>
+                <div class="error-message" id="phoneError">Please enter a valid phone number (digits only, max 14 numbers, + allowed as first character)</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="mpesaCode">Mpesa Code</label>
+                <input type="text" id="mpesaCode" name="mpesaCode" required>
+                <div class="error-message" id="mpesaError">Invalid Mpesa code</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error-message" id="passwordError">Password must contain: 8-15 characters, 1 uppercase, 1 lowercase, 1 special character</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+            </div>
+            
+            <button type="submit" id="submitButton" disabled>Submit</button>
+        </form>
+        
+        <div class="login-link">
+            Already have an account? <a href="#">Login</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const submitButton = document.getElementById('submitButton');
+            const profilePhoto = document.getElementById('profilePhoto');
+            const profilePreview = document.getElementById('profilePreview');
+            const fileInputLabel = document.getElementById('fileInputLabel');
+            const phoneNumber = document.getElementById('phoneNumber');
+            const phoneError = document.getElementById('phoneError');
+            const mpesaCode = document.getElementById('mpesaCode');
+            const mpesaError = document.getElementById('mpesaError');
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            
+            // Form validation variables
+            let isFullNameValid = false;
+            let isNationalIdValid = false;
+            let isProfilePhotoValid = false;
+            let isPhoneNumberValid = false;
+            let isMpesaCodeValid = false;
+            let isPasswordValid = false;
+            let isConfirmPasswordValid = false;
+            
+            // Profile photo preview
+            profilePhoto.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePreview.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        profilePreview.appendChild(img);
+                        profilePreview.classList.add('has-image');
+                        fileInputLabel.textContent = file.name;
+                        isProfilePhotoValid = true;
+                        checkFormValidity();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    profilePreview.innerHTML = '';
+                    profilePreview.classList.remove('has-image');
+                    fileInputLabel.textContent = 'Choose file';
+                    isProfilePhotoValid = false;
+                    checkFormValidity();
+                }
+            });
+            
+            // Phone number validation
+            phoneNumber.addEventListener('input', function() {
+                const value = this.value;
+                // Allow only numbers and + at the beginning
+                const isValid = /^\+?\d{0,14}$/.test(value) && (value.length <= 14 || (value.startsWith('+') && value.length <= 15));
+                
+                if (!isValid) {
+                    phoneError.style.display = 'block';
+                    isPhoneNumberValid = false;
+                } else {
+                    phoneError.style.display = 'none';
+                    isPhoneNumberValid = value.length >= 9; // Minimum 9 digits (including country code)
+                }
+                
+                checkFormValidity();
+            });
+            
+            // Mpesa code validation (always invalid as per requirement)
+            mpesaCode.addEventListener('input', function() {
+                mpesaError.style.display = 'block';
+                isMpesaCodeValid = false;
+                checkFormValidity();
+            });
+            
+            // Password validation
+            password.addEventListener('input', function() {
+                const value = this.value;
+                const hasUpperCase = /[A-Z]/.test(value);
+                const hasLowerCase = /[a-z]/.test(value);
+                const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+                const hasValidLength = value.length >= 8 && value.length <= 15;
+                
+                if (!hasUpperCase || !hasLowerCase || !hasSpecialChar || !hasValidLength) {
+                    passwordError.style.display = 'block';
+                    isPasswordValid = false;
+                } else {
+                    passwordError.style.display = 'none';
+                    isPasswordValid = true;
+                }
+                
+                // Check if confirm password matches
+                if (confirmPassword.value) {
+                    if (value !== confirmPassword.value) {
+                        confirmPasswordError.style.display = 'block';
+                        isConfirmPasswordValid = false;
+                    } else {
+                        confirmPasswordError.style.display = 'none';
+                        isConfirmPasswordValid = true;
+                    }
+                }
+                
+                checkFormValidity();
+            });
+            
+            // Confirm password validation
+            confirmPassword.addEventListener('input', function() {
+                if (this.value !== password.value) {
+                    confirmPasswordError.style.display = 'block';
+                    isConfirmPasswordValid = false;
+                } else {
+                    confirmPasswordError.style.display = 'none';
+                    isConfirmPasswordValid = true;
+                }
+                checkFormValidity();
+            });
+            
+            // Full name validation
+            document.getElementById('fullName').addEventListener('input', function() {
+                isFullNameValid = this.value.trim().length > 0;
+                checkFormValidity();
+            });
+            
+            // National ID validation
+            document.getElementById('nationalId').addEventListener('input', function() {
+                isNationalIdValid = this.value.trim().length > 0;
+                checkFormValidity();
+            });
+            
+            // Check if all fields are valid
+            function checkFormValidity() {
+                const isValid = isFullNameValid && isNationalIdValid && isProfilePhotoValid && 
+                                isPhoneNumberValid && isMpesaCodeValid && isPasswordValid && 
+                                isConfirmPasswordValid;
+                
+                submitButton.disabled = !isValid;
+            }
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Mpesa code is invalid');
+            });
+        });
+    </script>
+</body>
+</html>
