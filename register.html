@@ -169,6 +169,29 @@
         .login-link a:hover {
             text-decoration: underline;
         }
+        
+        .paypal-container {
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        
+        .paypal-container p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+        
+        .payment-complete {
+            display: none;
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
@@ -202,12 +225,6 @@
             </div>
             
             <div class="form-group">
-                <label for="mpesaCode">Mpesa Code</label>
-                <input type="text" id="mpesaCode" name="mpesaCode" required>
-                <div class="error-message" id="mpesaError">Invalid Mpesa code</div>
-            </div>
-            
-            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
                 <div class="error-message" id="passwordError">Password must contain: 8-15 characters, 1 uppercase, 1 lowercase, 1 special character</div>
@@ -219,7 +236,31 @@
                 <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
             </div>
             
-            <button type="submit" id="submitButton" disabled>Submit</button>
+            <!-- Payment Section -->
+            <div class="paypal-container">
+                <p>Complete your registration by making the payment below</p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" id="paypalForm">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="5LDNP4TDXXLG4" />
+                    
+                    <input type="hidden" name="on0" value="Full Name"/>
+                    <input type="hidden" name="os0" id="paypalFullName" value="" />
+                    
+                    <input type="hidden" name="on1" value="Email"/>
+                    <input type="hidden" name="os1" id="paypalEmail" value="" />
+                    
+                    <input type="hidden" name="amount" value="16.00" />
+                    <input type="hidden" name="currency_code" value="USD" />
+                    
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Pay Registration Fee" onclick="preparePaypalPayment()" />
+                </form>
+            </div>
+            
+            <div class="payment-complete" id="paymentComplete">
+                ✓ Payment completed! You can now submit your registration.
+            </div>
+            
+            <button type="submit" id="submitButton" disabled>Complete Registration</button>
         </form>
         
         <div class="login-link">
@@ -236,21 +277,20 @@
             const fileInputLabel = document.getElementById('fileInputLabel');
             const phoneNumber = document.getElementById('phoneNumber');
             const phoneError = document.getElementById('phoneError');
-            const mpesaCode = document.getElementById('mpesaCode');
-            const mpesaError = document.getElementById('mpesaError');
             const password = document.getElementById('password');
             const passwordError = document.getElementById('passwordError');
             const confirmPassword = document.getElementById('confirmPassword');
             const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const paymentComplete = document.getElementById('paymentComplete');
             
             // Form validation variables
             let isFullNameValid = false;
             let isNationalIdValid = false;
             let isProfilePhotoValid = false;
             let isPhoneNumberValid = false;
-            let isMpesaCodeValid = false;
             let isPasswordValid = false;
             let isConfirmPasswordValid = false;
+            let isPaymentComplete = false;
             
             // Profile photo preview
             profilePhoto.addEventListener('change', function(e) {
@@ -291,13 +331,6 @@
                     isPhoneNumberValid = value.length >= 9; // Minimum 9 digits (including country code)
                 }
                 
-                checkFormValidity();
-            });
-            
-            // Mpesa code validation (always invalid as per requirement)
-            mpesaCode.addEventListener('input', function() {
-                mpesaError.style.display = 'block';
-                isMpesaCodeValid = false;
                 checkFormValidity();
             });
             
@@ -358,16 +391,43 @@
             // Check if all fields are valid
             function checkFormValidity() {
                 const isValid = isFullNameValid && isNationalIdValid && isProfilePhotoValid && 
-                                isPhoneNumberValid && isMpesaCodeValid && isPasswordValid && 
-                                isConfirmPasswordValid;
+                                isPhoneNumberValid && isPasswordValid && 
+                                isConfirmPasswordValid && isPaymentComplete;
                 
                 submitButton.disabled = !isValid;
             }
             
+            // Prepare PayPal payment data
+            window.preparePaypalPayment = function() {
+                const fullName = document.getElementById('fullName').value;
+                document.getElementById('paypalFullName').value = fullName;
+                
+                // In a real implementation, you would collect email here
+                document.getElementById('paypalEmail').value = 'user@example.com';
+                
+                // Simulate payment completion (in real implementation, this would be handled by PayPal IPN)
+                setTimeout(function() {
+                    paymentComplete.style.display = 'block';
+                    isPaymentComplete = true;
+                    checkFormValidity();
+                    alert('Payment successful! You can now complete your registration.');
+                }, 1000);
+            };
+            
             // Form submission
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('Mpesa code is invalid');
+                
+                if (!isPaymentComplete) {
+                    alert('Please complete the payment first');
+                    return;
+                }
+                
+                // Here you would typically send the form data to your server
+                alert('Registration submitted successfully!');
+                
+                // In a real implementation, you would submit the form to your server
+                // form.submit();
             });
         });
     </script>
