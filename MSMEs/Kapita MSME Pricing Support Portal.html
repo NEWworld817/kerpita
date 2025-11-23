@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita MSME — Pricing & Support Portal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom color and font configuration for Tailwind */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-soft-gray: #F3F4F6;
+        }
+
+        /* Custom animation for the AI highlight */
+        @keyframes subtle-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 87, 212, 0.1); }
+            50% { box-shadow: 0 0 20px rgba(0, 87, 212, 0.2); }
+        }
+
+        .animate-glow-blue {
+            animation: subtle-glow 3s infinite ease-in-out;
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',       /* Primary Blue */
+                        'kapita-navy': '#0A1A2F',       /* Navy */
+                        'kapita-green': '#00C389',      /* Emerald Green */
+                        'kapita-soft-gray': '#F3F4F6',  /* Soft Gray */
+                        'kapita-dark-text': '#111827',  /* Darker text for readability */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 35px rgba(0, 87, 212, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray text-kapita-dark-text font-sans antialiased">
+ <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+
+
+<a href="C:\Kapita\kapita\MSMEs\Kapita MSME AI Financial  Operational Hub.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+    <!-- Icon SVGs for aesthetics -->
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg id="support-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 0l-3.536 3.536m3.536-3.536A3.456 3.456 0 1010 15h4v-2.5m-4 0h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                <a href="C:\Kapita\kapita\404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150">Log In</a>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+            </a>
+            </nav>
+
+            <!-- Mobile Menu Trigger (Hamburger) -->
+            <div class="flex lg:hidden items-center">
+                <button id="mobileMenuToggle" class="text-kapita-dark-text p-2 rounded-full hover:bg-kapita-soft-gray transition duration-150">
+                    <svg viewBox="0 0 24 24" class="w-6 h-6"><use xlink:href="#menu-icon"></use></svg>
+                </button>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-24 pb-20 pt-10">
+
+        <!-- 🔷 HERO SECTION — “Flexible Pricing for Growing MSMEs” -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left: Text Content -->
+            <div class="space-y-8">
+                <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                    Affordable, Transparent <span class="text-kapita-green">AI Solutions</span> for MSMEs
+                </h1>
+                <p class="text-xl text-gray-600 font-light max-w-xl">
+                    Choose the plan that fits your business needs. Kapita AI scales effortlessly, providing predictive intelligence exactly when your MSME needs to grow.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a
+                    <button class="px-8 py-3.5 bg-kapita-green text-white text-lg font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                        Request Demo / Onboarding
+                    </button>
+                    </a>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-white text-kapita-blue text-lg font-semibold rounded-xl border-2 border-kapita-blue hover:bg-kapita-soft-gray transition duration-300">
+                        Compare Plans
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Pricing Dashboard Illustration Mockup -->
+            <div class="relative w-full aspect-video rounded-2xl bg-white shadow-premium border border-gray-200 p-6 flex items-center justify-center">
+                <div class="grid grid-cols-3 gap-4 w-full h-full">
+                    <!-- Starter Card Mock -->
+                    <div class="bg-kapita-soft-gray p-4 rounded-xl flex flex-col justify-between border border-gray-300">
+                        <p class="text-sm font-semibold text-kapita-navy">Starter</p>
+                        <h4 class="text-2xl font-bold text-kapita-dark-text">$49<span class="text-sm font-normal">/mo</span></h4>
+                        <ul class="text-xs text-gray-600 mt-2 space-y-1">
+                            <li class="flex items-center"><svg viewBox="0 0 24 24" class="w-3 h-3 text-kapita-green mr-1"><use xlink:href="#check-icon"></use></svg> Basic Inventory</li>
+                            <li class="flex items-center"><svg viewBox="0 0 24 24" class="w-3 h-3 text-kapita-green mr-1"><use xlink:href="#check-icon"></use></svg> Transaction Monitoring</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Growth Card Highlight -->
+                    <div class="bg-kapita-blue text-white p-4 rounded-xl flex flex-col justify-between border-4 border-kapita-green animate-glow-blue shadow-lg">
+                        <p class="text-sm font-semibold">Growth</p>
+                        <h4 class="text-2xl font-bold">$199<span class="text-sm font-normal">/mo</span></h4>
+                        <ul class="text-xs mt-2 space-y-1">
+                            <li class="flex items-center"><svg viewBox="0 0 24 24" class="w-3 h-3 text-white mr-1"><use xlink:href="#check-icon"></use></svg> **AI Forecasting**</li>
+                            <li class="flex items-center"><svg viewBox="0 0 24 24" class="w-3 h-3 text-white mr-1"><use xlink:href="#check-icon"></use></svg> Credit Score Gen.</li>
+                            <li class="flex items-center"><svg viewBox="0 0 24 24" class="w-3 h-3 text-white mr-1"><use xlink:href="#check-icon"></use></svg> Multi-user Access</li>
+                        </ul>
+                    </div>
+
+                    <!-- Enterprise Card Mock -->
+                    <div class="bg-kapita-soft-gray p-4 rounded-xl flex flex-col justify-between border border-gray-300">
+                        <p class="text-sm font-semibold text-kapita-navy">Enterprise</p>
+                        <h4 class="text-2xl font-bold text-kapita-dark-text">Custom</h4>
+                        <ul class="text-xs text-gray-600 mt-2 space-y-1">
+                            <li class="flex items-center"><svg viewBox="0 0 24 24" class="w-3 h-3 text-kapita-green mr-1"><use xlink:href="#check-icon"></use></svg> Full API Suite</li>
+                            <li class="flex items-center"><svg viewBox="0 0 24 24" class="w-3 h-3 text-kapita-green mr-1"><use xlink:href="#check-icon"></use></svg> Dedicated Support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — PRICING CARDS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-center text-kapita-navy">Choose Your AI Growth Engine</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Card 1: Starter -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <h3 class="text-2xl font-bold text-kapita-navy">Starter</h3>
+                    <p class="text-lg text-gray-500 mt-1">Perfect for small, single-location MSMEs.</p>
+                    <div class="my-6">
+                        <span class="text-5xl font-extrabold text-kapita-blue">$49</span>
+                        <span class="text-xl font-medium text-gray-500"> / month</span>
+                    </div>
+                    <ul class="space-y-3 text-gray-700 flex-grow">
+                        <li class="flex items-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> Basic Inventory Monitoring
+                        </li>
+                        <li class="flex items-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> 1 User Account
+                        </li>
+                        <li class="flex items-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> Quarterly Sales Reports
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-gray-400 mr-2"><use xlink:href="#check-icon"></use></svg> No Credit Scoring
+                        </li>
+                    </ul>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="mt-8 w-full py-3.5 bg-kapita-green text-white font-bold rounded-xl hover:bg-green-600 transition duration-300">
+                        Get Started
+                    </button>
+                    </a>
+                </div>
+
+                <!-- Card 2: Growth (Highlighted) -->
+                <div class="bg-kapita-blue text-white p-8 rounded-2xl shadow-premium border-4 border-kapita-green flex flex-col transform scale-105 hover:scale-[1.07] transition duration-300">
+                    <h3 class="text-2xl font-bold">Growth</h3>
+                    <p class="text-lg text-gray-200 mt-1">Recommended for growing MSMEs with complex needs.</p>
+                    <div class="my-6">
+                        <span class="text-5xl font-extrabold">$199</span>
+                        <span class="text-xl font-medium text-gray-200"> / month</span>
+                    </div>
+                    <ul class="space-y-3 text-gray-100 flex-grow">
+                        <li class="flex items-center font-bold">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> AI Inventory Forecasting
+                        </li>
+                        <li class="flex items-center font-bold">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> MSME Credit Scoring (0-900)
+                        </li>
+                        <li class="flex items-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> 5 User Accounts
+                        </li>
+                        <li class="flex items-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> Priority Support
+                        </li>
+                    </ul>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="mt-8 w-full py-3.5 bg-kapita-green text-kapita-navy font-bold rounded-xl shadow-lg hover:bg-green-600 transition duration-300">
+                        Get Started
+                    </button>
+                    </a>
+                </div>
+
+                <!-- Card 3: Enterprise -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <h3 class="text-2xl font-bold text-kapita-navy">Enterprise</h3>
+                    <p class="text-lg text-gray-500 mt-1">For large, multi-location MSMEs and financial institutions.</p>
+                    <div class="my-6">
+                        <span class="text-5xl font-extrabold text-kapita-navy">Custom</span>
+                    </div>
+                    <ul class="space-y-3 text-gray-700 flex-grow">
+                        <li class="flex items-center font-bold">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> Full AI Module Suite
+                        </li>
+                        <li class="flex items-center font-bold">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> API Access & Integration
+                        </li>
+                        <li class="flex items-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> Unlimited User Accounts
+                        </li>
+                        <li class="flex items-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 text-kapita-green mr-2"><use xlink:href="#check-icon"></use></svg> Dedicated Account Manager
+                        </li>
+                    </ul>
+                    <button class="mt-8 w-full py-3.5 bg-kapita-blue text-white font-bold rounded-xl hover:bg-blue-700 transition duration-300">
+                        Request Enterprise Demo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — SUPPORT & CONTACT FORM -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                
+                <!-- Left: Text and Contact Form -->
+                <div>
+                    <h2 class="text-4xl font-extrabold tracking-tight text-kapita-navy mb-4">
+                        Need Help or Onboarding Assistance?
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg">
+                        Our MSME support team is here to help you activate and scale your AI modules quickly. Fill out the form below or use our instant chat support.
+                    </p>
+
+                    <!-- Contact Form -->
+                    <form class="space-y-4 bg-white p-6 rounded-xl shadow-soft-xl border border-gray-100">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-kapita-dark-text mb-1">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-kapita-blue focus:border-kapita-blue" placeholder="John Doe">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-kapita-dark-text mb-1">Business Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-kapita-blue focus:border-kapita-blue" placeholder="name@organization.com">
+                            </div>
+                            <div>
+                                <label for="org" class="block text-sm font-medium text-kapita-dark-text mb-1">Organization Name</label>
+                                <input type="text" id="org" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-kapita-blue focus:border-kapita-blue" placeholder="Kapita Solutions">
+                            </div>
+                        </div>
+                         <div>
+                            <label for="country" class="block text-sm font-medium text-kapita-dark-text mb-1">Country / City</label>
+                            <input type="text" id="country" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-kapita-blue focus:border-kapita-blue" placeholder="Nairobi, Kenya">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-kapita-dark-text mb-1">Message / Inquiry</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-kapita-blue focus:border-kapita-blue" placeholder="I need assistance setting up the Inventory Forecasting module..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-kapita-green text-white font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                            Contact Support
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: AI Chat Support Mockup -->
+                <div class="relative h-full min-h-[500px] bg-white rounded-2xl shadow-premium border border-gray-200 p-6 flex flex-col justify-between">
+                    <div class="flex items-center space-x-3 pb-4 border-b border-gray-100">
+                        <div class="w-10 h-10 bg-kapita-green rounded-full flex items-center justify-center text-white font-bold text-lg">AI</div>
+                        <div>
+                            <p class="font-bold text-kapita-navy">Kapita AI Bot</p>
+                            <p class="text-xs text-kapita-green font-semibold">Online - Ready to assist</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat History Mock -->
+                    <div class="flex-grow overflow-y-auto py-4 space-y-4">
+                        <!-- AI Message -->
+                        <div class="flex justify-start">
+                            <div class="bg-kapita-soft-gray p-3 rounded-t-xl rounded-br-xl max-w-xs text-sm shadow-sm">
+                                Welcome! I see you're on the pricing page. Are you interested in a demo or need help comparing plans?
+                            </div>
+                        </div>
+                        <!-- User Message -->
+                        <div class="flex justify-end">
+                            <div class="bg-kapita-blue text-white p-3 rounded-t-xl rounded-bl-xl max-w-xs text-sm shadow-sm">
+                                What's included in the 'Growth' plan's credit scoring module?
+                            </div>
+                        </div>
+                        <!-- AI Message -->
+                        <div class="flex justify-start">
+                            <div class="bg-kapita-soft-gray p-3 rounded-t-xl rounded-br-xl max-w-xs text-sm shadow-sm">
+                                The **Growth** credit scoring provides real-time MSME Kapita Index (0-900) and risk band analysis (Low, Medium, High) using alternative data. It's fully automated.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area Mock -->
+                    <div class="border-t border-gray-100 pt-4">
+                        <input type="text" class="w-full px-4 py-3 bg-kapita-soft-gray border border-gray-300 rounded-xl focus:ring-kapita-blue focus:border-kapita-blue" placeholder="Ask the Kapita AI Bot...">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 🔷 SECTION — CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20 mt-12">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white">
+                    Activate Your MSME AI Engine Today
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Onboarding / Demo
+                </button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <!-- Logo in Footer -->
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\solutions.html" class="hover:text-kapita-blue transition duration-150">Solutions</a>
+                    <a href="C:\Kapita\kapita\404.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                    <a href="C:\Kapita\kapita\aboutus.html" class="hover:text-kapita-blue transition duration-150">About</a>
+                </div>
+            </div>
+            <!-- Bottom Line -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

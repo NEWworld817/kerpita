@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Credit & Risk Intelligence - Kapita</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+            --kapita-red: #EF4444; /* Tailwind Red 500 for high risk */
+            --kapita-yellow: #FBBF24; /* Tailwind Yellow 500 for medium risk */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .font-heading {
+            font-weight: 800;
+        }
+
+        .dashboard-card {
+            background-color: white;
+            border-radius: 1rem; /* rounded-xl */
+            box-shadow: 0 4px 10px rgba(10, 26, 47, 0.05);
+            padding: 1.5rem; /* p-6 */
+        }
+    </style>
+</head>
+<body>
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+   
+<a href="C:\Kapita\kapita\Governments\govcmdcente.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Header Navigation (Simplified) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-heading text-[--kapita-blue] flex-shrink-0">KAPITA</a>
+            
+            <!-- Navigation Menu (Active Tab) -->
+            <nav class="flex-grow flex justify-center h-full">
+                 <a href="#" class="h-full flex items-center px-4 text-base font-semibold text-[--kapita-navy] border-b-4 border-[--kapita-green]">Credit & Risk</a>
+            </nav>
+
+            <!-- Right: Government Profile Icon -->
+            <div class="w-10 h-10 bg-[--kapita-blue] rounded-full flex items-center justify-center text-white font-semibold cursor-pointer flex-shrink-0">
+                GP
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="flex-grow py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Hero Title Section -->
+            <div class="mb-8 border-b pb-4 border-gray-300">
+                <h1 class="text-3xl md:text-4xl font-heading text-[--kapita-navy] mb-1">
+                    National Credit & Risk Intelligence Hub
+                </h1>
+                <p class="text-lg text-gray-600 font-normal">
+                    AI-powered visibility into **MSME creditworthiness**, defaulters, **behavioural economics**, and national loan risk.
+                </p>
+            </div>
+
+            <!-- Dashboard Layout Grid -->
+            <div class="grid grid-cols-12 gap-8">
+                
+                <!-- 1. MSME Credit Score Distribution (Full Width) -->
+                <div class="col-span-12 dashboard-card border-l-4 border-[--kapita-blue]">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-6">
+                        MSME Credit Score Distribution (National)
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        
+                        <!-- Bar Chart Placeholder (3/4 Width) -->
+                        <div class="lg:col-span-3 h-64 bg-gray-50 border border-gray-200 rounded-lg p-4 relative flex items-end justify-center">
+                            <div class="absolute inset-0 p-4 text-gray-400 text-sm">
+                                [AI Bar Chart Visualization: Low Risk (Green), Medium (Yellow), High (Red)]
+                                <div class="absolute bottom-4 left-4 right-4 flex justify-around items-end h-3/4">
+                                    <!-- Low Risk (Green) -->
+                                    <div class="w-1/4 h-5/6 bg-[--kapita-green] rounded-t-lg shadow-lg relative">
+                                        <span class="absolute -top-6 text-sm font-semibold text-[--kapita-green]">62%</span>
+                                    </div>
+                                    <!-- Medium Risk (Yellow) -->
+                                    <div class="w-1/4 h-3/6 bg-[--kapita-yellow] rounded-t-lg shadow-lg relative">
+                                        <span class="absolute -top-6 text-sm font-semibold text-yellow-600">20%</span>
+                                    </div>
+                                    <!-- High Risk (Red) -->
+                                    <div class="w-1/4 h-2/6 bg-[--kapita-red] rounded-t-lg shadow-lg relative">
+                                        <span class="absolute -top-6 text-sm font-semibold text-red-600">18%</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-0 left-0 right-0 h-4 border-t border-gray-300"></div>
+                            </div>
+                        </div>
+
+                        <!-- Stat Card (1/4 Width) -->
+                        <div class="lg:col-span-1 p-6 bg-[--kapita-blue] text-white rounded-xl flex flex-col justify-center shadow-2xl border-l-4 border-[--kapita-green]">
+                            <h3 class="text-sm font-semibold mb-2">Impact Score (Q3)</h3>
+                            <p class="text-5xl font-heading mb-3">18%</p>
+                            <p class="text-sm">National credit default risk **reduced** using Kapita AI models.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Behavioral Analytics Panel (50% Width) -->
+                <div class="col-span-12 lg:col-span-6 dashboard-card border-l-4 border-[--kapita-green]">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-2 mr-2 text-[--kapita-green]"><path d="M14 19a6 6 0 0 0-12 0"/><circle cx="8" cy="10" r="4"/><path d="M22 19a6 6 0 0 0-6-6 6 6 0 0 0-2 0"/><circle cx="18" cy="10" r="4"/></svg>
+                        Behavioral Analytics Panel
+                    </h2>
+
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check text-[--kapita-blue] mr-3"><path d="M21 4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4"/><path d="M10 2v4"/><path d="M14 2v4"/><path d="M8 10h8"/><path d="m15 17-3-3"/><path d="m14 17 2 2"/></svg>
+                            <span class="font-semibold">Loan Repayment Patterns:</span> 93% correlation between timely tax filing and loan compliance.
+                        </li>
+                        <li class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-medium text-[--kapita-yellow] mr-3"><circle cx="12" cy="12" r="4"/><path d="M18.36 6.36 17.69 7.03"/><path d="M6.34 17.66l.67-.67"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M17.69 17.69l.68.68"/><path d="M6.36 6.36-.68.68"/><path d="M12 2v2"/><path d="M12 20v2"/></svg>
+                            <span class="font-semibold">Seasonal Behaviour:</span> Increased risk among tourism SMEs during Q4 downturn.
+                        </li>
+                        <li class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-factory text-[--kapita-navy] mr-3"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4V3a1 1 0 0 0-2 0v3h-2V3a1 1 0 0 0-2 0v3H6a2 2 0 0 0-2 2v12Z"/><path d="M10 10v4"/><path d="M14 10v4"/><path d="M18 10v4"/></svg>
+                            <span class="font-semibold">Industry Risk Comparison:</span> Construction sector risk level remains elevated (7.2/10).
+                        </li>
+                        <li class="flex items-center p-3 bg-red-100 rounded-lg border border-red-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap-off text-red-600 mr-3"><path d="M12.41 6.13 14 2l-4 6"/><path d="M10.74 12.08 8 17l4 6v-4.17"/><path d="M18.52 14.16 22 10h-5.11"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                            <span class="font-bold text-red-700">AI Anomaly Detection:</span> Sudden large loan application spike (300%) in Central region.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 3. Individual MSME Profile Card (50% Width) -->
+                <div class="col-span-12 lg:col-span-6 dashboard-card border-l-4 border-[--kapita-blue]">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase-business mr-2 text-[--kapita-blue]"><path d="M12 2h4a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h4Z"/><path d="M22 10H2"/><path d="M15 15h1"/><path d="M15 18h1"/><path d="M8 15h1"/><path d="M8 18h1"/></svg>
+                        Individual MSME Profile Snapshot
+                    </h2>
+
+                    <div class="p-6 bg-[--kapita-gray] rounded-lg">
+                        <div class="flex items-center justify-between mb-4 border-b pb-4 border-gray-300">
+                            <div>
+                                <p class="text-sm text-gray-600">Selected Entity</p>
+                                <p class="text-2xl font-heading">Coastline Logistics Ltd.</p>
+                            </div>
+                            <!-- AI Badge -->
+                            <span class="inline-flex items-center px-3 py-1 text-sm font-bold bg-[--kapita-green] text-white rounded-full">
+                                AI RECOMMENDED
+                            </span>
+                        </div>
+                        
+                        <!-- Credit Score & Trend -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Kapita Credit Score</p>
+                                <p class="text-5xl font-heading text-[--kapita-green]">742</p>
+                                <p class="text-base font-semibold text-[--kapita-green]">(Low Risk)</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 mb-1">Risk Trend (Last 12 Mo)</p>
+                                <div class="h-16 bg-white border border-gray-200 rounded-lg flex items-center justify-center">
+                                    <div class="text-center text-gray-400">
+                                        [Trend Line: Upward Trajectory]
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-600 mt-2">Projection: Most probable to repay on time.</p>
+                            </div>
+                        </div>
+
+                        <!-- Key Data Points -->
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between border-b pb-1">
+                                <span>Default Likelihood:</span>
+                                <span class="font-semibold text-[--kapita-green]">1.2%</span>
+                            </div>
+                            <div class="flex justify-between border-b pb-1">
+                                <span>Industry:</span>
+                                <span class="font-semibold">Logistics & Freight</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Outstanding Loans:</span>
+                                <span class="font-semibold">$450,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons (Full Width) -->
+                <div class="col-span-12 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4">
+                    <button class="flex-1 px-6 py-4 bg-[--kapita-blue] text-white font-bold text-lg rounded-xl shadow-md hover:bg-opacity-90 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3 inline mr-2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                        Open Risk Engine
+                    </button>
+                    <button class="flex-1 px-6 py-4 bg-[--kapita-green] text-white font-bold text-lg rounded-xl shadow-md hover:bg-opacity-90 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text inline mr-2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 12H8"/><path d="M16 16H8"/><path d="M16 20H8"/></svg>
+                        Download Risk Report
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[--kapita-navy] text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            &copy; 2025 KAPITA AI Infrastructure.
+        </div>
+    </footer>
+
+</body>
+</html>

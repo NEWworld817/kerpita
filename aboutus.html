@@ -1,149 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>About Us - Your Company</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Kapita - AI Economic Engine</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+        }
 
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fafafa;
-      padding: 2rem;
-      color: #333;
-    }
+        /* Set Inter as default font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+        
+        /* Consistent Header Styling */
+        header {
+            border-bottom: 1px solid rgba(243, 244, 246, 0.8);
+        }
 
-    .about-us {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    }
+        /* Hero Background Simulation */
+        .hero-bg-about {
+            background-color: var(--kapita-navy);
+            background-image: radial-gradient(circle at 80% 90%, rgba(0, 87, 212, 0.1) 0%, transparent 40%),
+                              radial-gradient(circle at 20% 10%, rgba(0, 195, 137, 0.1) 0%, transparent 40%);
+        }
 
-    .about-us h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #00a650;
-    }
+        /* Timeline Dot Styling */
+        .timeline-dot {
+            position: absolute;
+            left: -12px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--kapita-blue);
+            border: 4px solid white;
+            z-index: 10;
+        }
 
-    .about-us h3 {
-      margin-top: 2rem;
-      color: #444;
-    }
-
-    .about-us p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin: 0.5rem 0;
-    }
-
-    .about-us ul {
-      list-style: none;
-      padding-left: 1rem;
-      line-height: 1.8;
-    }
-
-    .about-us ul li::before {
-      content: "✔";
-      color: #00a650;
-      font-weight: bold;
-      display: inline-block;
-      width: 1rem;
-      margin-left: -1rem;
-    }
-
-    .about-us strong {
-      color: #222;
-    }
-
-    .about-us a {
-      color: #00a650;
-      text-decoration: none;
-    }
-
-    .about-us a:hover {
-      text-decoration: underline;
-    }
-
-    .about-us blockquote {
-      margin-top: 1.5rem;
-      font-style: italic;
-      background: #f1f1f1;
-      padding: 1rem;
-      border-left: 4px solid #00a650;
-      border-radius: 4px;
-    }
-
-    .about-us .fa {
-      margin-right: 8px;
-      color: #00a650;
-    }
-  </style>
+    </style>
 </head>
 <body>
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+   <a href="C:\Kapita\index.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
 
-<section class="about-us">
-  <h2><i class="fas fa-users"></i> About Us</h2>
-  <p>
-    Welcome to <strong>Ankai Writers</strong> — Kenya’s most trusted and transparent freelance empowerment platform.
-  </p>
-  <p>
-    <strong><i class="fas fa-map-marker-alt"></i> Location:</strong> Lavington Court, 3rd Floor, Waiyaki Way, Westlands, Nairobi
-  </p>
+    <!-- Header Navigation (Reused from Landing Page) -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-3xl font-extrabold text-[#0057D4]">KAPITA</a>
 
-  <h3><i class="fas fa-briefcase"></i> What We Do</h3>
-  <p>
-    We connect talented Kenyan freelancers with real, well-paying opportunities. Whether you're a creative, developer, digital marketer, or VA — this is your home. We believe in <strong>financial independence, digital freedom, and fair pay</strong>.
-  </p>
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex space-x-8 items-center">
+             <a href="C:\Kapita\kapita\404.html" class="text-gray-600 hover:text-[#0057D4] transition duration-150">Log In</a>
+             <a href="C:\Kapita\kapita\404.html">  
+             <button class="px-6 py-3 bg-[#00C389] text-white font-bold rounded-xl shadow-lg hover:bg-opacity-90 transition duration-150">
+                    Request Demo
+                </button>
+             </a>
+            </nav>
 
-  <h3><i class="fas fa-money-bill-wave"></i> How We Pay</h3>
-  <ul>
-    <li><strong>Weekly payouts, every Friday</strong></li>
-    <li><strong>Sent directly via M-Pesa — no delays, no excuses</strong></li>
-    <li>No confusing commissions — you keep what you earn</li>
-  </ul>
-  <p>We’ve <strong>paid over $1 Million USD</strong> to more than <strong>10,000 freelancers across Kenya</strong>.</p>
+    </header>
 
-  <h3><i class="fas fa-user-check"></i> Simple One-Time Fee</h3>
-  <p>
-    We charge a <strong>one-time annual membership fee</strong> — no hidden charges or monthly deductions. Once you're in, you’re family.
-  </p>
+    <!-- Hero Section -->
+    <section class="hero-bg-about text-white py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                Building Africa’s AI Economic Engine
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-4xl mx-auto">
+                Kapita delivers intelligent financial and economic infrastructure for fast-growing nations and enterprises.
+            </p>
+            <!-- Scroll Indicator -->
+            <div class="pt-8 opacity-75">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down mx-auto animate-bounce"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+        </div>
+    </section>
 
-  <h3><i class="fas fa-thumbs-up"></i> Why Kenyans Trust Us</h3>
-  <ul>
-    <li><strong>Transparent</strong> – Nothing is hidden. You see what you earn and receive it.</li>
-    <li><strong>Honest</strong> – No false promises or fake testimonials.</li>
-    <li><strong>Committed</strong> – We are here 24/7 with guidance, support, and jobs.</li>
-    <li><strong>Reliable</strong> – Weekly payments and responsive support.</li>
-  </ul>
+    <!-- Mission & Vision Section -->
+    <section class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12">
+            <!-- Mission -->
+            <div class="p-8 border-l-4 border-[#0057D4] rounded-lg shadow-lg">
+                <p class="text-sm font-semibold text-[#0057D4] uppercase mb-2 tracking-widest">Our Mission</p>
+                <h2 class="text-3xl font-bold text-[#0A1A2F] mb-4">
+                    Empowering the Next Generation of Financial Systems
+                </h2>
+                <p class="text-xl text-gray-600">
+                    To power the next generation of financial systems using **AI-driven automation**, transparency, and intelligence, enabling unprecedented economic growth across emerging markets.
+                </p>
+            </div>
 
-  <h3><i class="fas fa-heart"></i> What Makes Us Different</h3>
-  <ul>
-    <li>We’re <strong>open to everyone</strong>, regardless of experience.</li>
-    <li>We <strong>train, support, and mentor</strong> our freelancers.</li>
-    <li>We empower Kenyans to <strong>earn globally while living locally</strong>.</li>
-    <li>We’re <strong>100% Kenyan</strong>, with a full team based in Nairobi.</li>
-  </ul>
+            <!-- Vision -->
+            <div class="p-8 border-l-4 border-[#00C389] rounded-lg shadow-lg">
+                <p class="text-sm font-semibold text-[#00C389] uppercase mb-2 tracking-widest">Our Vision</p>
+                <h2 class="text-3xl font-bold text-[#0A1A2F] mb-4">
+                    A Unified Economic Brain
+                </h2>
+                <p class="text-xl text-gray-600">
+                    To be the **unified economic brain** for emerging economies, providing real-time data and predictive intelligence that transforms governance, banking, and commerce.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Values Section -->
+    <section class="bg-[#F3F4F6] py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-[#0A1A2F]">Our Core Values</h2>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+                
+                <!-- Value Card: Trust -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border-t-4 border-[#0057D4]">
+                    <div class="text-[#0057D4] mb-4 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-half"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 22V2"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-1">Trust</h3>
+                    <p class="text-sm text-gray-500">Integrity in data and operations is non-negotiable.</p>
+                </div>
+                
+                <!-- Value Card: Innovation -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border-t-4 border-[#00C389]">
+                    <div class="text-[#00C389] mb-4 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb"><path d="M15 14c.2-.84.22-1.67.2-2.52 0-.2-.02-.4-.04-.59A1.42 1.42 0 0 1 12 10a1.42 1.42 0 0 1-3.16-1.01c-.02.19-.04.39-.04.59.02.85.04 1.68.23 2.52"/><path d="M9 14h6"/><path d="M12 2v2"/><path d="M12 17v4"/><path d="M12 17a5 5 0 0 0 5-5c0-1.5-.95-2.95-2-3.6-1.5-.9-2.5-2.2-2.5-3.4 0-.8-.7-1.4-1.5-1.4s-1.5.6-1.5 1.4c0 1.2-1 2.5-2.5 3.4-1.05.65-2 2.1-2 3.6a5 5 0 0 0 5 5z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-1">Innovation</h3>
+                    <p class="text-sm text-gray-500">Relentlessly pursuing AI excellence and new financial models.</p>
+                </div>
 
-  <blockquote>
-    “When we say we care, we show it — with every payment, every message, and every job.”
-  </blockquote>
+                <!-- Value Card: Inclusivity -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border-t-4 border-[#0057D4]">
+                    <div class="text-[#0057D4] mb-4 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-1">Inclusivity</h3>
+                    <p class="text-sm text-gray-500">Technology should serve every segment of the economy.</p>
+                </div>
+                
+                <!-- Value Card: Security -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border-t-4 border-[#00C389]">
+                    <div class="text-[#00C389] mb-4 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-1">Security</h3>
+                    <p class="text-sm text-gray-500">Protecting sensitive financial data with world-class encryption.</p>
+                </div>
+                
+                <!-- Value Card: Impact -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-md border-t-4 border-[#0057D4]">
+                    <div class="text-[#0057D4] mb-4 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-1">Impact</h3>
+                    <p class="text-sm text-gray-500">Committed to measurable economic and social change.</p>
+                </div>
 
-  <h3><i class="fas fa-globe-africa"></i> Our Vision</h3>
-  <p>
-    To make Kenya the <strong>global hub for trusted digital talent</strong> and empower youth to turn their devices into income tools.
-  </p>
+            </div>
+        </div>
+    </section>
 
-  <h3><i class="fas fa-phone"></i> Contact Us</h3>
-  <p>
-    <strong>Address:</strong> Lavington Court, 3rd Floor, Waiyaki Way, Westlands, Nairobi, Kenya<br>
-    <strong>WhatsApp CEO:</strong> +254 704195290<br>
-    <strong>Chat with CEO on Telegram:</strong> <a href="https://t.me/ankai_ceo" target="_blank">@ankai_ceo</a><br>
+    <!-- Team Section -->
+    <section class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-[#00C389] font-semibold text-lg mb-3">LEADERSHIP</p>
+            <h2 class="text-4xl font-bold text-center mb-16 text-[#0A1A2F]">Meet Our Executive Team</h2>
 
-      </p>
-</section>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                
+                <!-- Team Member 1: CEO -->
+                <div class="text-center">
+                    <!-- Placeholder Avatar -->
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 border-4 border-[#0057D4] overflow-hidden">
+                        <svg class="w-full h-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 20.993c0 .34-.33.623-.742.623-.41 0-.742-.283-.742-.623V19.4a2.25 2.25 0 0 0-2.25-2.25H4.734a2.25 2.25 0 0 0-2.25 2.25v1.593c0 .34-.33.623-.742.623C1.33 21.616 1 21.333 1 20.993V19.4a3.75 3.75 0 0 1 3.75-3.75h14.532a3.75 3.75 0 0 1 3.75 3.75v1.593zM12 1.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5 7.5-3.358 7.5-7.5-3.358-7.5-7.5-7.5zM12 13.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-[#0A1A2F]">Aisha Musa</h4>
+                    <p class="text-[#0057D4] font-semibold">Chief Executive Officer (CEO)</p>
+                </div>
+
+                <!-- Team Member 2: CTO -->
+                <div class="text-center">
+                    <!-- Placeholder Avatar -->
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 border-4 border-[#00C389] overflow-hidden">
+                        <svg class="w-full h-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 20.993c0 .34-.33.623-.742.623-.41 0-.742-.283-.742-.623V19.4a2.25 2.25 0 0 0-2.25-2.25H4.734a2.25 2.25 0 0 0-2.25 2.25v1.593c0 .34-.33.623-.742.623C1.33 21.616 1 21.333 1 20.993V19.4a3.75 3.75 0 0 1 3.75-3.75h14.532a3.75 3.75 0 0 1 3.75 3.75v1.593zM12 1.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5 7.5-3.358 7.5-7.5-3.358-7.5-7.5-7.5zM12 13.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-[#0A1A2F]">Kwame Boateng</h4>
+                    <p class="text-[#0057D4] font-semibold">Chief Technology Officer (CTO)</p>
+                </div>
+
+                <!-- Team Member 3: Head of AI -->
+                <div class="text-center">
+                    <!-- Placeholder Avatar -->
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 border-4 border-[#0057D4] overflow-hidden">
+                        <svg class="w-full h-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 20.993c0 .34-.33.623-.742.623-.41 0-.742-.283-.742-.623V19.4a2.25 2.25 0 0 0-2.25-2.25H4.734a2.25 2.25 0 0 0-2.25 2.25v1.593c0 .34-.33.623-.742.623C1.33 21.616 1 21.333 1 20.993V19.4a3.75 3.75 0 0 1 3.75-3.75h14.532a3.75 3.75 0 0 1 3.75 3.75v1.593zM12 1.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5 7.5-3.358 7.5-7.5-3.358-7.5-7.5-7.5zM12 13.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-[#0A1A2F]">Zola Ndlovu</h4>
+                    <p class="text-[#0057D4] font-semibold">Head of AI Research</p>
+                </div>
+
+                <!-- Team Member 4: Head of Partnerships -->
+                <div class="text-center">
+                    <!-- Placeholder Avatar -->
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 border-4 border-[#00C389] overflow-hidden">
+                        <svg class="w-full h-full text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 20.993c0 .34-.33.623-.742.623-.41 0-.742-.283-.742-.623V19.4a2.25 2.25 0 0 0-2.25-2.25H4.734a2.25 2.25 0 0 0-2.25 2.25v1.593c0 .34-.33.623-.742.623C1.33 21.616 1 21.333 1 20.993V19.4a3.75 3.75 0 0 1 3.75-3.75h14.532a3.75 3.75 0 0 1 3.75 3.75v1.593zM12 1.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5 7.5-3.358 7.5-7.5-3.358-7.5-7.5-7.5zM12 13.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-[#0A1A2F]">David Opoku</h4>
+                    <p class="text-[#0057D4] font-semibold">Head of Strategic Partnerships</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="bg-[#F3F4F6] py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-[#00C389] font-semibold text-lg mb-3">MILESTONES</p>
+            <h2 class="text-4xl font-bold text-center mb-16 text-[#0A1A2F]">Our Journey So Far</h2>
+
+            <div class="max-w-4xl mx-auto relative">
+                <!-- Vertical Line -->
+                <div class="absolute left-3 top-0 bottom-0 w-1 bg-gray-300 transform -translate-x-1/2 md:left-1/2"></div>
+
+                <!-- Timeline Items -->
+
+                <!-- Item 1: Q1 2024 -->
+                <div class="mb-10 flex justify-start md:justify-end items-center w-full md:even:justify-start">
+                    <div class="md:w-1/2 md:even:order-2 md:even:pl-10 relative">
+                        <div class="hidden md:block timeline-dot md:even:left-auto md:even:-right-3"></div>
+                        <div class="pl-10 md:p-0 md:even:pl-0 md:even:pr-10">
+                            <h3 class="text-2xl font-bold text-[#0057D4] mb-1">Q1 2024: Foundation & Seed Funding</h3>
+                            <p class="text-gray-600">Company founded, securing $5M in seed funding to build the core AI/ML financial engine prototype.</p>
+                        </div>
+                    </div>
+                    <div class="w-1/2 hidden md:block md:even:hidden"></div>
+                    <div class="md:hidden timeline-dot"></div>
+                </div>
+
+                <!-- Item 2: Q3 2024 -->
+                <div class="mb-10 flex justify-start md:justify-start items-center w-full md:even:justify-start">
+                    <div class="md:w-1/2 md:even:order-2 md:even:pl-10 relative">
+                        <div class="hidden md:block timeline-dot md:even:left-auto md:even:-right-3"></div>
+                        <div class="pl-10 md:p-0 md:odd:pr-10">
+                            <h3 class="text-2xl font-bold text-[#00C389] mb-1">Q3 2024: Launch of Payments API</h3>
+                            <p class="text-gray-600">Successful launch of the secure AI Payments API in beta, partnering with two major regional banks.</p>
+                        </div>
+                    </div>
+                    <div class="w-1/2 hidden md:block md:odd:order-2 md:odd:pl-10"></div>
+                    <div class="md:hidden timeline-dot" style="background-color: var(--kapita-green); border-color: var(--kapita-gray);"></div>
+                </div>
+
+                <!-- Item 3: Q1 2025 -->
+                <div class="mb-10 flex justify-start md:justify-end items-center w-full md:even:justify-start">
+                    <div class="md:w-1/2 md:even:order-2 md:even:pl-10 relative">
+                        <div class="hidden md:block timeline-dot md:even:left-auto md:even:-right-3"></div>
+                        <div class="pl-10 md:p-0 md:even:pl-0 md:even:pr-10">
+                            <h3 class="text-2xl font-bold text-[#0057D4] mb-1">Q1 2025: Government Procurement Pilot</h3>
+                            <p class="text-gray-600">Began a pilot program with a national government for smart procurement and automated compliance testing.</p>
+                        </div>
+                    </div>
+                    <div class="w-1/2 hidden md:block md:even:hidden"></div>
+                    <div class="md:hidden timeline-dot"></div>
+                </div>
+
+                <!-- Item 4: Q3 2025 (Current Focus) -->
+                <div class="mb-0 flex justify-start md:justify-start items-center w-full md:even:justify-start">
+                    <div class="md:w-1/2 md:even:order-2 md:even:pl-10 relative">
+                        <div class="hidden md:block timeline-dot md:even:left-auto md:even:-right-3" style="background-color: #EF4444; border-color: var(--kapita-gray);"></div>
+                        <div class="pl-10 md:p-0 md:odd:pr-10">
+                            <h3 class="text-2xl font-bold text-[#00C389] mb-1">Q4 2025: MSME Risk Scoring Rollout</h3>
+                            <p class="text-gray-600">Planned expansion of our credit risk scoring tool, targeting 1 million new MSME profiles by year-end.</p>
+                        </div>
+                    </div>
+                    <div class="w-1/2 hidden md:block md:odd:order-2 md:odd:pl-10"></div>
+                    <div class="md:hidden timeline-dot" style="background-color: #EF4444; border-color: var(--kapita-gray);"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Reused from Landing Page) -->
+    <footer class="bg-[#0A1A2F] text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 border-b border-gray-700 pb-10 mb-8">
+                
+                <!-- Column 1: Solutions -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Solutions</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">AI Payments</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Smart Procurement</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Credit Risk & Scoring</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Data Intelligence</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Company -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Company</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="font-semibold text-white"><a href="#" class="hover:text-white transition duration-150">About Us</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Careers</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Newsroom</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Security</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Resources</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Documentation</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">API Status</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Partners</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Case Studies</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Contact</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Request Demo</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Support</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Media Inquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Text -->
+            <div class="text-center text-gray-500 text-sm">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

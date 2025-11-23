@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita MSME — Procurement & Payments Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom animation for soft glow effect on cards */
+        @keyframes subtle-glow {
+            0%, 100% { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02); }
+            50% { box-shadow: 0 15px 25px -5px rgba(0, 87, 212, 0.05), 0 6px 10px -3px rgba(0, 0, 0, 0.05); }
+        }
+        .card-glow-hover:hover {
+            animation: subtle-glow 3s infinite ease-in-out;
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',       /* Primary Blue */
+                        'kapita-navy': '#0A1A2F',       /* Navy */
+                        'kapita-green': '#00C389',      /* Emerald Green */
+                        'kapita-soft-gray': '#F3F4F6',  /* Soft Gray */
+                        'kapita-dark-text': '#111827',  /* Darker text for readability */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 35px rgba(0, 87, 212, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray text-kapita-dark-text font-sans antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    
+<a href="C:\Kapita\kapita\MSMEs\Kapita MSME AI Financial  Operational Hub.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Icon SVGs -->
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="supplier-perf" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a4 4 0 00-6-3v3z" /></svg>
+        <svg id="reconciliation" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.066 12.066 0 001.5 12c0 2.227.538 4.39 1.54 6.346l.006.012c.355.675.92 1.3 1.63 1.785.66.452 1.43 1.05 2.53 1.41l.006.002a2.002 2.002 0 002.328 0l.006-.002c1.1-.36 1.87-.958 2.53-1.41.71-.485 1.275-1.11 1.63-1.785l.006-.012A12.066 12.066 0 0022.5 12c0-2.227-.538-4.39-1.54-6.346z" /></svg>
+        <svg id="fraud-alert" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.394 18c-.77 1.333.192 3 1.732 3z" /></svg>
+        <svg id="bank-transfer" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-3-4h6" /></svg>
+        <svg id="mobile-money" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+        <svg id="cards-pos" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 2v8l-3 2H3V6zM21 6l-3 2v8l3 2h0V6zM9 4h6a2 2 0 012 2v12a2 2 0 01-2 2H9a2 2 0 01-2-2V6a2 2 0 012-2z" /></svg>
+        <svg id="api-integration" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+            <a href="C:\Kapita\kapita\404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150">Log In</a>
+             <a href="C:\Kapita\kapita\404.html">   
+            <button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+                </a>
+            </nav>
+
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-24 pb-20 pt-10">
+
+        <!-- 🔷 HERO SECTION — “Seamless Procurement & Payments” -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left: Text Content -->
+            <div class="space-y-8">
+                <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                    Automate <span class="text-kapita-green">Procurement</span> and Payment Workflows
+                </h1>
+                <p class="text-xl text-gray-600 font-light max-w-xl">
+                    Kapita streamlines supplier onboarding, tracks payments, and detects procurement risks with **AI-powered dashboards** for effortless financial management.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-kapita-green text-white text-lg font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                        Request Procurement Demo
+                    </button>
+                    </a>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-white text-kapita-blue text-lg font-semibold rounded-xl border-2 border-kapita-blue hover:bg-kapita-soft-gray transition duration-300">
+                        Learn More
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Dashboard Mockup Illustration -->
+            <div class="relative w-full aspect-video rounded-2xl bg-white shadow-premium border border-gray-200 p-6 overflow-hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-kapita-navy">Supplier & Payment Risk Overview</h3>
+                    <span class="text-xs text-kapita-green font-semibold">AI Active</span>
+                </div>
+                
+                <!-- Mock Dashboard Content -->
+                <div class="space-y-4">
+                    <!-- Supplier Scoring -->
+                    <div class="flex justify-between items-center p-3 bg-kapita-soft-gray rounded-lg border-l-4 border-kapita-blue">
+                        <span class="font-medium">Top Supplier (Global Supply)</span>
+                        <span class="text-xl font-extrabold text-kapita-blue bg-kapita-blue/10 px-3 py-1 rounded-full">A+ Score</span>
+                    </div>
+
+                    <div class="flex justify-between items-center p-3 bg-kapita-soft-gray rounded-lg border-l-4 border-yellow-500">
+                        <span class="font-medium">New Vendor (Local Parts Inc.)</span>
+                        <span class="text-xl font-extrabold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">B Score</span>
+                    </div>
+
+                    <!-- Bid Comparison Table Placeholder -->
+                    <div class="border-t border-b border-gray-200 py-3">
+                        <p class="text-sm font-semibold mb-2">Bid Comparison (Last 3 RFQs):</p>
+                        <ul class="text-xs text-gray-600 space-y-1">
+                            <li class="flex justify-between">RFQ #102: <span class="text-kapita-green">Saved 12%</span> (AI Recommendation)</li>
+                            <li class="flex justify-between">RFQ #103: <span class="text-red-600">Overpaid 4%</span> (Manual Override)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Payment Transaction Graph -->
+                    <div class="relative h-16 mt-4">
+                        <p class="text-sm font-semibold mb-1">Transaction Success Rate</p>
+                        <div class="absolute bottom-0 h-full w-full flex justify-around items-end opacity-90">
+                            <!-- Green Bars (Success) -->
+                            <div class="w-1/12 h-4/5 bg-kapita-green/80 rounded-t-sm"></div>
+                            <div class="w-1/12 h-3/4 bg-kapita-green/90 rounded-t-sm"></div>
+                            <div class="w-1/12 h-2/3 bg-kapita-green/70 rounded-t-sm"></div>
+                            <div class="w-1/12 h-4/5 bg-kapita-green/90 rounded-t-sm"></div>
+                            <div class="w-1/12 h-3/5 bg-kapita-green/80 rounded-t-sm"></div>
+                            <!-- Red Bar (AI Fraud Alert Highlight) -->
+                            <div class="w-1/12 h-1/2 bg-red-600 rounded-t-sm animate-pulse"></div>
+                            <div class="w-1/12 h-4/5 bg-kapita-green/90 rounded-t-sm"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — PROCUREMENT INSIGHTS CARDS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Payment & Risk Insights</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Card 1: Supplier Performance -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 card-glow-hover transition duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-blue stroke-2"><use xlink:href="#supplier-perf"></use></svg>
+                            <h3 class="text-xl font-bold text-kapita-dark-text">Supplier Performance</h3>
+                        </div>
+                        <span class="text-sm font-semibold text-kapita-blue">View all ></span>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-green mb-4">95%</div>
+                    <ul class="text-sm space-y-1 mt-4">
+                        <li class="flex justify-between items-center">On-Time Delivery: <span class="font-semibold text-kapita-green">98.5%</span></li>
+                        <li class="flex justify-between items-center">Average Lead Time: <span class="font-semibold text-gray-700">7 Days</span></li>
+                        <li class="flex justify-between items-center">High-Risk Suppliers: <span class="font-semibold text-red-600 bg-red-100 px-2 py-0.5 rounded-full">2</span></li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Payment Reconciliation -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 card-glow-hover transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-green stroke-2"><use xlink:href="#reconciliation"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">AI Reconciliation</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-blue mb-4">$45,210</div>
+                    <p class="text-sm text-gray-600">AI-verified payments completed this month.</p>
+                    <ul class="text-sm space-y-1 mt-3">
+                        <li class="flex justify-between items-center">Pending Approval: <span class="font-semibold text-yellow-600">3 Bills</span></li>
+                        <li class="flex justify-between items-center">Discrepancies Flagged: <span class="font-semibold text-red-600">0</span></li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Fraud Alerts -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 card-glow-hover transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-red-500 stroke-2"><use xlink:href="#fraud-alert"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Fraud Alerts</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-red-600 mb-4">1</div>
+                    <p class="text-sm text-gray-600">Suspicious payment activity detected.</p>
+                    <div class="mt-3 bg-red-50 border border-red-300 p-2 rounded-lg">
+                        <p class="text-xs font-semibold text-red-700">Action Required: Review $1,200 transfer to new recipient.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — PAYMENT CHANNELS & AUTOMATION -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Multi-Channel Payments & Automation</h2>
+            
+            <!-- Payment Channels Icons/Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-soft-xl border border-gray-200 hover:border-kapita-blue transition duration-300 cursor-pointer">
+                    <svg viewBox="0 0 24 24" class="text-kapita-blue mb-3"><use xlink:href="#bank-transfer"></use></svg>
+                    <span class="font-semibold text-kapita-dark-text">Bank Transfers</span>
+                    <span class="text-xs text-kapita-green mt-1">Automated Clearing</span>
+                </div>
+
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-soft-xl border border-gray-200 hover:border-kapita-blue transition duration-300 cursor-pointer">
+                    <svg viewBox="0 0 24 24" class="text-kapita-blue mb-3"><use xlink:href="#mobile-money"></use></svg>
+                    <span class="font-semibold text-kapita-dark-text">Mobile Money</span>
+                    <span class="text-xs text-kapita-green mt-1">M-Pesa / Airtel Pay</span>
+                </div>
+
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-soft-xl border border-gray-200 hover:border-kapita-blue transition duration-300 cursor-pointer">
+                    <svg viewBox="0 0 24 24" class="text-kapita-blue mb-3"><use xlink:href="#cards-pos"></use></svg>
+                    <span class="font-semibold text-kapita-dark-text">Cards & POS</span>
+                    <span class="text-xs text-kapita-green mt-1">Global Acceptance</span>
+                </div>
+
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-soft-xl border border-gray-200 hover:border-kapita-blue transition duration-300 cursor-pointer">
+                    <svg viewBox="0 0 24 24" class="text-kapita-blue mb-3"><use xlink:href="#api-integration"></use></svg>
+                    <span class="font-semibold text-kapita-dark-text">API Integration</span>
+                    <span class="text-xs text-kapita-green mt-1">ERP/Accounting Sync</span>
+                </div>
+            </div>
+
+            <!-- Mini-Dashboard: Transaction Approvals -->
+            <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200">
+                <h3 class="text-xl font-semibold mb-4 text-kapita-dark-text">Daily Transaction Summary</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-kapita-soft-gray rounded-lg border-l-4 border-kapita-green">
+                        <p class="text-sm text-gray-600">Success Rate</p>
+                        <p class="text-2xl font-bold text-kapita-green">99.8%</p>
+                    </div>
+                    <div class="p-4 bg-kapita-soft-gray rounded-lg border-l-4 border-yellow-500">
+                        <p class="text-sm text-gray-600">Pending Approvals</p>
+                        <p class="text-2xl font-bold text-yellow-600">6</p>
+                    </div>
+                    <div class="p-4 bg-kapita-soft-gray rounded-lg border-l-4 border-kapita-blue">
+                        <p class="text-sm text-gray-600">Total Value Processed</p>
+                        <p class="text-2xl font-bold text-kapita-blue">$8,900</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 🔷 SECTION — CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white">
+                    Automate Procurement & Payments for Your MSME Today
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Onboarding / Demo
+                </button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <!-- Logo in Footer -->
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\solutions.html" class="hover:text-kapita-blue transition duration-150">Solutions</a>
+                    <a href="C:\Kapita\kapita\404.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                    <a href="C:\Kapita\kapita\aboutus.html" class="hover:text-kapita-blue transition duration-150">About</a>
+                </div>
+            </div>
+            <!-- Bottom Line -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

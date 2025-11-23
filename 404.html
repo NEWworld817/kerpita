@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita – Page Not Available (Mockup Placeholder)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom color configuration for Tailwind */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-soft-gray: #F3F4F6;
+        }
+
+        /* Illustration style for the intro section - Faded AI Dashboard */
+        .faded-illustration {
+            background-color: var(--kapita-soft-gray);
+            background-image: linear-gradient(135deg, rgba(10, 26, 47, 0.05), rgba(0, 87, 212, 0.05));
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .faded-illustration::after {
+            content: 'DASHBOARD INACTIVE';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: rgba(0, 87, 212, 0.1);
+            letter-spacing: 0.5rem;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',
+                        'kapita-navy': '#0A1A2F',
+                        'kapita-green': '#00C389',
+                        'kapita-soft-gray': '#F3F4F6',
+                        'kapita-dark-text': '#111827',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 40px rgba(0, 87, 212, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-kapita-dark-text font-sans antialiased">
+    <a href="C:\Kapita\index.html" class="fixed bottom-6 left-6 z-50">
+        <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+        </button>
+    </a>
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="info-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        
+        <svg id="government-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0l-4 4m4-4l-4-4m-6 17v-4m0 0v-4m0 4h4m0 0H6m16 0V6a2 2 0 00-2-2H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2z" /></svg>
+        <svg id="bank-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m0 0l3 3m0 0l-3 3M12 21V9m0 0l-3 3m3-3l3 3M21 12h-6m6 0v-2" /></svg>
+        <svg id="startup-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8m-3 7H7a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v4M12 20v-4" /></svg>
+        <svg id="retail-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+        <svg id="msmes-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7m7 7v10m7-7h-4M7 13h4M12 21h7a2 2 0 002-2v-2a2 2 0 00-2-2h-3l-2 2-2-2H5a2 2 0 00-2 2v2a2 2 0 002 2h7z" /></svg>
+        <svg id="logistics-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 21V5h14v10a2 2 0 01-2 2h-3l-2 2-2-2H5m0 0h14" /></svg>
+    </div>
+
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-lg transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                <a href="#" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150 ml-4">Log In</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="space-y-20 pb-20 pt-16 bg-kapita-soft-gray/50 min-h-screen">
+
+        <section class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-8">
+            <div class="text-kapita-green mx-auto w-16 h-16 p-2 rounded-full bg-kapita-green/10">
+                <svg viewBox="0 0 24 24" class="w-full h-full stroke-[1.5]"><use xlink:href="#info-icon"></use></svg>
+            </div>
+            <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                This Page Is Currently a Mockup
+            </h1>
+            <p class="text-xl text-gray-600 font-medium max-w-2xl mx-auto">
+                Kapita is an illustrative prototype for demonstration purposes. Some links or dashboards are not functional. Please use the main demo selection page to explore **AI solutions** for each sector.
+            </p>
+
+            <div class="w-full h-48 rounded-2xl faded-illustration mt-12 mb-4 p-6 flex items-center justify-center opacity-70">
+                <div class="text-gray-400 font-bold text-sm space-y-2">
+                    <div class="h-3 w-3/4 bg-gray-300 rounded"></div>
+                    <div class="h-3 w-2/3 bg-gray-300 rounded"></div>
+                    <div class="h-3 w-5/6 bg-gray-300 rounded"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-6xl mx-auto px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-center text-kapita-navy mb-8">Access the Main Illustrative Demos</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+
+                <a href="C:\Kapita\kapita\Governments\govcmdcente.html" class="group block p-4 bg-white rounded-xl shadow-soft-xl border border-gray-100 hover:shadow-premium transition duration-300 hover:border-kapita-blue transform hover:translate-y-[-3px] text-center">
+                    <div class="text-kapita-blue group-hover:text-kapita-green mx-auto w-10 h-10 mb-2">
+                        <svg viewBox="0 0 24 24" class="w-full h-full stroke-2"><use xlink:href="#government-icon"></use></svg>
+                    </div>
+                    <p class="text-lg font-bold text-kapita-navy">Government</p>
+                    <p class="text-sm font-medium text-kapita-blue mt-2">View Demo</p>
+                    <p class="text-xs text-gray-500 italic">Illustrative only</p>
+                </a>
+                
+                <a href="C:\Kapita\kapita\Banks\automatedreconcilliation.html" class="group block p-4 bg-white rounded-xl shadow-soft-xl border border-gray-100 hover:shadow-premium transition duration-300 hover:border-kapita-blue transform hover:translate-y-[-3px] text-center">
+                    <div class="text-kapita-blue group-hover:text-kapita-green mx-auto w-10 h-10 mb-2">
+                        <svg viewBox="0 0 24 24" class="w-full h-full stroke-2"><use xlink:href="#bank-icon"></use></svg>
+                    </div>
+                    <p class="text-lg font-bold text-kapita-navy">Bank</p>
+                    <p class="text-sm font-medium text-kapita-blue mt-2">View Demo</p>
+                    <p class="text-xs text-gray-500 italic">Illustrative only</p>
+                </a>
+                
+                <a href="C:\Kapita\kapita\startups\startupshome.html" class="group block p-4 bg-white rounded-xl shadow-soft-xl border border-gray-100 hover:shadow-premium transition duration-300 hover:border-kapita-blue transform hover:translate-y-[-3px] text-center">
+                    <div class="text-kapita-blue group-hover:text-kapita-green mx-auto w-10 h-10 mb-2">
+                        <svg viewBox="0 0 24 24" class="w-full h-full stroke-2"><use xlink:href="#startup-icon"></use></svg>
+                    </div>
+                    <p class="text-lg font-bold text-kapita-navy">Startup</p>
+                    <p class="text-sm font-medium text-kapita-blue mt-2">View Demo</p>
+                    <p class="text-xs text-gray-500 italic">Illustrative only</p>
+                </a>
+                
+                <a href="C:\Kapita\kapita\Retail\home.html" class="group block p-4 bg-white rounded-xl shadow-soft-xl border border-gray-100 hover:shadow-premium transition duration-300 hover:border-kapita-blue transform hover:translate-y-[-3px] text-center">
+                    <div class="text-kapita-blue group-hover:text-kapita-green mx-auto w-10 h-10 mb-2">
+                        <svg viewBox="0 0 24 24" class="w-full h-full stroke-2"><use xlink:href="#retail-icon"></use></svg>
+                    </div>
+                    <p class="text-lg font-bold text-kapita-navy">Retail</p>
+                    <p class="text-sm font-medium text-kapita-blue mt-2">View Demo</p>
+                    <p class="text-xs text-gray-500 italic">Illustrative only</p>
+                </a>
+                
+                <a href="C:\Kapita\kapita\MSMEs\Kapita MSME AI Financial  Operational Hub.html" class="group block p-4 bg-white rounded-xl shadow-soft-xl border border-gray-100 hover:shadow-premium transition duration-300 hover:border-kapita-blue transform hover:translate-y-[-3px] text-center">
+                    <div class="text-kapita-blue group-hover:text-kapita-green mx-auto w-10 h-10 mb-2">
+                        <svg viewBox="0 0 24 24" class="w-full h-full stroke-2"><use xlink:href="#msmes-icon"></use></svg>
+                    </div>
+                    <p class="text-lg font-bold text-kapita-navy">MSMEs</p>
+                    <p class="text-sm font-medium text-kapita-blue mt-2">View Demo</p>
+                    <p class="text-xs text-gray-500 italic">Illustrative only</p>
+                </a>
+                
+                <a href="C:\Kapita\kapita\logistics\Kapita Logistics Operations Dashboard.html" class="group block p-4 bg-white rounded-xl shadow-soft-xl border border-gray-100 hover:shadow-premium transition duration-300 hover:border-kapita-blue transform hover:translate-y-[-3px] text-center">
+                    <div class="text-kapita-blue group-hover:text-kapita-green mx-auto w-10 h-10 mb-2">
+                        <svg viewBox="0 0 24 24" class="w-full h-full stroke-2"><use xlink:href="#logistics-icon"></use></svg>
+                    </div>
+                    <p class="text-lg font-bold text-kapita-navy">Logistics</p>
+                    <p class="text-sm font-medium text-kapita-blue mt-2">View Demo</p>
+                    <p class="text-xs text-gray-500 italic">Illustrative only</p>
+                </a>
+
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto px-6 lg:px-8 pt-10">
+            <div class="bg-kapita-soft-gray p-8 rounded-2xl border-l-4 border-kapita-blue shadow-lg">
+                <h3 class="text-xl font-bold text-kapita-navy mb-3 flex items-center">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 mr-2 text-kapita-blue"><use xlink:href="#info-icon"></use></svg>
+                    A Note on this Prototype
+                </h3>
+                <p class="text-gray-700 leading-relaxed">
+                    Kapita is currently a visual demonstration of our **AI-powered financial infrastructure**. All features are for illustration purposes only. Use this prototype to understand the flow, design, and sector-specific dashboards.
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-kapita-navy py-16 mt-12">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight text-white">
+                    Want to see the full demo experience?
+                </h2>
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Return to Demo Selection
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                          </div>
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // NOTE: The sectorData object and the document.write loop have been REMOVED from the script block.
+        // The mobile menu script remains, as it is simple and independent of the sector links.
+
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

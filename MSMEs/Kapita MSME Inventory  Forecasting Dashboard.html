@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita MSME — Inventory & Forecasting Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom animation for the AI alert pulse */
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 195, 137, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(0, 195, 137, 0); }
+        }
+        .animate-pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',       /* Primary Blue */
+                        'kapita-navy': '#0A1A2F',       /* Navy */
+                        'kapita-green': '#00C389',      /* Emerald Green */
+                        'kapita-soft-gray': '#F3F4F6',  /* Soft Gray */
+                        'kapita-dark-text': '#111827',  /* Darker text for readability */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 35px rgba(0, 87, 212, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray text-kapita-dark-text font-sans antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+   
+<a href="C:\Kapita\kapita\MSMEs\Kapita MSME AI Financial  Operational Hub.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Icon SVGs for aesthetics (using inline data for compliance) -->
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="stock-health" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10m-8-4v4" /></svg>
+        <svg id="accuracy" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.066 12.066 0 001.5 12c0 2.227.538 4.39 1.54 6.346l.006.012c.355.675.92 1.3 1.63 1.785.66.452 1.43 1.05 2.53 1.41l.006.002a2.002 2.002 0 002.328 0l.006-.002c1.1-.36 1.87-.958 2.53-1.41.71-.485 1.275-1.11 1.63-1.785l.006-.012A12.066 12.066 0 0022.5 12c0-2.227-.538-4.39-1.54-6.346z" /></svg>
+        <svg id="top-selling" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+        <svg id="analytics" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                        <a href="C:\Kapita\kapita\404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150">Log In</a>
+                <a href="C:\Kapita\kapita\404.html">
+                        <button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Trigger (Hamburger) -->
+            <div class="flex lg:hidden items-center">
+                <button id="mobileMenuToggle" class="text-kapita-dark-text p-2 rounded-full hover:bg-kapita-soft-gray transition duration-150">
+                    <svg viewBox="0 0 24 24" class="w-6 h-6"><use xlink:href="#menu-icon"></use></svg>
+                </button>
+            </div>
+        </div>
+
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-24 pb-20 pt-10">
+
+        <!-- 🔷 HERO SECTION — “Forecast Smarter, Grow Faster” -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left: Text Content -->
+            <div class="space-y-8">
+                <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                    <span class="text-kapita-green">AI-Powered</span> Inventory & Demand Forecasting for MSMEs
+                </h1>
+                <p class="text-xl text-gray-600 font-light max-w-xl">
+                    Kapita uses **predictive analytics** and historical sales data to optimize inventory, reduce costly stock-outs, and maximize profits across all your stores.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-kapita-green text-white text-lg font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                        Request Forecast Demo
+                    </button>
+                    </a>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-white text-kapita-blue text-lg font-semibold rounded-xl border-2 border-kapita-blue hover:bg-kapita-soft-gray transition duration-300">
+                        Learn More
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Static Dashboard Mockup Illustration -->
+            <div class="relative w-full aspect-video rounded-2xl bg-white shadow-premium border border-gray-200 p-6 overflow-hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-kapita-navy">Inventory & Demand Projection (Next 6 Months)</h3>
+                    <span class="text-xs text-gray-500">Units in Thousands</span>
+                </div>
+                
+                <!-- Mock Chart Area -->
+                <div class="h-48 relative">
+                    <!-- Grid Lines/Axis Placeholder -->
+                    <div class="absolute inset-0 border-l border-b border-gray-200">
+                        <div class="h-1/4 border-t border-dashed border-gray-300"></div>
+                        <div class="h-1/4 border-t border-dashed border-gray-300"></div>
+                        <div class="h-1/4 border-t border-dashed border-gray-300"></div>
+                    </div>
+                    
+                    <!-- Base Line Graph (Historical Sales - Gray) using SVG for clean lines -->
+                    <svg class="absolute inset-0 z-0 opacity-50" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0 80 L20 65 L40 70 L60 55" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+                    </svg>
+
+                    <!-- Predictive Line Graph (Blue, dashed) -->
+                    <svg class="absolute inset-0 z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M60 55 L80 45 L100 30" fill="none" stroke="#0057D4" stroke-width="2.5" stroke-dasharray="4 2"/>
+                    </svg>
+
+                    <!-- Bar Chart Overlay (Stock Levels / Sales Volume) -->
+                    <div class="absolute bottom-0 h-full w-full flex justify-around items-end opacity-70">
+                        <div class="w-1/12 h-1/4 bg-kapita-green/60 rounded-t-sm"></div>
+                        <div class="w-1/12 h-1/3 bg-kapita-green/80 rounded-t-sm"></div>
+                        <div class="w-1/12 h-1/2 bg-yellow-500/80 rounded-t-sm"></div>
+                        <div class="w-1/12 h-3/4 bg-red-600/80 rounded-t-sm"></div>
+                        <div class="w-1/12 h-2/3 bg-kapita-green/80 rounded-t-sm"></div>
+                        <div class="w-1/12 h-1/4 bg-kapita-blue/60 rounded-t-sm opacity-50"></div> <!-- Forecasted Stock -->
+                        <div class="w-1/12 h-1/3 bg-kapita-blue/40 rounded-t-sm opacity-50"></div>
+                        <div class="w-1/12 h-1/2 bg-kapita-blue/20 rounded-t-sm opacity-50"></div>
+                    </div>
+                    
+                    <!-- AI Forecast Alert (Green Highlight) -->
+                    <div class="absolute top-8 right-6 bg-kapita-green text-white text-xs font-semibold px-3 py-1 rounded-full shadow-green-glow animate-pulse-green">
+                        AI Alert: Reorder Point Hit
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="flex flex-wrap space-x-6 mt-6 text-sm">
+                    <div class="flex items-center"><span class="h-2 w-4 bg-gray-400 rounded-full mr-2"></span> Historical Sales</div>
+                    <div class="flex items-center"><span class="h-2 w-4 bg-kapita-blue rounded-full mr-2"></span> AI Demand Forecast</div>
+                    <div class="flex items-center"><span class="h-2 w-4 bg-kapita-green/70 rounded-full mr-2"></span> Healthy Stock</div>
+                    <div class="flex items-center"><span class="h-2 w-4 bg-red-600/80 rounded-full mr-2"></span> Critical Stock</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — INVENTORY INSIGHTS CARDS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Real-Time Inventory Health Insights</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Card 1: Stock Health -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-blue stroke-2"><use xlink:href="#stock-health"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Stock Health: Breakdown</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-red-600 mb-4">4<span class="text-xl text-gray-500"> Critical Items</span></div>
+                    <ul class="text-sm space-y-1 mt-4">
+                        <li class="flex justify-between items-center">Low Stock: <span class="font-semibold text-yellow-600">12 SKUs</span></li>
+                        <li class="flex justify-between items-center">Overstock Risk: <span class="font-semibold text-kapita-green">0 SKUs</span></li>
+                        <li class="flex justify-between items-center">Total Active SKUs: <span class="font-semibold text-kapita-navy">250</span></li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Demand Prediction Accuracy -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-green stroke-2"><use xlink:href="#accuracy"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Prediction Accuracy</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-green mb-4">94.7%</div>
+                    <p class="text-sm text-gray-600">AI forecast vs. actual sales (last quarter).</p>
+                    <!-- Simple Bar Chart Visual -->
+                    <div class="h-10 bg-kapita-soft-gray rounded-lg mt-3 flex items-center p-1">
+                        <div class="h-full bg-kapita-green rounded-full transition-all duration-700 relative" style="width: 95%;">
+                            <span class="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-semibold pr-2 text-white">Actual Sales</span>
+                        </div>
+                        <div class="h-full w-5 bg-kapita-blue rounded-r-lg relative -ml-4">
+                            <span class="absolute left-full ml-1 top-1/2 -translate-y-1/2 text-xs font-semibold text-kapita-blue">Forecast</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Top-Selling Products -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-navy stroke-2"><use xlink:href="#top-selling"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Top Performer</h3>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <!-- Placeholder Image (Product Thumbnail) -->
+                        <img src="https://placehold.co/64x64/0057D4/FFFFFF?text=P-A" onerror="this.src='https://placehold.co/64x64/0057D4/FFFFFF?text=P-A'" alt="Product Image" class="w-16 h-16 rounded-xl object-cover border border-gray-100 shadow-md">
+                        <div>
+                            <p class="font-bold text-lg">Premium Herbal Soap</p>
+                            <p class="text-sm text-gray-600">30-Day Revenue: <span class="font-semibold text-kapita-blue">$8,500</span></p>
+                            <div class="w-20 h-1 mt-1 bg-gray-200 rounded-full relative">
+                                <!-- Simple trend line visual -->
+                                <div class="absolute inset-0 bg-kapita-green rounded-full w-4/5"></div>
+                            </div>
+                            <p class="text-xs text-kapita-green font-semibold">Trend: +7% Sales YoY</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — FORECAST ANALYTICS GRAPHS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <div class="flex justify-between items-end mb-8">
+                <h2 class="text-3xl font-bold tracking-tight text-kapita-navy">Advanced Forecasting & Risk Analytics</h2>
+                <button class="flex items-center text-sm font-semibold text-kapita-blue hover:text-kapita-green transition">
+                    <svg viewBox="0 0 24 24" class="w-4 h-4 mr-1"><use xlink:href="#analytics"></use></svg>
+                    View Full Analytics
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Monthly Demand Trends (Line Graph) -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4 text-kapita-dark-text">Monthly Demand Trends (Actual vs. Forecast)</h3>
+                    <!-- Mock Graph Area -->
+                    <div class="h-72 flex items-end justify-between p-4 bg-kapita-soft-gray rounded-lg relative overflow-hidden">
+                        
+                        <!-- AI Insight Panel -->
+                        <div class="absolute top-4 right-4 bg-kapita-blue text-white p-3 rounded-lg text-sm shadow-lg border-2 border-white font-semibold">
+                            <span class="font-bold">AI Note:</span> Expect 15% demand spike for Product X next month due to seasonality.
+                        </div>
+                        
+                        <!-- Mock Lines and Data Points -->
+                        <div class="absolute inset-0 p-4">
+                            <!-- Placeholder SVG for Line Graph (Historical: Gray, Forecast: Blue) -->
+                            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <!-- Grid Lines -->
+                                <line x1="0" y1="20" x2="100" y2="20" stroke="#E5E7EB" stroke-dasharray="2 2" stroke-width="0.5"/>
+                                <line x1="0" y1="50" x2="100" y2="50" stroke="#E5E7EB" stroke-dasharray="2 2" stroke-width="0.5"/>
+                                <line x1="0" y1="80" x2="100" y2="80" stroke="#E5E7EB" stroke-dasharray="2 2" stroke-width="0.5"/>
+
+                                <!-- Historical Line (Darker) -->
+                                <polyline points="5,80 20,60 35,75 50,45" fill="none" stroke="#0A1A2F" stroke-width="2.5"/>
+
+                                <!-- Forecast Line (Kapita Blue, Dashed) -->
+                                <polyline points="50,45 65,35 80,40 95,20" fill="none" stroke="#0057D4" stroke-width="2.5" stroke-dasharray="4 4"/>
+                            </svg>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Correlation and Heat Map Panel (Stacked on Small Screen, Parallel on Large) -->
+                
+                <!-- Regional Heat Map of Stock-Outs -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4 text-kapita-dark-text">Stock-Out Risk Heat Map</h3>
+                    <div class="h-48 p-4 bg-kapita-soft-gray rounded-lg grid grid-cols-2 gap-3 text-center">
+                        <div class="flex flex-col justify-center items-center bg-red-600/90 text-white p-2 rounded-lg font-bold text-sm shadow-md">
+                            Central <span class="text-xs font-normal">(5 Stock-Outs)</span>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-yellow-500/90 text-kapita-navy p-2 rounded-lg font-bold text-sm shadow-md">
+                            North <span class="text-xs font-normal">(2 Stock-Outs)</span>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-kapita-green/80 text-white p-2 rounded-lg font-bold text-sm shadow-md">
+                            South <span class="text-xs font-normal">(0 Stock-Outs)</span>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-red-800/90 text-white p-2 rounded-lg font-bold text-sm shadow-md">
+                            E-Commerce <span class="text-xs font-normal">(7 Stock-Outs)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 🔷 SECTION — CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white">
+                    Optimize Your MSME Inventory with AI Intelligence Today
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Onboarding / Demo
+                </button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <!-- Logo in Footer -->
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\solutions.html" class="hover:text-kapita-blue transition duration-150">Solutions</a>
+                    <a href="C:\Kapita\kapita\404.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                    <a href="C:\Kapita\kapita\aboutus.html" class="hover:text-kapita-blue transition duration-150">About</a>
+                </div>
+            </div>
+            <!-- Bottom Line -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

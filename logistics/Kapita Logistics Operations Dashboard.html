@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Logistics — Operations & Intelligence Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom color and font configuration for Tailwind */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-soft-gray: #F3F4F6;
+        }
+
+        /* Custom animation for AI highlight pulse */
+        @keyframes pulse-blue-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 87, 212, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(0, 87, 212, 0); }
+        }
+        .animate-pulse-logistics {
+            animation: pulse-blue-green 3s infinite;
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',       /* Primary Blue */
+                        'kapita-navy': '#0A1A2F',       /* Navy */
+                        'kapita-green': '#00C389',      /* Emerald Green */
+                        'kapita-soft-gray': '#F3F4F6',  /* Soft Gray */
+                        'kapita-dark-text': '#111827',  /* Darker text for readability */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 40px rgba(0, 87, 212, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray text-kapita-dark-text font-sans antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+  
+<a href="C:\Kapita\index.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Icon SVGs for aesthetics -->
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="truck-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg id="route-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243m10.606-10.606L14.121 13.39c-.5.5-.953.484-1.428.324-.474-.16-.883-.43-1.157-.75l-2.001-2.002M12 21a9 9 0 100-18 9 9 0 000 18z" /></svg>
+        <svg id="efficiency-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        <svg id="delay-alert" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg id="warehouse-alert" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10m0 0h16m0-10H4m16 0L12 3 4 7m16 0v10m0 0l-8 4-8-4" /></svg>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                <a href="C:\Kapita\kapita\logistics\KapitaFleetManagementMaintenanceDashboard.html" class="text-kapita-dark-text hover:text-kapita-blue transition duration-150 py-1">Fleet Management</a>
+                <a href="C:\Kapita\kapita\logistics\Kapita Route Optimization Tracking Dashboard.html" class="text-kapita-dark-text hover:text-kapita-blue transition duration-150 py-1">Route Optimization & Tracking</a>
+                <a href="C:\Kapita\kapita\logistics\Procurement  Support Dashboard.html" class="text-kapita-dark-text hover:text-kapita-blue transition duration-150 py-1">Procurement & Support</a>
+                <a href="C:\Kapita\kapita\404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150">Log In</a>
+                <a href="C:\Kapita\kapita\404.html"><button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Trigger (Hamburger) -->
+            <div class="flex lg:hidden items-center">
+                <button id="mobileMenuToggle" class="text-kapita-dark-text p-2 rounded-full hover:bg-kapita-soft-gray transition duration-150">
+                    <svg viewBox="0 0 24 24" class="w-6 h-6"><use xlink:href="#menu-icon"></use></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden absolute top-20 right-0 w-full bg-white border-t border-gray-100 shadow-lg p-4 lg:hidden">
+            <div class="space-y-2">
+                <a href="#" class="block px-3 py-2 bg-kapita-soft-gray text-kapita-blue rounded-lg font-semibold">Home / Logistics Hub</a>
+                <a href="#" class="block px-3 py-2 text-kapita-dark-text hover:bg-kapita-soft-gray rounded-lg">Fleet Management</a>
+                <a href="#" class="block px-3 py-2 text-kapita-dark-text hover:bg-kapita-soft-gray rounded-lg">Route Optimization</a>
+                <a href="#" class="block px-3 py-2 text-kapita-dark-text hover:bg-kapita-soft-gray rounded-lg">Inventory & Warehouse</a>
+                <a href="#" class="block px-3 py-2 text-kapita-dark-text hover:bg-kapita-soft-gray rounded-lg">Payments & Procurement</a>
+                <a href="#" class="block px-3 py-2 text-kapita-dark-text hover:bg-kapita-soft-gray rounded-lg">Pricing</a>
+                <a href="#" class="block px-3 py-2 text-kapita-dark-text hover:bg-kapita-soft-gray rounded-lg">Support</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-24 pb-20 pt-10">
+
+        <!-- 🔷 HERO SECTION — “Optimize Your Logistics Operations” -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left: Text Content -->
+            <div class="space-y-8">
+                <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                    <span class="text-kapita-green">AI-Powered</span> Logistics Intelligence
+                </h1>
+                <p class="text-xl text-gray-600 font-light max-w-xl">
+                    Monitor fleets, optimize routes, track shipments, and automate warehouse operations with Kapita AI for maximum efficiency and reduced costs.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-kapita-green text-white text-lg font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                        Request Logistics Demo
+                    </button>
+                    </a>
+
+                    <a
+                    href="C:\Kapita\kapita\aboutus.html" class="px-8 py-3.5 bg-white text-kapita-blue text-lg font-semibold rounded-xl border-2 border-kapita-blue hover:bg-kapita-soft-gray transition duration-300">
+                        Learn More
+                    </button></a>
+                </div>
+            </div>
+
+            <!-- Right: Dashboard Mockup Illustration -->
+            <div class="relative w-full aspect-[4/3] rounded-2xl bg-white shadow-premium border border-gray-200 p-6 flex flex-col justify-between animate-pulse-logistics">
+                
+                <!-- Header Status -->
+                <div class="flex justify-between items-center pb-4 border-b border-dashed border-gray-200">
+                    <div class="text-lg font-bold text-kapita-navy">Live Fleet & Operations Status</div>
+                    <div class="text-sm font-semibold text-kapita-green">24/7 Monitoring</div>
+                </div>
+
+                <div class="flex-grow grid grid-cols-3 gap-4 py-4">
+                    <!-- Fleet Status Card -->
+                    <div class="col-span-1 bg-kapita-soft-gray p-3 rounded-lg">
+                        <p class="text-sm font-semibold text-kapita-navy mb-2">Fleet Overview (50 units)</p>
+                        <div class="space-y-1 text-xs">
+                            <p class="flex justify-between items-center">Active: <span class="font-bold text-kapita-green">38</span></p>
+                            <div class="h-1 bg-gray-300 rounded-full"><div class="h-1 bg-kapita-green rounded-full" style="width: 76%;"></div></div>
+                            <p class="flex justify-between items-center">Idle: <span class="font-bold text-yellow-500">7</span></p>
+                            <div class="h-1 bg-gray-300 rounded-full"><div class="h-1 bg-yellow-500 rounded-full" style="width: 14%;"></div></div>
+                            <p class="flex justify-between items-center">Maint.: <span class="font-bold text-red-500">5</span></p>
+                            <div class="h-1 bg-gray-300 rounded-full"><div class="h-1 bg-red-500 rounded-full" style="width: 10%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Map/Route Mock -->
+                    <div class="col-span-2 relative bg-gray-100 rounded-lg overflow-hidden">
+                        <!-- Simple Map/Route Visualization -->
+                        <div class="text-center pt-8 text-gray-400">
+                            [Placeholder: Live Tracking Map]
+                            <div class="w-2 h-2 bg-kapita-green rounded-full absolute top-10 left-10 shadow-lg animate-pulse-logistics"></div>
+                            <div class="w-2 h-2 bg-kapita-blue rounded-full absolute bottom-20 right-20 shadow-lg"></div>
+                            <div class="w-1/2 h-0.5 bg-kapita-blue absolute top-12 left-10 transform rotate-45"></div>
+                        </div>
+                        <div class="absolute bottom-2 left-2 bg-kapita-blue text-white text-xs px-2 py-0.5 rounded-full">3 Routes Optimized</div>
+                    </div>
+                </div>
+
+                <!-- Footer Indicators -->
+                <div class="flex justify-between pt-4 border-t border-dashed border-gray-200 text-sm">
+                    <p class="text-gray-600">Warehouse 1 Occupancy: <span class="font-bold text-red-500">95%</span></p>
+                    <p class="text-kapita-green font-semibold">AI Prediction: 5% Fuel Savings Today</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — FLEET PERFORMANCE CARDS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Core Performance Indicators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Card 1: Fleet Utilization -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-blue stroke-2"><use xlink:href="#truck-icon"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Fleet Utilization</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-blue mb-2">
+                        82<span class="text-3xl">%</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Average active fleet time this week.</p>
+                    <!-- Progress bars representing utilization breakdown -->
+                    <div class="mt-4 space-y-2">
+                        <div class="h-4 bg-kapita-soft-gray rounded-full">
+                            <div class="h-4 bg-kapita-green rounded-full" style="width: 82%;"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>Idle Rate: 10%</span>
+                            <span>Maint. Rate: 8%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: On-Time Delivery Rate -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-green stroke-2"><use xlink:href="#route-icon"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">On-Time Delivery Rate</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-green mb-2">
+                        94.5<span class="text-3xl">%</span>
+                    </div>
+                    <p class="text-sm text-gray-600">OTD performance for the last 30 days.</p>
+                    <!-- Simple OTD Trend Line Visual -->
+                    <div class="h-16 relative mt-4">
+                        <p class="absolute top-0 right-0 text-xs text-kapita-green font-semibold">↑ 1.2%</p>
+                        <svg class="absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <polyline points="0,80 20,75 40,60 60,65 80,40 100,20" fill="none" stroke="var(--kapita-green)" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Card 3: Fuel & Cost Efficiency -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-yellow-500 stroke-2"><use xlink:href="#efficiency-icon"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Fuel & Cost Efficiency</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-blue mb-2">
+                        $7,800
+                    </div>
+                    <p class="text-sm text-gray-600">AI-predicted monthly savings from optimization.</p>
+                    <ul class="mt-4 space-y-1 text-sm">
+                        <li class="flex justify-between">
+                            <span>Route Deviation Alerts:</span>
+                            <span class="font-bold text-red-500">14</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Idling Reduction Goal:</span>
+                            <span class="font-bold text-kapita-green">Met</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Optimal Fuel Consumption:</span>
+                            <span class="font-bold text-kapita-green">98%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — ROUTE OPTIMIZATION & AI ALERTS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Predictive Route & Warehouse Intelligence</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Optimization Map Panel -->
+                <div class="lg:col-span-2 relative bg-white rounded-2xl shadow-premium border border-gray-200 p-4">
+                    <h3 class="text-xl font-semibold mb-3 text-kapita-dark-text">Dynamic Route Optimization (Map View)</h3>
+                    <div class="h-[400px] bg-gray-100 rounded-xl relative overflow-hidden">
+                        <div class="text-center pt-20 text-gray-400">
+                            [Placeholder: Interactive Map with Route Layer]
+                        </div>
+                        <!-- AI Suggested Reroute Banner -->
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 bg-kapita-blue text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                            AI Suggested Reroutes Available (3)
+                        </div>
+                        <!-- Mock Optimal Route Drawing -->
+                        <div class="absolute top-1/2 left-1/4 w-3/4 h-1/4 border-2 border-dashed border-kapita-green rounded-xl opacity-70"></div>
+                    </div>
+                </div>
+
+                <!-- AI Alerts & Notifications -->
+                <div class="lg:col-span-1 space-y-4">
+                    <h3 class="text-xl font-semibold text-kapita-navy">Active Intelligence Alerts</h3>
+                    
+                    <div class="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 rounded-lg shadow-sm flex items-start space-x-3">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-yellow-600 mt-1 flex-shrink-0"><use xlink:href="#delay-alert"></use></svg>
+                        <div>
+                            <p class="font-bold text-lg text-yellow-700">Truck #23 Delayed</p>
+                            <p class="text-sm text-gray-600">Delay estimated at 15 minutes due to unexpected traffic on Highway A. Re-routing analysis initiated.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-500/10 border-l-4 border-red-600 p-4 rounded-lg shadow-sm flex items-start space-x-3">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-red-600 mt-1 flex-shrink-0"><use xlink:href="#warehouse-alert"></use></svg>
+                        <div>
+                            <p class="font-bold text-lg text-red-700">Warehouse Capacity Alert</p>
+                            <p class="text-sm text-gray-600">Warehouse #5 is projected to reach 100% capacity in 3 hours. Adjust routing for inbound trucks immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-kapita-green/10 border-l-4 border-kapita-green p-4 rounded-lg shadow-sm flex items-start space-x-3">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-kapita-green mt-1 flex-shrink-0"><use xlink:href="#route-icon"></use></svg>
+                        <div>
+                            <p class="font-bold text-lg text-kapita-dark-text">Optimal Reroute Found</p>
+                            <p class="text-sm text-gray-600">Truck #10 can save 30 minutes by taking suggested path B. Review and Approve.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 🔷 SECTION — CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20 mt-12">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white">
+                    Supercharge Your Logistics Operations with AI Intelligence
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo / Onboarding
+                </button>
+            </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <!-- Logo in Footer -->
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\solutions.html" class="hover:text-kapita-blue transition duration-150">Solutions</a>
+                    <a href="C:\Kapita\pricing.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                    <a href="C:\Kapita\kapita\aboutus.html" class="hover:text-kapita-blue transition duration-150">About</a>
+                </div>
+            </div>
+            <!-- Bottom Line -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

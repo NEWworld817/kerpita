@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Government Agencies Manager</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+            --kapita-red: #EF4444; 
+            --kapita-yellow: #FBBF24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .font-heading {
+            font-weight: 800;
+        }
+
+        .agency-card {
+            background-color: var(--kapita-white);
+            border-radius: 1rem; /* rounded-xl */
+            box-shadow: 0 4px 10px rgba(10, 26, 47, 0.05);
+            padding: 1.5rem; /* p-6 */
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .agency-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(10, 26, 47, 0.1);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px; /* rounded-full */
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 195, 137, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 195, 137, 0); }
+        }
+    </style>
+</head>
+<body>
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+   
+<a href="C:\Kapita\kapita\Governments\govcmdcente.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Header Navigation (Simplified) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-heading text-[--kapita-blue] flex-shrink-0">KAPITA</a>
+            
+            <!-- Navigation Menu (Active Tab) -->
+            <nav class="flex-grow flex justify-center h-full">
+                 <a href="#" class="h-full flex items-center px-4 text-base font-semibold text-[--kapita-navy] border-b-4 border-[--kapita-green]">Agencies Manager</a>
+            </nav>
+
+            <!-- Right: Government Profile Icon -->
+            <div class="w-10 h-10 bg-[--kapita-blue] rounded-full flex items-center justify-center text-white font-semibold cursor-pointer flex-shrink-0">
+                GP
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="flex-grow py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Hero Title Section -->
+            <div class="mb-8 border-b pb-4 border-gray-300">
+                <h1 class="text-3xl md:text-4xl font-heading text-[--kapita-navy] mb-1">
+                    Manage Ministries and Agencies
+                </h1>
+                <p class="text-lg text-gray-600 font-normal">
+                    Centralized oversight of performance, compliance, and financial health across all national government entities.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-8">
+                <button class="px-6 py-3 bg-[--kapita-blue] text-white font-bold rounded-xl shadow-md hover:bg-opacity-90 transition duration-300 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle inline mr-2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                    Add New Agency
+                </button>
+                <button class="px-6 py-3 bg-gray-300 text-[--kapita-navy] font-bold rounded-xl shadow-md hover:bg-gray-400 transition duration-300 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard inline mr-2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    Open Agency Dashboard
+                </button>
+            </div>
+
+            <!-- Agency Grid View -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                
+                <!-- Card 1: Ministry of Finance (High Status) -->
+                <div class="agency-card border-t-4 border-[--kapita-green] pulse-green">
+                    <h3 class="text-xl font-heading text-[--kapita-navy] mb-3">Ministry of Finance</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm font-medium text-gray-600">Status:</p>
+                        <span class="status-badge bg-green-100 text-[--kapita-green]">Operational</span>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">Compliance Score:</p>
+                            <p class="font-heading text-xl text-[--kapita-green]">98%</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">AI Alerts:</p>
+                            <p class="font-semibold text-gray-500">None</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t mt-2">
+                            <p class="font-medium text-gray-700">Total Spend (YTD):</p>
+                            <p class="font-heading text-lg text-[--kapita-navy]">$4.5 Billion</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Ministry of Health (Medium Status) -->
+                <div class="agency-card border-t-4 border-[--kapita-yellow]">
+                    <h3 class="text-xl font-heading text-[--kapita-navy] mb-3">Ministry of Health</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm font-medium text-gray-600">Status:</p>
+                        <span class="status-badge bg-yellow-100 text-yellow-600">Review Required</span>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">Compliance Score:</p>
+                            <p class="font-heading text-xl text-yellow-600">71%</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">AI Alerts:</p>
+                            <p class="font-semibold text-yellow-600">2 Medium Risk</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t mt-2">
+                            <p class="font-medium text-gray-700">Total Spend (YTD):</p>
+                            <p class="font-heading text-lg text-[--kapita-navy]">$1.2 Billion</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Ministry of Education (Low Status) -->
+                <div class="agency-card border-t-4 border-[--kapita-red]">
+                    <h3 class="text-xl font-heading text-[--kapita-navy] mb-3">Ministry of Education</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm font-medium text-gray-600">Status:</p>
+                        <span class="status-badge bg-red-100 text-red-600">Action Blocked</span>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">Compliance Score:</p>
+                            <p class="font-heading text-xl text-red-600">55%</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">AI Alerts:</p>
+                            <p class="font-semibold text-red-600">1 Critical, 3 High</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t mt-2">
+                            <p class="font-medium text-gray-700">Total Spend (YTD):</p>
+                            <p class="font-heading text-lg text-[--kapita-navy]">$1.8 Billion</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Ministry of Transport (High Status) -->
+                <div class="agency-card border-t-4 border-[--kapita-green]">
+                    <h3 class="text-xl font-heading text-[--kapita-navy] mb-3">Ministry of Transport</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm font-medium text-gray-600">Status:</p>
+                        <span class="status-badge bg-green-100 text-[--kapita-green]">Operational</span>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">Compliance Score:</p>
+                            <p class="font-heading text-xl text-[--kapita-green]">89%</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">AI Alerts:</p>
+                            <p class="font-semibold text-gray-500">1 Low Risk</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t mt-2">
+                            <p class="font-medium text-gray-700">Total Spend (YTD):</p>
+                            <p class="font-heading text-lg text-[--kapita-navy]">$2.9 Billion</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Ministry of Agriculture (Medium Status) -->
+                <div class="agency-card border-t-4 border-[--kapita-yellow]">
+                    <h3 class="text-xl font-heading text-[--kapita-navy] mb-3">Ministry of Agriculture</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm font-medium text-gray-600">Status:</p>
+                        <span class="status-badge bg-yellow-100 text-yellow-600">Review Required</span>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">Compliance Score:</p>
+                            <p class="font-heading text-xl text-yellow-600">65%</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">AI Alerts:</p>
+                            <p class="font-semibold text-yellow-600">3 Medium Risk</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t mt-2">
+                            <p class="font-medium text-gray-700">Total Spend (YTD):</p>
+                            <p class="font-heading text-lg text-[--kapita-navy]">$750 Million</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: County Governments (High Status) -->
+                <div class="agency-card border-t-4 border-[--kapita-blue]">
+                    <h3 class="text-xl font-heading text-[--kapita-navy] mb-3">County Governments</h3>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm font-medium text-gray-600">Status:</p>
+                        <span class="status-badge bg-blue-100 text-[--kapita-blue]">Monitored</span>
+                    </div>
+                    
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">Compliance Score:</p>
+                            <p class="font-heading text-xl text-[--kapita-blue]">82%</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-gray-700">AI Alerts:</p>
+                            <p class="font-semibold text-yellow-600">5 Low Risk</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t mt-2">
+                            <p class="font-medium text-gray-700">Total Spend (YTD):</p>
+                            <p class="font-heading text-lg text-[--kapita-navy]">$3.4 Billion</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[--kapita-navy] text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            &copy; 2025 KAPITA AI Infrastructure.
+        </div>
+    </footer>
+
+</body>
+</html>

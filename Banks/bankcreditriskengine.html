@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Bank Credit Risk Engine</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+            --kapita-white: #FFFFFF;
+            --kapita-red: #EF4444; 
+            --kapita-yellow: #FBBF24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .font-heading {
+            font-weight: 800;
+        }
+        
+        .card {
+            background-color: var(--kapita-white);
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(10, 26, 47, 0.05);
+            padding: 1.5rem;
+        }
+        
+        /* Placeholder for Chart Visuals */
+        .chart-placeholder {
+            min-height: 250px;
+            background-color: #F8FAFC;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #D1D5DB;
+            color: #9CA3AF;
+        }
+
+        /* Funnel Chart Segment */
+        .funnel-segment {
+            clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+        }
+        .funnel-top {
+             clip-path: polygon(0% 0, 100% 0, 90% 100%, 10% 100%);
+        }
+    </style>
+</head>
+<body class="bg-[--kapita-gray]">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+   
+<a href="C:\Kapita\kapita\Banks\automatedreconcilliation.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Header Navigation (Credit Scoring tab active) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Left: Logo and Tabs -->
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-2xl font-heading text-[--kapita-blue]">KAPITA</a>
+                
+            </div>
+
+            <!-- Right: Bank Admin Profile -->
+            <div class="flex items-center space-x-3 cursor-pointer">
+                <span class="text-sm font-semibold text-[--kapita-navy] hidden sm:block">Bank Admin</span>
+                <div class="w-10 h-10 bg-[--kapita-blue] rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
+                    BA
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="flex-grow py-8 md:py-10">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Hero Title Section -->
+            <div class="mb-8 border-b pb-4 border-gray-300">
+                <h1 class="text-3xl md:text-4xl font-heading text-[--kapita-navy] mb-1">
+                    AI Scoring for Retail, MSME, and Corporate Banking
+                </h1>
+                <p class="text-lg text-gray-600 font-normal">
+                    AI combines behavioral patterns, transaction history, alternative data, and risk signals to generate highly accurate credit scores.
+                </p>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex space-x-4 mb-8">
+                <button class="px-5 py-2.5 bg-[--kapita-blue] text-white font-semibold rounded-xl shadow-md hover:bg-opacity-90 transition duration-300 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-search inline mr-2"><circle cx="10" cy="10" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M10 13a3 3 0 0 1 3-3"/><path d="M10 7a3 3 0 0 0-3 3"/></svg>
+                    View Borrower Details
+                </button>
+                <button class="px-5 py-2.5 bg-gray-300 text-[--kapita-navy] font-semibold rounded-xl shadow-md hover:bg-gray-400 transition duration-300 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text inline mr-2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 12H8"/><path d="M16 16H8"/><path d="M16 20H8"/></svg>
+                    Open Risk Report
+                </button>
+            </div>
+
+            <!-- Dashboard Grid Layout -->
+            <div class="grid grid-cols-12 gap-6">
+                
+                <!-- 1. Credit Score Funnel (Span 12/5) -->
+                <div class="col-span-12 lg:col-span-5">
+                    <div class="card h-full">
+                        <h2 class="text-xl font-heading text-[--kapita-navy] mb-6">Credit Score Funnel</h2>
+                        
+                        <!-- Funnel Visualization -->
+                        <div class="space-y-1 flex flex-col items-center">
+                            <!-- Low Risk -->
+                            <div class="w-full h-20 bg-green-100 border-2 border-[--kapita-green] rounded-lg flex items-center justify-between p-4 funnel-top">
+                                <span class="font-heading text-xl text-[--kapita-green]">Low Risk</span>
+                                <span class="text-2xl font-heading text-gray-700">68%</span>
+                            </div>
+                            <!-- Medium Risk -->
+                            <div class="w-10/12 h-20 bg-yellow-100 border-2 border-[--kapita-yellow] rounded-lg flex items-center justify-between p-4 funnel-segment">
+                                <span class="font-heading text-xl text-yellow-700">Medium Risk</span>
+                                <span class="text-2xl font-heading text-gray-700">21%</span>
+                            </div>
+                            <!-- High Risk -->
+                            <div class="w-8/12 h-20 bg-red-100 border-2 border-[--kapita-red] rounded-lg flex items-center justify-between p-4 funnel-segment">
+                                <span class="font-heading text-xl text-red-700">High Risk</span>
+                                <span class="text-2xl font-heading text-gray-700">11%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Individual Customer Risk Card (Span 12/7) -->
+                <div class="col-span-12 lg:col-span-7">
+                    <div class="card h-full">
+                        <h2 class="text-xl font-heading text-[--kapita-navy] mb-6">Individual Customer Risk Profile</h2>
+                        
+                        <div class="p-4 bg-[--kapita-gray] rounded-lg">
+                            <!-- Card Header -->
+                            <div class="flex justify-between items-start pb-4 border-b border-gray-300">
+                                <div>
+                                    <p class="text-sm text-gray-600">Customer Name:</p>
+                                    <p class="text-2xl font-heading">Nairobi Logistics Ltd.</p>
+                                </div>
+                                <span class="px-3 py-1 text-sm font-semibold bg-[--kapita-green] text-white rounded-full">
+                                    AI: Most probable to repay
+                                </span>
+                            </div>
+                            
+                            <!-- Card Body -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                                <!-- Left Side: Score & Stats -->
+                                <div class="space-y-4">
+                                    <p class="text-sm font-semibold text-gray-500">Kapita Score</p>
+                                    <p class="text-6xl font-heading text-[--kapita-green]">812</p>
+                                    <p class="text-xl font-semibold text-[--kapita-green] -mt-2">(Low Risk)</p>
+                                    
+                                    <div class="space-y-2 pt-2">
+                                        <div class="flex justify-between text-sm">
+                                            <span class="text-gray-600">Probability of Default:</span>
+                                            <span class="font-semibold text-gray-800">1.1%</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm">
+                                            <span class="text-gray-600">Repayment Predictability:</span>
+                                            <span class="font-semibold text-gray-800">High</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Side: Income Graph -->
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-500 mb-2">Income Consistency Graph (12 Mo.)</p>
+                                    <div class="chart-placeholder h-48 relative">
+                                        <!-- Mock SVG Trend Line (Upward) -->
+                                        <svg viewBox="0 0 100 50" class="w-full h-full" preserveAspectRatio="none">
+                                            <polyline fill="none" stroke="var(--kapita-blue)" stroke-width="3" points="5,40 25,30 45,35 65,20 85,10 95,5"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Portfolio Risk Heat Map (Full Width) -->
+                <div class="col-span-12">
+                    <div class="card">
+                        <h2 class="text-xl font-heading text-[--kapita-navy] mb-4">Portfolio Risk Heat Map (by Industry)</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-center">
+                                <thead>
+                                    <tr class="border-b-2 border-gray-300">
+                                        <th class="py-3 px-4 text-left text-sm font-semibold uppercase text-gray-500">Portfolio</th>
+                                        <th class="py-3 px-4 text-sm font-semibold uppercase text-gray-500">Agriculture</th>
+                                        <th class="py-3 px-4 text-sm font-semibold uppercase text-gray-500">Retail</th>
+                                        <th class="py-3 px-4 text-sm font-semibold uppercase text-gray-500">Logistics</th>
+                                        <th class="py-3 px-4 text-sm font-semibold uppercase text-gray-500">Services</th>
+                                        <th class="py-3 px-4 text-sm font-semibold uppercase text-gray-500">Manufacturing</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Corporate Row -->
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-5 px-4 text-left font-semibold">Corporate</td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-yellow-100 text-yellow-700 font-semibold">Medium</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-green-100 text-green-700 font-semibold">Low</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-yellow-100 text-yellow-700 font-semibold">Medium</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-green-100 text-green-700 font-semibold">Low</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-yellow-100 text-yellow-700 font-semibold">Medium</span></td>
+                                    </tr>
+                                    <!-- MSME Row -->
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-5 px-4 text-left font-semibold">MSME</td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-red-100 text-red-700 font-semibold">High</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-yellow-100 text-yellow-700 font-semibold">Medium</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-green-100 text-green-700 font-semibold">Low</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-yellow-100 text-yellow-700 font-semibold">Medium</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-red-100 text-red-700 font-semibold">High</span></td>
+                                    </tr>
+                                    <!-- Retail/Consumer Row -->
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-5 px-4 text-left font-semibold">Retail</td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-green-100 text-green-700 font-semibold">Low</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-green-100 text-green-700 font-semibold">Low</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-green-100 text-green-700 font-semibold">Low</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-yellow-100 text-yellow-700 font-semibold">Medium</span></td>
+                                        <td class="py-5 px-4"><span class="p-2 px-6 rounded-lg bg-green-100 text-green-700 font-semibold">Low</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[--kapita-navy] text-white py-6 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            &copy; 2025 KAPITA AI Infrastructure.
+        </div>
+    </footer>
+
+</body>
+</html>

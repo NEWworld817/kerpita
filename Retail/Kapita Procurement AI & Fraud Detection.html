@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Procurement AI & Fraud Detection</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',
+                        'kapita-navy': '#0A1A2F',
+                        'kapita-green': '#00C389',
+                        'kapita-soft-gray': '#F3F4F6',
+                        'kapita-dark-text': '#111827',
+                        'kapita-red': '#E53E3E',
+                        'kapita-yellow': '#F6C90E', /* Using a slightly brighter yellow for alerts */
+                        'kapita-alert-red': '#FF4D4D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 35px rgba(0, 87, 212, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                        'fraud-glow': '0 4px 15px rgba(229, 62, 62, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray text-kapita-dark-text font-sans antialiased">
+ <!-- START Fixed Navigation Buttons -->
+    
+<a href="C:\Kapita\kapita\Retail\home.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+    <!-- Icon SVGs for aesthetics -->
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="login-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+        <svg id="alert-triangle" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.39 18c-.77 1.333.192 3 1.732 3z" /></svg>
+        <svg id="check-circle" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg id="trending-up" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+        <svg id="dollar-sign" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m0 0h12m-9 0h1l1 2.5m-3-2.5h1l1 2.5m-3-2.5h1l1 2.5m-3-2.5h1l1 2.5m-3-2.5h1l1 2.5M7 13h1l1 2.5M7 13h1l1 2.5M7 13h1l1 2.5M7 13h1l1 2.5M7 13h1l1 2.5" /></svg>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm font-semibold">
+            <a href="C:\Kapita\kapita\404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150">Log In</a>
+                <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+                </a>
+            </nav>
+
+     </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-24 pb-20 pt-10">
+
+        <!-- 🔷 HERO SECTION — “Smart Procurement for Retailers” -->
+        <section class="bg-white pt-16 pb-24 border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Text Content -->
+                <div class="space-y-8">
+                    <h1 class="text-6xl font-extrabold leading-tight tracking-tighter text-kapita-navy">
+                        Transparent, <span class="text-kapita-blue">AI-Powered</span> Retail Procurement.
+                    </h1>
+                    <p class="text-xl text-gray-600 font-light max-w-xl">
+                        Kapita monitors **supplier performance**, detects **fraud risks**, and optimizes orders for maximum efficiency and security across your entire supply chain.
+                    </p>
+                    <div class="flex space-x-4 pt-4">
+                        <a href="C:\Kapita\kapita\404.html">
+                        <button class="px-8 py-3.5 bg-kapita-green text-white text-lg font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                            Request Demo
+                        </button>
+                        </a>
+                        <a href="C:\Kapita\kapita\404.html">        
+                        <button class="px-8 py-3.5 bg-white text-kapita-blue text-lg font-semibold rounded-xl border-2 border-kapita-blue hover:bg-kapita-soft-gray transition duration-300">
+                            Explore Procurement AI
+                        </button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Illustration Placeholder (Mock Procurement Dashboard) -->
+                <div class="relative w-full aspect-video bg-kapita-navy rounded-2xl shadow-premium p-6 hidden lg:block overflow-hidden">
+                    <div class="absolute inset-0 bg-kapita-navy/90 rounded-2xl"></div>
+                    
+                    <!-- Alert Banner -->
+                    <div class="absolute top-4 left-1/2 -translate-x-1/2 p-2 px-4 bg-kapita-alert-red text-white text-xs font-semibold rounded-full shadow-fraud-glow z-20">
+                        <svg viewBox="0 0 24 24" class="h-4 w-4 inline mr-1 -mt-0.5"><use xlink:href="#alert-triangle"></use></svg>
+                        Suspicious Bid Detected (Vendor ID 798)
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 h-[calc(100%-20px)] relative z-10 pt-10">
+                        <!-- Supplier Scorecard 1 (Green) -->
+                        <div class="bg-kapita-navy/80 p-3 rounded-xl border border-kapita-green/50 flex flex-col items-center justify-center">
+                            <p class="text-3xl font-extrabold text-kapita-green">A+</p>
+                            <p class="text-xs text-gray-400">Reliability Score</p>
+                            <p class="text-xs text-kapita-green mt-1">98% On-Time</p>
+                        </div>
+
+                        <!-- Supplier Scorecard 2 (Blue) -->
+                        <div class="bg-kapita-navy/80 p-3 rounded-xl border border-kapita-blue/50 flex flex-col items-center justify-center">
+                            <p class="text-3xl font-extrabold text-kapita-blue">A</p>
+                            <p class="text-xs text-gray-400">Fraud Risk</p>
+                            <p class="text-xs text-white mt-1">Risk Index: 1.2</p>
+                        </div>
+
+                        <!-- Supplier Scorecard 3 (Red) -->
+                        <div class="bg-kapita-navy/80 p-3 rounded-xl border border-kapita-red/50 flex flex-col items-center justify-center">
+                            <p class="text-3xl font-extrabold text-kapita-red">C</p>
+                            <p class="text-xs text-gray-400">Compliance Rating</p>
+                            <p class="text-xs text-kapita-red mt-1">Pending Audit</p>
+                        </div>
+
+                        <!-- Heat Map Mockup -->
+                        <div class="col-span-3 bg-kapita-navy/80 p-4 rounded-xl border border-gray-700">
+                            <p class="text-sm font-semibold text-white mb-2">Supplier Reliability Heat Map (Geo-Risk)</p>
+                            <div class="h-28 bg-kapita-navy rounded relative">
+                                <!-- Mock Risk Zones -->
+                                <div class="absolute top-4 left-4 w-16 h-16 bg-kapita-red/40 rounded-full blur-xl"></div>
+                                <div class="absolute bottom-6 right-8 w-24 h-24 bg-kapita-green/30 rounded-full blur-xl"></div>
+                                <div class="absolute top-1/2 left-1/3 w-12 h-12 bg-kapita-yellow/40 rounded-full blur-xl"></div>
+                                <p class="text-center pt-8 text-xs text-gray-500">Visualization of supplier concentration and risk.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — SUPPLIER PERFORMANCE & FRAUD MONITORING -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="text-4xl font-bold tracking-tight mb-12">Supplier Analytics & Fraud Detection</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Supplier Tile 1: HIGH RISK -->
+                <div class="bg-white p-5 rounded-2xl shadow-soft-xl border-t-4 border-kapita-red hover:shadow-premium transition cursor-pointer space-y-2">
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-bold text-kapita-dark-text">East Coast Logistics</p>
+                        <span class="text-xs font-bold text-kapita-red bg-kapita-red/10 px-3 py-1 rounded-full flex items-center">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4 mr-1"><use xlink:href="#alert-triangle"></use></svg> High Risk
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500">Rating: D+</p>
+                    <p class="text-xs font-medium text-gray-700">Reliability: <span class="font-bold text-kapita-red">55%</span> (2 late deliveries)</p>
+                    <p class="text-xs font-medium text-gray-700">Fraud Score: <span class="font-bold text-kapita-red">7.8/10</span></p>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="w-full text-center py-2 bg-kapita-red/10 text-kapita-red text-sm font-semibold rounded-lg mt-3">
+                        Suggested Action: Alert & Audit
+                    </button>
+                    </a>
+                </div>
+
+                <!-- Supplier Tile 2: MONITOR -->
+                <div class="bg-white p-5 rounded-2xl shadow-soft-xl border-t-4 border-kapita-yellow hover:shadow-premium transition cursor-pointer space-y-2">
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-bold text-kapita-dark-text">Agri-Farm Produce Inc.</p>
+                        <span class="text-xs font-bold text-kapita-yellow bg-kapita-yellow/10 px-3 py-1 rounded-full flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Monitor
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500">Rating: B-</p>
+                    <p class="text-xs font-medium text-gray-700">Reliability: <span class="font-bold text-kapita-yellow">75%</span> (1 pricing anomaly)</p>
+                    <p class="text-xs font-medium text-gray-700">Fraud Score: <span class="font-bold text-kapita-yellow">4.1/10</span></p>
+                    <button class="w-full text-center py-2 bg-kapita-yellow/10 text-kapita-yellow text-sm font-semibold rounded-lg mt-3">
+                        Suggested Action: Review Invoice
+                    </button>
+                </div>
+
+                <!-- Supplier Tile 3: APPROVED -->
+                <div class="bg-white p-5 rounded-2xl shadow-soft-xl border-t-4 border-kapita-green hover:shadow-premium transition cursor-pointer space-y-2">
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-bold text-kapita-dark-text">Global Materials Corp.</p>
+                        <span class="text-xs font-bold text-kapita-green bg-kapita-green/10 px-3 py-1 rounded-full flex items-center">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4 mr-1"><use xlink:href="#check-circle"></use></svg> Approved
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500">Rating: A+</p>
+                    <p class="text-xs font-medium text-gray-700">Reliability: <span class="font-bold text-kapita-green">99.8%</span> (Zero incidents)</p>
+                    <p class="text-xs font-medium text-gray-700">Fraud Score: <span class="font-bold text-kapita-green">0.2/10</span></p>
+                    <button class="w-full text-center py-2 bg-kapita-green/10 text-kapita-green text-sm font-semibold rounded-lg mt-3">
+                        Suggested Action: Optimize Volume
+                    </button>
+                </div>
+
+                <!-- Supplier Tile 4: NEUTRAL -->
+                <div class="bg-white p-5 rounded-2xl shadow-soft-xl border-t-4 border-kapita-blue hover:shadow-premium transition cursor-pointer space-y-2">
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-bold text-kapita-dark-text">Local FMCG Distributors</p>
+                        <span class="text-xs font-bold text-kapita-blue bg-kapita-blue/10 px-3 py-1 rounded-full flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg> Active
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500">Rating: B</p>
+                    <p class="text-xs font-medium text-gray-700">Reliability: <span class="font-bold text-kapita-blue">88%</span> (Seasonal fluctuation)</p>
+                    <p class="text-xs font-medium text-gray-700">Fraud Score: <span class="font-bold text-kapita-blue">2.5/10</span></p>
+                    <button class="w-full text-center py-2 bg-kapita-blue/10 text-kapita-blue text-sm font-semibold rounded-lg mt-3">
+                        Suggested Action: No Action Required
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — PROCUREMENT ALERTS & INSIGHTS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="text-4xl font-bold tracking-tight mb-12">AI Alerts & Insights</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Alerts & Cost Savings -->
+                <div class="lg:col-span-1 space-y-6">
+                    <!-- Large Horizontal Alert Card -->
+                    <div class="bg-white p-6 rounded-2xl shadow-soft-xl border-l-8 border-kapita-red bg-kapita-red/5">
+                        <div class="flex items-start space-x-3">
+                            <svg viewBox="0 0 24 24" class="h-6 w-6 text-kapita-red flex-shrink-0"><use xlink:href="#alert-triangle"></use></svg>
+                            <div>
+                                <h3 class="text-lg font-bold text-kapita-dark-text">Price Anomaly Detected</h3>
+                                <p class="text-sm text-gray-600">The current bid for Product X is **44% above** the rolling 90-day market average. Review required before approval.</p>
+                                <button class="mt-2 text-sm font-semibold text-kapita-blue hover:underline">
+                                    View Comparative Data →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-soft-xl border border-kapita-soft-gray">
+                            <p class="text-xs text-gray-500">Fraud Risk Suppliers</p>
+                            <p class="text-3xl font-extrabold text-kapita-red">2</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-soft-xl border border-kapita-soft-gray">
+                            <p class="text-xs text-gray-500">Late Deliveries (7d)</p>
+                            <p class="text-3xl font-extrabold text-kapita-yellow">3</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-soft-xl border border-kapita-soft-gray col-span-2">
+                            <p class="text-xs text-gray-500 flex items-center"><svg viewBox="0 0 24 24" class="h-4 w-4 mr-1 text-kapita-green"><use xlink:href="#dollar-sign"></use></svg> Cost Savings Suggested (Annualized)</p>
+                            <p class="text-3xl font-extrabold text-kapita-green">$12,400</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Line Graph: Weekly Procurement Trends -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-soft-xl border border-kapita-soft-gray">
+                    <h4 class="text-lg font-bold mb-4">Weekly Procurement Trends: Cost vs. AI Target</h4>
+                    <div class="h-64 bg-gray-50 rounded relative">
+                        <!-- Mock Line Chart -->
+                        <div class="absolute inset-0 p-4">
+                             <!-- Grid Lines -->
+                             <div class="border-b border-dashed border-gray-200 w-full pt-4"></div>
+                             <div class="border-b border-dashed border-gray-200 w-full pt-8"></div>
+                             <div class="border-b border-dashed border-gray-200 w-full pt-8"></div>
+                             <div class="border-b border-dashed border-gray-200 w-full pt-8"></div>
+
+                            <!-- Lines Mock -->
+                            <div class="absolute inset-0">
+                                <!-- Actual Cost (Blue) -->
+                                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <polyline fill="none" stroke="#0057D4" stroke-width="1.5" points="0,80 10,70 20,65 30,75 40,60 50,55 60,45 70,50 80,40 90,30 100,25" />
+                                </svg>
+                                <!-- AI Target (Green) -->
+                                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <polyline fill="none" stroke="#00C389" stroke-width="1.5" stroke-dasharray="4" points="0,75 10,68 20,62 30,70 40,55 50,50 60,40 70,45 80,35 90,25 100,20" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center space-x-6 mt-4 text-sm">
+                        <span class="flex items-center"><span class="h-2 w-2 rounded-full bg-kapita-blue mr-1"></span> Actual Cost</span>
+                        <span class="flex items-center"><span class="h-2 w-2 rounded-full border border-kapita-green border-dashed mr-1"></span> AI Target</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — INTEGRATION & MULTI-STORE MANAGEMENT -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="text-4xl font-bold tracking-tight mb-12">Centralized Retail Procurement Control</h2>
+
+            <!-- Connection Graph Mockup -->
+            <div class="relative h-[450px] w-full bg-white rounded-2xl shadow-premium border border-kapita-soft-gray p-8 flex flex-col justify-between">
+                
+                <!-- Title Row -->
+                <p class="text-xl font-semibold text-kapita-navy border-b pb-2 mb-4">Network Visualization: Store-to-Supplier Flow</p>
+
+                <!-- Top: Store/Warehouse Nodes -->
+                <div class="flex justify-around absolute top-20 left-0 right-0">
+                    <div class="text-center">
+                        <div class="bg-kapita-green/20 border-2 border-kapita-green text-kapita-green font-bold p-3 rounded-full w-24 h-24 flex items-center justify-center shadow-soft-xl">Store Nairobi (Optimal)</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-kapita-yellow/20 border-2 border-kapita-yellow text-kapita-yellow font-bold p-3 rounded-full w-24 h-24 flex items-center justify-center shadow-soft-xl">Warehouse (Monitor)</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-kapita-red/20 border-2 border-kapita-red text-kapita-red font-bold p-3 rounded-full w-24 h-24 flex items-center justify-center shadow-soft-xl">Boutique Store (High Risk)</div>
+                    </div>
+                </div>
+
+                <!-- Middle: Flow Lines (Conceptual) -->
+                <div class="absolute inset-0 flex justify-around items-center opacity-30">
+                    <div class="w-1/3 h-full border-r border-dashed border-kapita-green"></div>
+                    <div class="w-1/3 h-full border-r border-dashed border-kapita-yellow"></div>
+                </div>
+
+                <!-- Bottom: Supplier Nodes -->
+                <div class="flex justify-around absolute bottom-10 left-0 right-0">
+                    <div class="text-center">
+                        <div class="bg-kapita-blue/20 border-2 border-kapita-blue text-kapita-navy font-bold p-3 rounded-xl shadow-soft-xl">Supplier A (A+)</div>
+                        <p class="text-xs text-gray-500 mt-1">Lead Time: 3 days</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-kapita-yellow/20 border-2 border-kapita-yellow text-kapita-navy font-bold p-3 rounded-xl shadow-soft-xl">Supplier B (B-)</div>
+                        <p class="text-xs text-gray-500 mt-1">Order Size: Large</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-kapita-red/20 border-2 border-kapita-red text-kapita-navy font-bold p-3 rounded-xl shadow-soft-xl">Supplier C (D+)</div>
+                        <p class="text-xs text-gray-500 mt-1">Category: Perishables</p>
+                    </div>
+                </div>
+
+                <!-- Risk Legend -->
+                <div class="absolute bottom-4 left-8 text-sm text-gray-600 space-x-4">
+                    <span class="font-bold">Legend:</span>
+                    <span class="text-kapita-green">● Optimal</span>
+                    <span class="text-kapita-yellow">● Monitor</span>
+                    <span class="text-kapita-red">● High Risk</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-5xl font-extrabold leading-tight text-white">
+                    Secure Your Retail Procurement with AI Today
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Procurement Demo
+                </button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\kapita\404.html" class="hover:text-kapita-blue transition duration-150">Retail Solutions</a>
+                    <a href="C:\Kapita\kapita\Retail\Kapita Inventory & Warehouse Optimization.html" class="hover:text-kapita-blue transition duration-150">Inventory AI</a>
+                    <a href="C:\Kapita\kapita\Retail\Kapita Procurement AI & Fraud Detection.html" class="hover:text-kapita-blue transition duration-150">Procurement AI</a>
+                    <a href="C:\Kapita\kapita\Retail\Kapita Pricing and Plans.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\kapita\404.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\kapita\Retail\Kapita Inventory & Warehouse Optimization.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu for demonstration
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.querySelector('.flex.lg\\:hidden button:last-child');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

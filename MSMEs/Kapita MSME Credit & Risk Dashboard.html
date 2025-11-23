@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita MSME — Credit & Risk Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom color and font configuration for Tailwind */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-soft-gray: #F3F4F6;
+        }
+
+        /* Custom animation for the AI alert pulse */
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 195, 137, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(0, 195, 137, 0); }
+        }
+        .animate-pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+
+        /* Gauge styles for the credit score visual */
+        .credit-gauge {
+            width: 200px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 100px 100px 0 0;
+            background-color: var(--kapita-soft-gray);
+        }
+
+        .credit-gauge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            border-radius: 50%;
+            /* 180 degrees of gradient spread across the semicircle */
+            background: conic-gradient(
+                #ef4444 0% 25%,     /* Red - High Risk */
+                #f59e0b 25% 65%,     /* Amber - Medium Risk */
+                var(--kapita-green) 65% 100% /* Green - Low Risk */
+            );
+            transform: translate(-25%, -75%);
+        }
+
+        .credit-score-needle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            height: 90px;
+            background-color: var(--kapita-navy);
+            transform-origin: bottom center;
+            transition: transform 1s ease-out;
+            /* Target Score: 780/900 = 86.6%. On a 180 deg dial, that's 156 deg (0 deg starts far left) */
+            transform: rotate(156deg); 
+            z-index: 10;
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',       /* Primary Blue */
+                        'kapita-navy': '#0A1A2F',       /* Navy */
+                        'kapita-green': '#00C389',      /* Emerald Green */
+                        'kapita-soft-gray': '#F3F4F6',  /* Soft Gray */
+                        'kapita-dark-text': '#111827',  /* Darker text for readability */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 35px rgba(0, 87, 212, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray text-kapita-dark-text font-sans antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+  
+<a href="C:\Kapita\kapita\MSMEs\Kapita MSME AI Financial  Operational Hub.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Icon SVGs for aesthetics -->
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="score-trend" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+        <svg id="risk-band" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg id="alt-data" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
+        <svg id="alert-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                <a href="C:\Kapita\kapita\404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150">Log In</a>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+                </a>
+            </nav>
+        </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-24 pb-20 pt-10">
+
+        <!-- 🔷 HERO SECTION — “AI-Driven Credit & Risk Insights” -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left: Text Content -->
+            <div class="space-y-8">
+                <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                    Access Fast, Fair, <span class="text-kapita-green">AI-Powered</span> Credit Scoring
+                </h1>
+                <p class="text-xl text-gray-600 font-light max-w-xl">
+                    Kapita analyzes financial data, transaction history, and alternative indicators to generate precise MSME credit scores and comprehensive risk profiles for fast decision-making.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-kapita-green text-white text-lg font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                        Request Credit Scoring Demo
+                    </button>
+                    </a>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-white text-kapita-blue text-lg font-semibold rounded-xl border-2 border-kapita-blue hover:bg-kapita-soft-gray transition duration-300">
+                        Learn More
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Dashboard Mockup Illustration -->
+            <div class="relative w-full aspect-video rounded-2xl bg-white shadow-premium border border-gray-200 p-6 flex justify-center items-center">
+                
+                <div class="text-center space-y-4">
+                    <div class="text-gray-500 font-semibold text-sm uppercase tracking-wider">MSME Credit Score (Kapita Index)</div>
+                    
+                    <!-- Credit Score Gauge Visual -->
+                    <div class="flex flex-col items-center relative">
+                        <div class="credit-gauge">
+                            <div class="credit-score-needle"></div>
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-kapita-navy rounded-full z-20 shadow-lg"></div>
+                        </div>
+                        <div class="text-7xl font-extrabold text-kapita-navy mt-[-40px] relative z-30">780</div>
+                    </div>
+
+                    <div class="flex justify-center items-center space-x-2">
+                        <span class="px-3 py-1 bg-kapita-green text-white text-sm font-bold rounded-full animate-pulse-green shadow-lg">
+                            LOW RISK
+                        </span>
+                        <span class="text-xs text-gray-500">(0-900 Scale)</span>
+                    </div>
+
+                    <!-- Approval Recommendation -->
+                    <div class="mt-4 pt-4 border-t border-dashed border-gray-200">
+                        <p class="text-md font-semibold text-kapita-dark-text">AI Recommendation:</p>
+                        <p class="text-2xl font-bold text-kapita-blue">$80,000 Credit Limit</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — CREDIT INSIGHTS CARDS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Key Creditworthiness Indicators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Card 1: Credit Score Overview -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-blue stroke-2"><use xlink:href="#score-trend"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Score Trend (YTD)</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-green mb-2">
+                        +12 <span class="text-xl text-gray-500">Points</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Behavioral trend since January.</p>
+                    <!-- Simple Trend Line Visual -->
+                    <div class="h-16 relative mt-4">
+                        <svg class="absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <polyline points="0,80 20,70 40,85 60,50 80,60 100,20" fill="none" stroke="var(--kapita-green)" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Card 2: Risk Band Distribution -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-yellow-500 stroke-2"><use xlink:href="#risk-band"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Current Risk Band</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-green mb-4">Low</div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-sm">
+                            <span>High Risk Probability:</span> <span class="font-semibold text-red-600">2%</span>
+                        </div>
+                        <div class="h-2 bg-kapita-soft-gray rounded-full">
+                            <div class="h-2 bg-red-600 rounded-full" style="width: 2%;"></div>
+                        </div>
+                        <div class="flex justify-between text-sm pt-2">
+                            <span>Medium Risk Probability:</span> <span class="font-semibold text-yellow-600">12%</span>
+                        </div>
+                        <div class="h-2 bg-kapita-soft-gray rounded-full">
+                            <div class="h-2 bg-yellow-600 rounded-full" style="width: 12%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Alternative Data Insights -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-navy stroke-2"><use xlink:href="#alt-data"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Alternative Data Insights</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">AI uses non-traditional inputs for deeper context.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center justify-between text-base">
+                            <span class="font-medium">Transaction Velocity:</span> 
+                            <span class="text-kapita-green font-semibold flex items-center">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1"><use xlink:href="#check-icon"></use></svg> Stable
+                            </span>
+                        </li>
+                        <li class="flex items-center justify-between text-base">
+                            <span class="font-medium">Supplier Payment Data:</span> 
+                            <span class="text-kapita-green font-semibold flex items-center">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1"><use xlink:href="#check-icon"></use></svg> Excellent
+                            </span>
+                        </li>
+                        <li class="flex items-center justify-between text-base">
+                            <span class="font-medium">Social Sentiment:</span> 
+                            <span class="text-kapita-green font-semibold flex items-center">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1"><use xlink:href="#check-icon"></use></svg> Positive
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — AI RECOMMENDATIONS & ALERTS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">AI-Driven Recommendations & Alerts</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Main Alerts List -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="bg-kapita-green/10 border-l-4 border-kapita-green p-4 rounded-lg shadow-sm flex items-start space-x-3">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-kapita-green mt-1 flex-shrink-0"><use xlink:href="#check-icon"></use></svg>
+                        <div>
+                            <p class="font-bold text-lg text-kapita-dark-text">Recommended Credit Limit: $80,000</p>
+                            <p class="text-sm text-gray-600">Based on optimized cash flow and collateral assessment. Valid for 90 days.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-kapita-blue/10 border-l-4 border-kapita-blue p-4 rounded-lg shadow-sm flex items-start space-x-3">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-kapita-blue mt-1 flex-shrink-0"><use xlink:href="#score-trend"></use></svg>
+                        <div>
+                            <p class="font-bold text-lg text-kapita-dark-text">Behavioral Trend Insight</p>
+                            <p class="text-sm text-gray-600">Payment behavior shows a 5% decreasing risk trend over the last 6 months. High confidence rating.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-500/10 border-l-4 border-red-600 p-4 rounded-lg shadow-sm flex items-start space-x-3">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 text-red-600 mt-1 flex-shrink-0"><use xlink:href="#alert-icon"></use></svg>
+                        <div>
+                            <p class="font-bold text-lg text-red-700">Late Payment Alert: 2 Pending</p>
+                            <p class="text-sm text-gray-600">Two invoices are overdue by 7 and 14 days. Immediate action is recommended to mitigate risk.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Trend Over Time Chart -->
+                <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4 text-kapita-dark-text">Risk Trend over Time</h3>
+                    <div class="h-60 p-4 bg-kapita-soft-gray rounded-lg relative">
+                        <p class="text-sm text-gray-500 text-center pt-8">Risk Score (High is bad)</p>
+                        <div class="absolute inset-0 p-4">
+                            <!-- Mock risk line graph (decreasing risk is good) -->
+                            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <polyline points="5,85 25,70 45,55 65,40 85,30 95,20" fill="none" stroke="#0057D4" stroke-width="2.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- 🔷 SECTION — CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20 mt-12">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white">
+                    Empower Your MSME with AI-Driven Credit Insights
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Onboarding / Demo
+                </button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <!-- Logo in Footer -->
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\solutions.html" class="hover:text-kapita-blue transition duration-150">Solutions</a>
+                    <a href="C:\Kapita\pricing.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                    <a href="C:\Kapita\kapita\aboutus.html" class="hover:text-kapita-blue transition duration-150">About</a>
+                </div>
+            </div>
+            <!-- Bottom Line -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

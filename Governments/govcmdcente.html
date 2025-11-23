@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Government AI Command Center</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+            --kapita-red: #D40057; /* Custom Red for Fraud/Risk */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .font-heading {
+            font-weight: 800;
+        }
+
+        /* Active Nav Tab Styling */
+        .active-tab {
+            border-bottom: 3px solid var(--kapita-green);
+            color: var(--kapita-navy);
+            font-weight: 600;
+        }
+
+        /* Card container styles */
+        .dashboard-card {
+            background-color: white;
+            border-radius: 1rem; /* rounded-xl */
+            box-shadow: 0 4px 10px rgba(10, 26, 47, 0.05);
+            padding: 1.5rem; /* p-6 */
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    
+
+<a href="C:\Kapita\index.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Left: Logo -->
+            <a href="#" class="text-2xl font-heading text-[--kapita-blue] flex-shrink-0">KAPITA</a>
+
+            <!-- Center: Tabs -->
+            <nav class="hidden lg:flex flex-grow justify-center space-x-2 xl:space-x-8 h-full">
+                <a href="C:\Kapita\kapita\Governments\govpaymentoversight.html" class="h-full flex items-center px-2 text-sm text-gray-500 hover:text-[--kapita-navy] transition duration-150">Payments Oversight</a>
+                <a href="C:\Kapita\kapita\Governments\govcredit&risk.html" class="h-full flex items-center px-2 text-sm text-gray-500 hover:text-[--kapita-navy] transition duration-150">Credit Scoring</a>
+                <a href="C:\Kapita\kapita\Governments\goveconomicforecasthub.html" class="h-full flex items-center px-2 text-sm text-gray-500 hover:text-[--kapita-navy] transition duration-150">National Forecasts</a>
+                <a href="C:\Kapita\kapita\Governments\Govagenciesmanager.html" class="h-full flex items-center px-2 text-sm text-gray-500 hover:text-[--kapita-navy] transition duration-150">Agencies</a>
+                <a href="C:\Kapita\kapita\Governments\reportscentre.html" class="h-full flex items-center px-2 text-sm text-gray-500 hover:text-[--kapita-navy] transition duration-150">Reports</a>
+            </nav>
+
+            <!-- Right: Profile Icon -->
+            <div class="flex items-center space-x-4 flex-shrink-0">
+                 <button class="text-gray-500 hover:text-[--kapita-blue] transition duration-150">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.37 21a1.95 1.95 0 0 0 3.26 0"/></svg>
+                </button>
+                <div class="w-10 h-10 bg-[--kapita-blue] rounded-full flex items-center justify-center text-white font-semibold cursor-pointer">
+                    GP
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="flex-grow py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Hero Title Section -->
+            <div class="mb-8 border-b pb-4 border-gray-300">
+                <h1 class="text-3xl md:text-4xl font-heading text-[--kapita-navy] mb-1">
+                    Government AI Control Panel
+                </h1>
+                <p class="text-lg text-gray-600 font-normal">
+                    Real-time visibility into national payments, procurement, risk, economic health, and public spending.
+                </p>
+            </div>
+
+            <!-- Dashboard Layout Grid -->
+            <div class="grid grid-cols-12 gap-8">
+                
+                <!-- 1. National Payments Overview (Full Width Chart + Stats) -->
+                <div class="col-span-12 dashboard-card border-l-4 border-[--kapita-blue]">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-6 flex justify-between items-center">
+                        National Payments Overview 
+                        <span class="text-sm font-normal text-gray-500">Last 30 Days</span>
+                    </h2>
+
+                    <!-- Chart Placeholder -->
+                    <div class="h-64 bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 relative">
+                        <!-- Mock Chart Legend -->
+                        <div class="absolute top-4 right-4 text-xs space-y-1">
+                            <div class="flex items-center"><span class="w-2 h-2 rounded-full bg-[--kapita-blue] mr-2"></span>Volume (M)</div>
+                            <div class="flex items-center"><span class="w-2 h-2 rounded-full bg-[--kapita-red] mr-2"></span>Suspicious Activity</div>
+                            <div class="flex items-center"><span class="w-2 h-2 rounded-full bg-[--kapita-green] mr-2"></span>Settlement Trend</div>
+                        </div>
+                        <div class="text-center text-gray-400 pt-16">
+                            [AI Graph Visualization: Volume (Blue), Suspicious Activity (Red Dots), Daily Settlement Trends (Green)]
+                        </div>
+                    </div>
+
+                    <!-- Stat Cards Row -->
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="p-4 bg-[--kapita-gray] rounded-lg text-center">
+                            <p class="text-3xl font-heading text-[--kapita-green]">98.2%</p>
+                            <p class="text-sm text-gray-600">clean transactions</p>
+                        </div>
+                        <div class="p-4 bg-[--kapita-gray] rounded-lg text-center">
+                            <p class="text-3xl font-heading text-[--kapita-red]">1.8%</p>
+                            <p class="text-sm text-gray-600">flagged anomalies</p>
+                        </div>
+                        <div class="p-4 bg-[--kapita-gray] rounded-lg text-center">
+                            <p class="text-3xl font-heading text-[--kapita-blue]">105M</p>
+                            <p class="text-sm text-gray-600">daily transactions monitored</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Procurement Integrity Heat Map (60% Width) -->
+                <div class="col-span-12 lg:col-span-7 dashboard-card border-l-4 border-[--kapita-green]">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-6">
+                        Procurement Integrity Heat Map
+                    </h2>
+                    
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <!-- Map Visualization Placeholder -->
+                        <div class="flex-grow h-72 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center relative">
+                             <!-- Mock Map with colored regions -->
+                            <div class="absolute inset-0 p-8 text-center">
+                                <p class="text-gray-400 font-bold mb-4">MAP OF AFRICA / KENYA</p>
+                                <div class="w-full h-full border-4 border-gray-300 rounded-full flex items-center justify-center relative">
+                                    <div class="w-1/3 h-1/3 bg-green-500/50 rounded-full absolute top-10 left-10"></div>
+                                    <div class="w-1/4 h-1/4 bg-red-500/50 rounded-full absolute bottom-5 right-5 animate-pulse"></div>
+                                    <div class="w-1/5 h-1/5 bg-yellow-500/50 rounded-full absolute top-5 right-5"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Side Text/Legend -->
+                        <div class="md:w-1/3 flex-shrink-0 space-y-4">
+                            <p class="text-2xl font-heading text-[--kapita-red]">
+                                4 high-risk procurement zones detected.
+                            </p>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-[--kapita-green] mr-3"></span>Low Risk (88 regions)</div>
+                                <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-yellow-500 mr-3"></span>Medium Risk (12 regions)</div>
+                                <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-red-500 mr-3"></span>High Fraud Alert (4 regions)</div>
+                            </div>
+                            <button class="w-full mt-4 text-sm px-4 py-2 bg-gray-100 text-[--kapita-navy] rounded-lg hover:bg-gray-200">
+                                Investigate All Alerts
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Government Credit & Risk Analytics (40% Width) -->
+                <div class="col-span-12 lg:col-span-5 dashboard-card border-l-4 border-[--kapita-blue]">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-6">
+                        Government Credit & Risk Analytics
+                    </h2>
+                    
+                    <!-- Pie Chart Placeholder -->
+                    <div class="h-48 flex items-center justify-center mb-6 relative">
+                        <!-- Mock Pie Chart -->
+                        <div class="w-36 h-36 rounded-full bg-[conic-gradient(var(--kapita-green)_0%_65%,_yellow_65%_85%,_var(--kapita-red)_85%_100%)]"></div>
+                        <div class="absolute text-center">
+                            <p class="text-4xl font-heading">MSME</p>
+                            <p class="text-sm text-gray-500">Risk Profile</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Legend -->
+                    <div class="grid grid-cols-3 gap-3 text-sm font-semibold text-center mb-6">
+                        <div class="p-2 border rounded-lg bg-green-50 text-green-700">Low (65%)</div>
+                        <div class="p-2 border rounded-lg bg-yellow-50 text-yellow-700">Medium (20%)</div>
+                        <div class="p-2 border rounded-lg bg-red-50 text-red-700">High (15%)</div>
+                    </div>
+
+                    <!-- AI Highlight -->
+                    <div class="text-center p-4 bg-[--kapita-blue]/10 rounded-lg">
+                        <p class="font-bold text-[--kapita-blue]">AI Highlight:</p>
+                        <p class="text-lg font-semibold text-[--kapita-navy]">23% improvement in risk visibility</p>
+                    </div>
+                </div>
+
+                <!-- 4. Economic Forecast Snapshot (Full Width) -->
+                <div class="col-span-12 dashboard-card border-l-4 border-[--kapita-green]">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-6">
+                        Economic Forecast Snapshot
+                    </h2>
+
+                    <!-- Chart Placeholder -->
+                    <div class="h-64 bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 relative">
+                        <!-- Mock Chart Legend -->
+                        <div class="absolute top-4 right-4 text-xs space-y-1">
+                            <div class="flex items-center"><span class="w-2 h-2 rounded-full bg-[--kapita-blue] mr-2"></span>GDP Projection</div>
+                            <div class="flex items-center"><span class="w-2 h-2 rounded-full bg-[--kapita-green] mr-2"></span>Inflation Prediction</div>
+                            <div class="flex items-center"><span class="w-2 h-2 rounded-full bg-gray-700 mr-2"></span>Import/Export Curve</div>
+                        </div>
+                        <div class="text-center text-gray-400 pt-16">
+                            [AI Prediction Chart: GDP, Inflation, Demand Curve lines]
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons (Full Width) -->
+                <div class="col-span-12 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <button class="flex-1 px-6 py-4 bg-[--kapita-blue] text-white font-bold text-lg rounded-xl shadow-md hover:bg-opacity-90 transition duration-300">
+                        Open Procurement Module
+                    </button>
+                    <button class="flex-1 px-6 py-4 bg-[--kapita-green] text-white font-bold text-lg rounded-xl shadow-md hover:bg-opacity-90 transition duration-300">
+                        View National Payment Logs
+                    </button>
+                    <button class="flex-1 px-6 py-4 bg-white border-2 border-[--kapita-blue] text-[--kapita-blue] font-bold text-lg rounded-xl shadow-md hover:bg-gray-100 transition duration-300">
+                        See Economic Forecasts
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[--kapita-navy] text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            &copy; 2025 KAPITA AI Infrastructure.
+        </div>
+    </footer>
+
+</body>
+</html>

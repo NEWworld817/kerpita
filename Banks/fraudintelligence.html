@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Bank Fraud Intelligence</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+            --kapita-white: #FFFFFF;
+            --kapita-red: #EF4444; 
+            --kapita-orange: #FF8844; /* Used for Medium Risk/Orange */
+            --kapita-yellow: #FBBF24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .font-heading {
+            font-weight: 800;
+        }
+        
+        .card {
+            background-color: var(--kapita-white);
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(10, 26, 47, 0.05);
+            padding: 1.5rem;
+        }
+        
+        /* Placeholder for Map/Chart Visuals */
+        .chart-placeholder {
+            min-height: 250px;
+            background-color: #F8FAFC;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #D1D5DB;
+            color: #9CA3AF;
+        }
+        
+        /* Specific styling for the Fraud Map placeholder */
+        .fraud-map {
+            height: 500px;
+            background-color: var(--kapita-navy); /* Dark background for map */
+            background-image: url('https://placehold.co/1200x500/0A1A2F/9CA3AF?text=Global+Region+Map+Placeholder');
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Styling for the risk dots on the map */
+        .risk-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            position: absolute;
+            animation: pulse 1.5s infinite;
+        }
+        .risk-dot-high { background-color: var(--kapita-red); box-shadow: 0 0 10px var(--kapita-red); }
+        .risk-dot-medium { background-color: var(--kapita-orange); box-shadow: 0 0 10px var(--kapita-orange); }
+        .risk-dot-clean { background-color: var(--kapita-green); box-shadow: 0 0 10px var(--kapita-green); }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="bg-[--kapita-gray]">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+ 
+<a href="C:\Kapita\kapita\Banks\automatedreconcilliation.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Header Navigation (Fraud AI tab active) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Left: Logo and Tabs -->
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-2xl font-heading text-[--kapita-blue]">KAPITA</a>
+                       </div>
+
+            <!-- Right: Bank Admin Profile -->
+            <div class="flex items-center space-x-3 cursor-pointer">
+                <span class="text-sm font-semibold text-[--kapita-navy] hidden sm:block">Fraud Analyst</span>
+                <div class="w-10 h-10 bg-[--kapita-red] rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
+                    FA
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="flex-grow py-8 md:py-10">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Hero Title Section -->
+            <div class="mb-8 border-b pb-4 border-gray-300">
+                <h1 class="text-3xl md:text-4xl font-heading text-[--kapita-navy] mb-1">
+                    AI Fraud Detection & Prevention
+                </h1>
+                <p class="text-lg text-gray-600 font-normal">
+                    Real-time anomaly detection, user behavior analytics, suspicious clusters, and transaction pattern scanning.
+                </p>
+            </div>
+            
+            <!-- 1. Fraud Heatmap (Global or Regional) -->
+            <div class="col-span-12 mb-8">
+                <div class="card p-0 overflow-hidden">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] p-4 pb-2">Geographic Threat Landscape (Real-Time)</h2>
+                    
+                    <div class="fraud-map rounded-b-xl p-6 flex flex-col justify-end text-white">
+                        
+                        <!-- Risk Dot Indicators (Mock Placement) -->
+                        <div class="risk-dot risk-dot-high" style="top: 15%; left: 80%;"></div>
+                        <div class="risk-dot risk-dot-high" style="top: 45%; left: 55%;"></div>
+                        <div class="risk-dot risk-dot-medium" style="top: 70%; left: 30%;"></div>
+                        <div class="risk-dot risk-dot-medium" style="top: 25%; left: 10%;"></div>
+                        <div class="risk-dot risk-dot-clean" style="top: 85%; left: 70%;"></div>
+
+                        <!-- Legend -->
+                        <div class="flex space-x-4 bg-gray-800 bg-opacity-70 p-3 rounded-lg self-start">
+                            <span class="flex items-center text-sm font-semibold"><div class="w-3 h-3 rounded-full bg-[--kapita-red] mr-1"></div> High Threat</span>
+                            <span class="flex items-center text-sm font-semibold"><div class="w-3 h-3 rounded-full bg-[--kapita-orange] mr-1"></div> Medium Threat</span>
+                            <span class="flex items-center text-sm font-semibold"><div class="w-3 h-3 rounded-full bg-[--kapita-green] mr-1"></div> Clean Zones</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Dashboard Grid Layout (Graph and Cases) -->
+            <div class="grid grid-cols-12 gap-6">
+                
+                <!-- 2. Suspicious Pattern Graph (Timeline chart) -->
+                <div class="col-span-12 lg:col-span-8">
+                    <div class="card h-full">
+                        <h2 class="text-xl font-heading text-[--kapita-navy] mb-4">Suspicious Pattern Timeline (Last 24 Hours)</h2>
+                        
+                        <!-- AI Alert Bar -->
+                        <div class="mb-4 space-y-2">
+                            <div class="p-3 bg-red-100 text-red-700 rounded-lg text-sm font-medium border border-red-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity mr-2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                **AI Alert:** Unusual cluster of transactions detected in Region X (11:45 UTC).
+                            </div>
+                            <div class="p-3 bg-yellow-100 text-yellow-700 rounded-lg text-sm font-medium border border-yellow-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell mr-2"><path d="M10 5a2 2 0 0 1 4 0v2a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h4z"/><path d="M18 10a8 8 0 1 0-16 0h16z"/></svg>
+                                High-risk account behavior detected: 17 triggers (4 users affected).
+                            </div>
+                        </div>
+
+                        <!-- Timeline Chart Placeholder -->
+                        <div class="chart-placeholder h-72 relative">
+                            <p class="text-sm font-medium">Timeline Chart: Anomaly Spikes</p>
+                            <!-- Mock Data Visualization (SVG for lines) -->
+                            <svg viewBox="0 0 100 50" class="w-full h-full absolute top-0 left-0 p-4" preserveAspectRatio="none">
+                                <!-- Red Line: Simultaneous withdrawals -->
+                                <polyline fill="none" stroke="var(--kapita-red)" stroke-width="2" points="5,45 25,30 45,35 65,10 85,15 95,40"/>
+                                <!-- Orange Line: Rapid loan cycling -->
+                                <polyline fill="none" stroke="var(--kapita-orange)" stroke-width="2" points="5,35 25,20 45,45 65,30 85,25 95,10"/>
+                                <!-- Blue Line: Geographic anomalies -->
+                                <polyline fill="none" stroke="var(--kapita-blue)" stroke-width="2" points="5,25 25,40 45,15 65,45 85,35 95,20"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Legend below chart -->
+                        <div class="flex flex-wrap gap-4 mt-4 text-xs font-medium">
+                            <span class="flex items-center"><div class="w-3 h-1.5 bg-[--kapita-red] mr-1 rounded"></div> Simultaneous Withdrawals</span>
+                            <span class="flex items-center"><div class="w-3 h-1.5 bg-[--kapita-orange] mr-1 rounded"></div> Rapid Loan Cycling</span>
+                            <span class="flex items-center"><div class="w-3 h-1.5 bg-[--kapita-blue] mr-1 rounded"></div> Geographic Anomalies</span>
+                            <span class="flex items-center"><div class="w-3 h-1.5 bg-gray-500 mr-1 rounded"></div> Spam Accounts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Fraud Case Cards (Actionable Alerts) -->
+                <div class="col-span-12 lg:col-span-4">
+                    <h2 class="text-xl font-heading text-[--kapita-navy] mb-4">Active Fraud Cases (12)</h2>
+                    <div class="space-y-4">
+                        
+                        <!-- High Priority Case 1 -->
+                        <div class="card p-5 border-l-4 border-[--kapita-red] flex flex-col">
+                            <p class="text-sm text-red-700 font-bold uppercase mb-1">Critical Priority / Active Attack</p>
+                            <p class="text-lg font-semibold text-[--kapita-navy]">Account <span class="text-[--kapita-red]">28492</span> flagged for rapid movement</p>
+                            <p class="text-xs text-gray-500 mt-1">Movement of 5M in 3 minutes across 4 jurisdictions.</p>
+                            <div class="flex space-x-3 mt-4">
+                                <button class="text-sm font-semibold text-white bg-[--kapita-red] px-3 py-1.5 rounded-lg hover:bg-opacity-90">
+                                    Block Account
+                                </button>
+                                <button class="text-sm font-semibold text-[--kapita-navy] bg-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-300">
+                                    Open Case
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Medium Priority Case 2 -->
+                        <div class="card p-5 border-l-4 border-[--kapita-orange] flex flex-col">
+                            <p class="text-sm text-[--kapita-orange] font-bold uppercase mb-1">Medium Priority / Pattern Change</p>
+                            <p class="text-lg font-semibold text-[--kapita-navy]">Sudden spike in cross-domain transactions</p>
+                            <p class="text-xs text-gray-500 mt-1">45 transactions linked to newly registered e-commerce sites.</p>
+                             <div class="flex space-x-3 mt-4">
+                                <button class="text-sm font-semibold text-white bg-[--kapita-blue] px-3 py-1.5 rounded-lg hover:bg-opacity-90">
+                                    Review Pattern
+                                </button>
+                                <button class="text-sm font-semibold text-[--kapita-navy] bg-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-300">
+                                    Open Case
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Low Priority Case 3 -->
+                        <div class="card p-5 border-l-4 border-[--kapita-yellow] flex flex-col">
+                            <p class="text-sm text-[--kapita-yellow] font-bold uppercase mb-1">Low Priority / Behavioral Change</p>
+                            <p class="text-lg font-semibold text-[--kapita-navy]">7 Accounts logged in from new device types</p>
+                            <p class="text-xs text-gray-500 mt-1">Requires re-verification of device fingerprinting rules.</p>
+                             <div class="flex space-x-3 mt-4">
+                                <button class="text-sm font-semibold text-white bg-[--kapita-blue] px-3 py-1.5 rounded-lg hover:bg-opacity-90">
+                                    Force 2FA
+                                </button>
+                                <button class="text-sm font-semibold text-[--kapita-navy] bg-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-300">
+                                    Open Case
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[--kapita-navy] text-white py-6 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            &copy; 2025 KAPITA AI Infrastructure. Fraud Intelligence Module v3.1.
+        </div>
+    </footer>
+
+</body>
+</html>

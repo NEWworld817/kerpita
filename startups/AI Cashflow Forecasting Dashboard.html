@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Cashflow Forecasting Hub</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Kapita Brand Colors Definitions */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+            --kapita-white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            min-height: 100vh;
+        }
+
+        /* Base Card Style (Clean, Rounded, Enterprise Look) */
+        .dashboard-card {
+            background-color: var(--kapita-white);
+            border: 1px solid rgba(10, 26, 47, 0.08); 
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        /* Runway Gauge Styling */
+        .runway-gauge-container {
+            width: 150px;
+            height: 150px;
+            position: relative;
+        }
+        .runway-gauge {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* 74% fill using conic gradient for mockup */
+            background: radial-gradient(circle closest-side, var(--kapita-navy) 88%, transparent 89% 100%),
+                        conic-gradient(var(--kapita-green) 0%, var(--kapita-green) 74%, rgba(255, 255, 255, 0.2) 74%, rgba(255, 255, 255, 0.2) 100%);
+            box-shadow: 0 0 25px rgba(0, 195, 137, 0.4);
+            transition: all 0.5s;
+        }
+        .runway-gauge-inner {
+            z-index: 10;
+            color: var(--kapita-white);
+            text-align: center;
+        }
+
+        /* Chart Mockup with prediction band effect */
+        .chart-mockup {
+            height: 300px;
+            /* Light green prediction bands area */
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(0, 195, 137, 0.05),
+                rgba(0, 195, 137, 0.05) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        /* Custom styling for scenario buttons */
+        .scenario-button {
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            border: 1px solid rgba(10, 26, 47, 0.1);
+            transition: all 0.2s;
+        }
+        .scenario-button:hover {
+            background-color: var(--kapita-blue);
+            color: var(--kapita-white);
+            border-color: var(--kapita-blue);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    <a href="C:\Kapita\kapita\startups\startupshome.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+    <div class="min-h-screen flex flex-col">
+
+        <!-- HEADER (Top Nav) -->
+        <header class="bg-white shadow-md h-16 flex items-center justify-between px-6 sticky top-0 z-20">
+            <!-- Left: Logo -->
+            <div class="text-2xl font-black text-[--kapita-navy]">
+                <span class="text-[--kapita-blue]">KA</span>PITA
+            </div>
+
+           
+            
+            <!-- Right: Notifications & User -->
+            <div class="flex items-center space-x-4">
+                <div class="relative cursor-pointer p-1 rounded-full hover:bg-[--kapita-gray] transition">
+                    <!-- Notifications Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell text-gray-700"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </div>
+                <div class="flex items-center space-x-2 cursor-pointer">
+                    <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">AK</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Wrapper -->
+        <main class="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full">
+
+            <!-- HERO SECTION -->
+            <div class="pb-6">
+                <h1 class="text-3xl font-extrabold text-[--kapita-navy]">Predict Your Cashflow. Avoid Surprises. Grow Confidently.</h1>
+                <p class="text-gray-600 mt-1">Kapita AI analyzes revenue, expenses, seasonality, and customer behavior to predict your financial future.</p>
+            </div>
+
+            <!-- MAIN LAYOUT GRID -->
+            <div class="space-y-8">
+                
+                <!-- SECTION 1 & 5 — RUNWAY & LIQUIDITY HEALTH -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+                    <!-- SECTION 1 — RUNWAY & SURVIVAL INDICATOR (Main Card) -->
+                    <div class="dashboard-card p-6 lg:col-span-1 flex flex-col items-center text-center bg-[--kapita-navy] text-white">
+                        <h3 class="text-lg font-bold text-gray-300 mb-4">Survival Indicator</h3>
+                        
+                        <div class="runway-gauge-container">
+                            <div class="runway-gauge">
+                                <div class="runway-gauge-inner">
+                                    <p class="text-xs font-medium uppercase text-gray-400">Runway</p>
+                                    <p class="text-xl font-extrabold text-[--kapita-green]">7.4</p>
+                                    <p class="text-xs font-medium uppercase text-gray-400">Months</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 w-full space-y-2 text-left text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Burn Rate:</span>
+                                <span class="font-semibold text-red-400">($11,400 / month)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Avg Revenue:</span>
+                                <span class="font-semibold text-[--kapita-green]">$6,800 / month</span>
+                            </div>
+                            <div class="flex justify-between border-t border-gray-700 pt-2 mt-2">
+                                <span class="text-gray-300 font-bold">Net Loss:</span>
+                                <span class="font-bold text-red-500">($4,600 / month)</span>
+                            </div>
+                            <div class="text-center pt-2">
+                                <span class="text-xs font-semibold text-gray-300">Trend: Improving (+3.2%)</span>
+                            </div>
+                        </div>
+
+                        <!-- Side Badge / AI Alert -->
+                        <div class="mt-4 p-2 w-full bg-gray-800 rounded-lg border border-[--kapita-green] text-xs text-center text-gray-300">
+                            <span class="font-bold text-[--kapita-green]">AI Alert:</span> Higher October revenue increased runway.
+                        </div>
+                    </div>
+
+                    <!-- SECTION 5 — LIQUIDITY HEALTH INDICATOR (Side Panel) -->
+                    <div class="dashboard-card p-6 lg:col-span-3 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-extrabold text-[--kapita-navy] mb-4">Liquidity Health Indicator</h3>
+                            
+                            <!-- Segmented Bar Mockup -->
+                            <div class="mb-4">
+                                <div class="h-6 rounded-full overflow-hidden flex shadow-inner">
+                                    <div class="bg-red-500 w-15"></div> <!-- Mock Red (15%) -->
+                                    <div class="bg-yellow-400 w-5"></div> <!-- Mock Amber (5%) -->
+                                    <div class="bg-[--kapita-green] flex-grow"></div> <!-- Mock Green (80%) -->
+                                </div>
+                                <div class="flex justify-between text-xs mt-1 text-gray-500">
+                                    <span>Critical</span>
+                                    <span>Caution</span>
+                                    <span class="text-right font-bold text-[--kapita-green]">Stable (Current)</span>
+                                </div>
+                            </div>
+
+                            <p class="text-3xl font-extrabold text-[--kapita-navy] mb-4">Score: <span class="text-[--kapita-blue]">82/100</span></p>
+
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center text-[--kapita-green] font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                    Healthy cash reserves.
+                                </div>
+                                <div class="flex items-center text-[--kapita-green] font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                    No overdue invoices.
+                                </div>
+                                <div class="flex items-center text-gray-600 font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up mr-2 text-[--kapita-blue]"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+                                    Operating margin improving.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- SECTION 2 — AI CASHFLOW GRAPH (12-Month Forecast) -->
+                <div class="dashboard-card p-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <h3 class="text-xl font-extrabold text-[--kapita-navy] mb-3 sm:mb-0">AI Cashflow Forecast (Next 12 Months)</h3>
+                        <div class="flex flex-wrap space-x-2 text-xs">
+                            <button class="px-3 py-1 bg-[--kapita-gray] text-gray-700 rounded-lg hover:bg-white transition">Last 30 days</button>
+                            <button class="px-3 py-1 bg-[--kapita-gray] text-gray-700 rounded-lg hover:bg-white transition">3 months</button>
+                            <button class="px-3 py-1 bg-[--kapita-gray] text-gray-700 rounded-lg hover:bg-white transition">6 months</button>
+                            <button class="px-3 py-1 bg-[--kapita-blue] text-white rounded-lg font-semibold transition hover:bg-opacity-90">12 months</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-mockup relative flex flex-col justify-end">
+                        <!-- Legend -->
+                        <div class="absolute top-4 left-4 flex space-x-4 text-xs font-semibold">
+                            <div class="flex items-center"><span class="w-3 h-1 bg-[--kapita-blue] mr-1"></span> Historical Cashflow</div>
+                            <div class="flex items-center"><span class="w-3 h-1 border-t-2 border-dotted border-[--kapita-green] mr-1"></span> Projected Forecast</div>
+                        </div>
+
+                        <!-- Mock SVG for Cashflow Lines -->
+                        <svg viewBox="0 0 100 100" class="w-full h-full absolute top-0 left-0" preserveAspectRatio="none">
+                            <!-- Solid Blue Line (Historical) -->
+                            <path fill="none" stroke="var(--kapita-blue)" stroke-width="1.5" stroke-linecap="round"
+                                d="M0 60 C 10 70, 20 55, 30 65 S 40 50, 50 45" />
+
+                            <!-- Dotted Emerald Line (Forecast) -->
+                            <path fill="none" stroke="var(--kapita-green)" stroke-dasharray="3,3" stroke-width="1.5" stroke-linecap="round"
+                                d="M50 45 C 60 35, 70 20, 80 40 S 90 25, 100 15" />
+                        </svg>
+
+                        <!-- Annotations (Using absolute positioning for placement on mockup) -->
+                        <div class="absolute top-1/4 left-[75%] bg-yellow-100 border border-yellow-300 p-2 rounded-lg text-xs shadow-md">
+                            <span class="font-bold">Seasonal spike predicted in December (+23%)</span>
+                        </div>
+                        <div class="absolute bottom-1/4 left-[25%] bg-red-100 border border-red-300 p-2 rounded-lg text-xs shadow-md">
+                            <span class="font-bold">Expense dip projected in March due to contract end.</span>
+                        </div>
+
+                        <!-- X-Axis Labels (Months) -->
+                        <div class="flex justify-between w-full text-xs text-gray-500 mt-2">
+                            <span>Month -6</span>
+                            <span>Month -3</span>
+                            <span class="font-bold text-[--kapita-navy]">Current</span>
+                            <span>Month +3</span>
+                            <span>Month +6</span>
+                            <span>Month +9</span>
+                            <span>Month +12</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3 & 4 — INFLOW/OUTFLOW & SCENARIO SIMULATOR -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- SECTION 3 — INFLOW VS OUTFLOW SPLIT -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Inflows Panel -->
+                        <div class="dashboard-card p-6">
+                            <h3 class="text-xl font-extrabold text-[--kapita-navy] mb-4 text-[--kapita-green]">Monthly Inflows</h3>
+                            <div class="space-y-4">
+                                <!-- M-Pesa -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>M-Pesa Revenue</span><span class="text-[--kapita-green]">$3,100</span></div>
+                                    <div class="h-2 bg-[--kapita-gray] rounded-full mt-1"><div class="h-2 rounded-full bg-[--kapita-green]" style="width: 45%;"></div></div>
+                                </div>
+                                <!-- Subscriptions -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>Subscription Payments</span><span class="text-[--kapita-green]">$2,400</span></div>
+                                    <div class="h-2 bg-[--kapita-gray] rounded-full mt-1"><div class="h-2 rounded-full bg-[--kapita-green]" style="width: 35%;"></div></div>
+                                </div>
+                                <!-- B2B Invoices -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>B2B Invoices</span><span class="text-[--kapita-green]">$1,800</span></div>
+                                    <div class="h-2 bg-[--kapita-gray] rounded-full mt-1"><div class="h-2 rounded-full bg-[--kapita-green]" style="width: 25%;"></div></div>
+                                </div>
+                                <!-- Grants -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>Grants/Funding</span><span class="text-gray-500">$0</span></div>
+                                    <div class="h-2 bg-[--kapita-gray] rounded-full mt-1"><div class="h-2 rounded-full bg-gray-400" style="width: 0%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Outflows Panel -->
+                        <div class="dashboard-card p-6">
+                            <h3 class="text-xl font-extrabold text-[--kapita-navy] mb-4 text-red-500">Monthly Outflows</h3>
+                            <div class="space-y-4">
+                                <!-- Payroll -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>Payroll</span><span class="text-red-500">($5,200)</span></div>
+                                    <div class="h-2 bg-red-100 rounded-full mt-1"><div class="h-2 rounded-full bg-red-500" style="width: 55%;"></div></div>
+                                </div>
+                                <!-- Marketing -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>Marketing</span><span class="text-red-500">($2,800)</span></div>
+                                    <div class="h-2 bg-red-100 rounded-full mt-1"><div class="h-2 rounded-full bg-red-500" style="width: 30%;"></div></div>
+                                </div>
+                                <!-- Cloud Infra -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>Cloud Infrastructure</span><span class="text-red-500">($1,500)</span></div>
+                                    <div class="h-2 bg-red-100 rounded-full mt-1"><div class="h-2 rounded-full bg-red-500" style="width: 15%;"></div></div>
+                                </div>
+                                <!-- Vendor Payments -->
+                                <div class="text-sm">
+                                    <div class="flex justify-between font-semibold"><span>Vendor Payments</span><span class="text-red-500">($1,000)</span></div>
+                                    <div class="h-2 bg-red-100 rounded-full mt-1"><div class="h-2 rounded-full bg-red-500" style="width: 10%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4 — AI SCENARIO SIMULATOR -->
+                    <div class="dashboard-card p-6 bg-[--kapita-navy] text-white">
+                        <h3 class="text-xl font-extrabold text-[--kapita-blue] mb-4">AI Scenario Simulator</h3>
+                        
+                        <p class="text-lg font-semibold text-gray-300 mb-4">What happens if you hire 3 employees?</p>
+                        <p class="text-sm text-gray-400 mb-6">Test key business decisions against your projected cashflow.</p>
+
+                        <div class="space-y-3">
+                            <button class="w-full scenario-button px-4 py-2 rounded-lg text-sm font-semibold text-left">
+                                +Increase Payroll 20%
+                            </button>
+                            <button class="w-full scenario-button px-4 py-2 rounded-lg text-sm font-semibold text-left bg-[--kapita-blue] text-white border-none shadow-lg">
+                                +Increase Marketing 10% (Selected)
+                            </button>
+                            <button class="w-full scenario-button px-4 py-2 rounded-lg text-sm font-semibold text-left">
+                                +Raise Prices 5%
+                            </button>
+                            <button class="w-full scenario-button px-4 py-2 rounded-lg text-sm font-semibold text-left">
+                                +Add New Revenue Stream
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Preview Panel -->
+                        <div class="mt-6 p-4 bg-gray-800 rounded-lg border-l-4 border-yellow-500">
+                            <p class="text-yellow-400 font-bold mb-2">Simulated Impact:</p>
+                            <p class="text-lg font-extrabold text-white">
+                                This action reduces runway by <span class="text-red-400">1.2 months</span>.
+                            </p>
+                            <p class="text-xs text-gray-400 mt-2">New Burn Rate: $12,540 / month (Payroll +$100, Marketing +$1,140)</p>
+                        </div>
+                        
+                        <!-- Mini-Graph Mockup (Reduced Runway) -->
+                        <div class="h-24 mt-4 bg-gray-800 rounded-lg p-2 relative">
+                            <p class="text-xs text-gray-500">Scenario Forecast</p>
+                            <svg viewBox="0 0 100 100" class="w-full h-full absolute top-0 left-0" preserveAspectRatio="none">
+                                <path fill="none" stroke="var(--kapita-green)" stroke-dasharray="3,3" stroke-width="1.5" stroke-linecap="round"
+                                    d="M50 45 C 60 55, 70 40, 80 60 S 90 70, 100 80" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+            
+        <!-- FOOTER -->
+        <footer class="bg-[--kapita-navy] text-white py-6 mt-10">
+                     <p class="text-center text-xs text-gray-600 mt-4">© 2025 Kapita AI Infrastructure for Startups.</p>
+        </footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Payments Hub</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter for a modern look --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Kapita Brand Colors Definition */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+            --kapita-white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+            color: var(--kapita-navy);
+            min-height: 100vh;
+        }
+
+        /* Base Card Styling for a professional, futuristic look */
+        .dashboard-card {
+            background-color: var(--kapita-white);
+            border: 1px solid rgba(10, 26, 47, 0.05); /* Soft border */
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); /* Subtle shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* KPI Cards with glowing AI style */
+        .kpi-card {
+            background-color: var(--kapita-navy); /* Dark background for emphasis */
+            color: var(--kapita-white);
+            border: 1px solid rgba(0, 87, 212, 0.3); /* Blue border for AI theme */
+            box-shadow: 0 0 25px rgba(0, 87, 212, 0.15); /* Soft blue glow */
+        }
+        .kpi-card:hover {
+            transform: translateY(-3px); /* Slight lift on hover */
+            box-shadow: 0 8px 30px rgba(0, 87, 212, 0.25); /* Enhanced glow */
+        }
+
+        /* Fraud Alert Panel with a distinct AI glow */
+        .fraud-panel {
+            border: 2px solid var(--kapita-green); /* Emerald border for AI feature */
+            box-shadow: 0 0 20px rgba(0, 195, 137, 0.3); /* Emerald glow */
+        }
+        
+        /* Chart Mockup with futuristic gradient */
+        .chart-mockup {
+            height: 280px;
+            background: linear-gradient(to top, rgba(0, 87, 212, 0.08) 0%, rgba(0, 195, 137, 0.08) 100%); /* Blue to green gradient */
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        /* Animation for Kapita logo */
+        @keyframes pulse-logo {
+            0% { transform: scale(1); opacity: 1; text-shadow: 0 0 5px rgba(0, 87, 212, 0.5); }
+            50% { transform: scale(1.02); opacity: 0.95; text-shadow: 0 0 10px rgba(0, 87, 212, 0.8); }
+            100% { transform: scale(1); opacity: 1; text-shadow: 0 0 5px rgba(0, 87, 212, 0.5); }
+        }
+        .kapita-logo {
+            animation: pulse-logo 3s infinite ease-in-out;
+        }
+
+        /* Small AI icon for risk flag */
+        .ai-risk-icon {
+            color: var(--kapita-blue);
+            animation: pulse-ai 2s infinite ease-in-out;
+        }
+        @keyframes pulse-ai {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    
+
+<a href="C:\Kapita\kapita\startups\startupshome.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+    <div class="min-h-screen flex flex-col">
+
+        <!-- HEADER (Top Navigation) --><header class="bg-white shadow-md h-16 flex items-center justify-between px-6 sticky top-0 z-20">
+            <!-- Left: Kapita Logo --><div class="text-2xl font-black kapita-logo text-[--kapita-navy]">
+                <span class="text-[--kapita-blue]">KA</span>PITA
+            </div>
+
+            <!-- Center Menu --><nav class="hidden md:flex space-x-8 text-sm font-semibold">
+       
+            <!-- Right: Notifications & User Profile --><div class="flex items-center space-x-4">
+                <div class="relative cursor-pointer p-1 rounded-full hover:bg-[--kapita-gray] transition">
+                    <!-- Notifications Bell Icon --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell text-gray-700"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <!-- Green Alert Dot --><span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-[--kapita-green] ring-2 ring-white"></span>
+                </div>
+                <div class="flex items-center space-x-2 cursor-pointer">
+                    <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">AK</div>
+                    <span class="hidden sm:inline text-sm font-medium text-[--kapita-navy]">TechNova Inc.</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area --><main class="flex-grow p-4 md:p-8">
+
+            <!-- PAGE HERO SECTION --><div class="pb-6">
+                <h1 class="text-3xl font-extrabold text-[--kapita-navy]">Unified Payments Hub</h1>
+                <p class="text-gray-600 mt-1">AI-driven reconciliation, fraud detection, and real-time settlement across M-Pesa, Bank, Cards, and Wallets.</p>
+            </div>
+
+            <!-- MAIN LAYOUT GRID --><div class="space-y-8">
+                
+                <!-- SECTION 1 — OVERVIEW KPI CARDS --><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    <!-- Card 1: Total Payments Today --><div class="kpi-card dashboard-card p-5">
+                        <p class="text-sm font-medium text-gray-400 mb-2 uppercase tracking-wider">Total Payments Today</p>
+                        <h2 class="text-4xl font-extrabold tracking-tight text-[--kapita-blue]">$12,840</h2>
+                        <div class="mt-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--kapita-green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up mr-1"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+                            <span class="text-sm font-semibold text-[--kapita-green]">+8.2% vs yesterday</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: M-Pesa Volume --><div class="kpi-card dashboard-card p-5">
+                        <p class="text-sm font-medium text-gray-400 mb-2 uppercase tracking-wider">M-Pesa Volume (Txns)</p>
+                        <h2 class="text-4xl font-extrabold tracking-tight text-[--kapita-green]">562</h2>
+                        <div class="mt-3 text-sm font-semibold text-gray-300">Real-time synced</div>
+                    </div>
+
+                    <!-- Card 3: Card Payments --><div class="kpi-card dashboard-card p-5">
+                        <p class="text-sm font-medium text-gray-400 mb-2 uppercase tracking-wider">Card Payments (Value)</p>
+                        <h2 class="text-4xl font-extrabold tracking-tight text-[--kapita-blue]">$4,290</h2>
+                        <div class="mt-3 text-sm font-semibold text-[--kapita-green]">Success Rate: 96%</div>
+                    </div>
+                    
+                    <!-- Card 4: AI-Reconciled Transactions --><div class="kpi-card dashboard-card p-5">
+                        <p class="text-sm font-medium text-gray-400 mb-2 uppercase tracking-wider">AI-Reconciled Transactions</p>
+                        <h2 class="text-4xl font-extrabold tracking-tight text-[--kapita-green]">98.7%</h2>
+                        <div class="mt-3 text-sm font-semibold text-red-400">Only 3 unmatched items</div>
+                    </div>
+
+                </div>
+
+                <!-- SECTION 2 — REAL-TIME PAYMENTS GRAPH --><div class="dashboard-card p-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <h3 class="text-lg font-bold text-[--kapita-navy] mb-3 sm:mb-0">Real-Time Payments Activity (Last 24 Hours)</h3>
+                        <div class="flex flex-wrap space-x-2 text-xs">
+                            <button class="px-3 py-1 bg-[--kapita-blue] text-white rounded-full font-semibold transition hover:bg-opacity-90">All channels</button>
+                            <button class="px-3 py-1 bg-[--kapita-gray] text-gray-700 rounded-full hover:bg-white transition">M-Pesa</button>
+                            <button class="px-3 py-1 bg-[--kapita-gray] text-gray-700 rounded-full hover:bg-white transition">Bank Transfers</button>
+                            <button class="px-3 py-1 bg-[--kapita-gray] text-gray-700 rounded-full hover:bg-white transition">Cards</button>
+                            <button class="px-3 py-1 bg-[--kapita-gray] text-gray-700 rounded-full hover:bg-white transition">Wallets</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-mockup relative">
+                        <!-- SVG for the smooth line graph --><svg viewBox="0 0 100 100" class="w-full h-full" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:var(--kapita-blue);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:var(--kapita-green);stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path fill="none" stroke="url(#lineGradient)" stroke-width="1.5" 
+                                d="M0 80 C 10 50, 20 70, 30 40 S 40 50, 50 30 C 60 10, 70 30, 80 10 S 90 20, 100 5" />
+                            
+                            <!-- AI Anomaly detection flags (small red dots) --><circle cx="25" cy="55" r="1.5" fill="#EF4444" title="AI Anomaly: Low Volume" />
+                            <circle cx="70" cy="30" r="1.5" fill="#EF4444" title="AI Anomaly: Unusual Peak" />
+                            
+                            <!-- Peaks markers --><circle cx="30" cy="40" r="1.5" fill="var(--kapita-blue)" title="Peak at 10:00 AM" />
+                            <circle cx="80" cy="10" r="1.5" fill="var(--kapita-blue)" title="Peak at 4:00 PM" />
+
+                            <!-- X-Axis Labels (Timeline) --><text x="0" y="95" font-size="3" fill="gray">00:00</text>
+                            <text x="30" y="95" font-size="3" fill="gray" text-anchor="middle">10:00 AM</text>
+                            <text x="50" y="95" font-size="3" fill="gray" text-anchor="middle">12:00 PM</text>
+                            <text x="80" y="95" font-size="3" fill="gray" text-anchor="middle">4:00 PM</text>
+                            <text x="98" y="95" font-size="3" fill="gray" text-anchor="end">23:59</text>
+                        </svg>
+                    </div>
+
+                    <div class="mt-4 flex justify-between items-center text-sm">
+                        <span class="text-gray-500">Transaction throughput per minute.</span>
+                        <span class="bg-[--kapita-navy] text-white px-3 py-1 rounded-full text-xs font-semibold">Powered by Kapita AI Pattern Engine</span>
+                    </div>
+                </div>
+
+                <!-- SECTION 3 & 4 (PAYMENT CHANNELS & FRAUD) --><div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- SECTION 3: PAYMENT CHANNELS PANEL (2/3 width) --><div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- M-Pesa Dashboard Tile --><div class="dashboard-card p-5 border-l-4 border-[--kapita-green] flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <h4 class="font-bold text-[--kapita-navy] text-lg">M-Pesa Channels</h4>
+                                <p class="text-sm text-gray-600 mt-2">Success Rate: <span class="font-bold text-[--kapita-green]">98%</span></p>
+                                <p class="text-sm text-gray-600">Settlement: 4.2 seconds</p>
+                            </div>
+                            <span class="text-[--kapita-green] bg-[--kapita-green] bg-opacity-10 px-3 py-1 rounded-full text-xs font-semibold">Real-time Status: Active</span>
+                        </div>
+
+                        <!-- Bank Transfers Tile --><div class="dashboard-card p-5 border-l-4 border-[--kapita-blue] flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <h4 class="font-bold text-[--kapita-navy] text-lg">Bank Transfers</h4>
+                                <p class="text-sm text-gray-600 mt-2">Incoming: <span class="font-bold text-[--kapita-blue]">3 pending</span></p>
+                                <p class="text-sm text-gray-600">Outgoing: Real-time window</p>
+                            </div>
+                            <span class="text-[--kapita-blue] bg-[--kapita-blue] bg-opacity-10 px-3 py-1 rounded-full text-xs font-semibold">Settlement: T+0</span>
+                        </div>
+
+                        <!-- Card Payments Tile --><div class="dashboard-card p-5 border-l-4 border-yellow-500 flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <h4 class="font-bold text-[--kapita-navy] text-lg">Card Payments</h4>
+                                <p class="text-sm text-gray-600 mt-2">Visa/Mastercard Volume: <span class="font-bold">$4.2K</span></p>
+                                <p class="text-sm text-red-500 font-semibold">Disputes alert: 2 pending reviews</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card text-gray-500"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                        </div>
+
+                        <!-- Mobile Wallets Tile --><div class="dashboard-card p-5 border-l-4 border-purple-500 flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <h4 class="font-bold text-[--kapita-navy] text-lg">Mobile Wallets</h4>
+                                <p class="text-sm text-gray-600 mt-2">Channels: Airtel Money, T-Kash, PayPal</p>
+                                <p class="text-sm text-gray-600">Sync Status: Fully operational</p>
+                            </div>
+                            <span class="text-purple-600 bg-purple-100 px-3 py-1 rounded-full text-xs font-semibold">Synced</span>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4 — FRAUD & RISK PANEL (1/3 width) --><div class="lg:col-span-1 dashboard-card fraud-panel p-6 bg-[--kapita-navy] text-white space-y-4">
+                        <h3 class="text-xl font-extrabold text-[--kapita-green] flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-alert mr-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                            AI Risk Monitoring
+                        </h3>
+
+                        <div class="space-y-3 text-sm">
+                            <!-- Alert 1 --><div class="p-3 bg-red-800 bg-opacity-30 rounded-lg border-l-4 border-red-500">
+                                <p class="font-semibold text-red-300">Suspicious Pattern Detected:</p>
+                                <p>7 rapid-fire M-Pesa payments from same phone number.</p>
+                            </div>
+                            <!-- Alert 2 --><div class="p-3 bg-red-800 bg-opacity-30 rounded-lg border-l-4 border-orange-500">
+                                <p class="font-semibold text-orange-300">High-risk card:</p>
+                                <p>3 declined attempts → Flagged.</p>
+                            </div>
+                            <!-- Alert 3 --><div class="p-3 bg-yellow-800 bg-opacity-30 rounded-lg border-l-4 border-yellow-500">
+                                <p class="font-semibold text-yellow-300">Unusual login location:</p>
+                                <p>Login from Kampala at 02:13 AM.</p>
+                            </div>
+                        </div>
+
+                        <!-- Heatmap & Buttons --><div class="pt-4 space-y-3">
+                            <div class="text-center">
+                                <h4 class="font-bold text-gray-300 mb-1">Fraud Hotspots (24h)</h4>
+                                <div class="h-4 w-full rounded-full" style="background: linear-gradient(to right, var(--kapita-green) 0%, #FBBF24 50%, #EF4444 100%);"></div>
+                            </div>
+                            <button class="w-full py-2 text-sm font-bold text-white bg-[--kapita-blue] rounded-lg hover:bg-opacity-80 transition">
+                                Open Fraud Center
+                            </button>
+                            <button class="w-full py-2 text-sm font-semibold text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-800 transition">
+                                View Impact Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 5 — TRANSACTION TABLE (Detailed List) --><div class="dashboard-card p-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 space-y-3 sm:space-y-0">
+                        <h3 class="text-xl font-extrabold text-[--kapita-navy]">Transaction Details</h3>
+                        <input type="text" placeholder="Search payments by Ref ID, Customer, or Channel..." class="border border-gray-300 rounded-lg px-4 py-2 text-sm w-full sm:w-80 focus:ring-1 focus:ring-[--kapita-blue] focus:border-[--kapita-blue]" />
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-[--kapita-gray]">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Channel</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Risk Flag</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference ID</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-100 text-sm">
+                                <!-- Row 1: M-Pesa Success/Low Risk --><tr>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-800 font-medium">10:21 AM</td>
+                                    <td class="px-6 py-3 whitespace-nowrap"><span class="bg-[--kapita-green] bg-opacity-10 text-[--kapita-green] px-3 py-1 rounded-full font-semibold text-xs">M-Pesa</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap">John A.</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-right font-bold text-[--kapita-navy]">$14.00</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center"><span class="text-[--kapita-green] font-bold">Success</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center">
+                                        <div class="flex items-center justify-center space-x-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle ai-risk-icon text-[--kapita-green]"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                            <span class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-xs">Low Risk</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-500">REF-29841</td>
+                                </tr>
+                                <!-- Row 2: Card Success/Low Risk --><tr>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-800 font-medium">10:19 AM</td>
+                                    <td class="px-6 py-3 whitespace-nowrap"><span class="bg-blue-100 text-[--kapita-blue] px-3 py-1 rounded-full font-semibold text-xs">Card</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap">Oasis Retail</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-right font-bold text-[--kapita-navy]">$129.00</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center"><span class="text-[--kapita-green] font-bold">Success</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center">
+                                        <div class="flex items-center justify-center space-x-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle ai-risk-icon text-[--kapita-green]"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                            <span class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-xs">Low Risk</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-500">REF-29835</td>
+                                </tr>
+                                <!-- Row 3: M-Pesa Review/Medium Risk (Highlighted) --><tr class="bg-yellow-50 hover:bg-yellow-100 transition">
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-800 font-medium">10:14 AM</td>
+                                    <td class="px-6 py-3 whitespace-nowrap"><span class="bg-[--kapita-green] bg-opacity-10 text-[--kapita-green] px-3 py-1 rounded-full font-semibold text-xs">M-Pesa</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap">Unknown</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-right font-bold text-[--kapita-navy]">$72.00</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center"><span class="text-orange-600 font-bold">Review</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center">
+                                        <div class="flex items-center justify-center space-x-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle ai-risk-icon text-orange-500"><path d="m21.73 18-9-15.59L2.27 18z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                                            <span class="bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-bold text-xs">Medium</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-500">REF-29822</td>
+                                </tr>
+                                <!-- Row 4: Bank Success/Low Risk --><tr>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-800 font-medium">10:01 AM</td>
+                                    <td class="px-6 py-3 whitespace-nowrap"><span class="bg-[--kapita-blue] bg-opacity-10 text-[--kapita-blue] px-3 py-1 rounded-full font-semibold text-xs">Bank</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap">Nova Electric</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-right font-bold text-[--kapita-navy]">$489.00</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center"><span class="text-[--kapita-green] font-bold">Success</span></td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-center">
+                                        <div class="flex items-center justify-center space-x-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle ai-risk-icon text-[--kapita-green]"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                            <span class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-xs">Low Risk</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-500">REF-29789</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination --><div class="mt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600">
+                        <span>Showing 1 to 10 of 2,450 transactions</span>
+                        <div class="space-x-1 mt-3 sm:mt-0">
+                            <button class="p-2 border border-gray-300 rounded-lg hover:bg-[--kapita-blue] hover:text-white transition">&lt; Previous</button>
+                            <button class="p-2 border border-gray-300 rounded-lg bg-[--kapita-blue] text-white font-bold">1</button>
+                            <button class="p-2 border border-gray-300 rounded-lg hover:bg-[--kapita-gray] transition">2</button>
+                            <button class="p-2 border border-gray-300 rounded-lg hover:bg-[--kapita-gray] transition">3</button>
+                            <button class="p-2 border border-gray-300 rounded-lg hover:bg-[--kapita-blue] hover:text-white transition">Next &gt;</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+            
+        <!-- FOOTER --><footer class="bg-[--kapita-navy] text-white py-6 mt-10">
+            <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center space-x-4 md:space-x-8 text-gray-400 text-sm">
+                <a href="#" class="hover:text-[--kapita-blue] transition">API Docs</a>
+                <a href="#" class="hover:text-[--kapita-blue] transition">Support</a>
+                <a href="#" class="hover:text-[--kapita-blue] transition">Fraud Center</a>
+                <a href="#" class="hover:text-[--kapita-blue] transition">Pricing</a>
+                <a href="#" class="hover:text-[--kapita-blue] transition">Terms</a>
+                <a href="#" class="hover:text-[--kapita-blue] transition">Privacy Policy</a>
+            </div>
+            <p class="text-center text-xs text-gray-600 mt-4">© 2025 Kapita AI Infrastructure</p>
+        </footer>
+
+    </div>
+</body>
+</html>

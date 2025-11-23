@@ -1,301 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ankai Writers | Earn Weekly</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f8f9fa;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAPITA — AI Financial Infrastructure for Emerging Economies</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-gray: #F3F4F6;
+        }
 
-    header {
-      background: #1e293b;
-      padding: 20px;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+        /* Set Inter as default font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kapita-gray);
+        }
 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #38bdf8;
-    }
+        /* Hero Background with Gradient Glow */
+        .hero-bg-gradient {
+            background-color: var(--kapita-navy);
+            background-image: radial-gradient(circle at 50% 10%, rgba(0, 87, 212, 0.1) 0%, transparent 60%);
+        }
 
-    nav {
-      display: flex;
-      gap: 20px;
-    }
+        /* Card Hover Effect */
+        .solution-card, .stat-card {
+            transition: all 0.3s ease;
+        }
+        .solution-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            border-color: var(--kapita-green);
+        }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        flex-direction: column;
-        background: #1e293b;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        padding: 20px;
-      }
-
-      nav.show {
-        display: flex;
-      }
-
-      .hamburger {
-        display: block;
-      }
-    }
-
-    .cta-bar {
-      background: #fee2e2;
-      color: #991b1b;
-      padding: 15px;
-      text-align: center;
-      position: relative;
-    }
-
-    .cta-bar span {
-      font-weight: bold;
-    }
-
-    .cta-bar .close {
-      position: absolute;
-      right: 20px;
-      top: 15px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .hero {
-      padding: 60px 20px;
-      text-align: center;
-      background: #fff;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: #666;
-    }
-
-    .beep-indicator {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 30px;
-    }
-
-    .beep-dot {
-      width: 20px;
-      height: 20px;
-      background-color: #10b981;
-      border-radius: 50%;
-      margin-right: 10px;
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
-    }
-
-
-    .dashboard-metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin: 40px;
-    }
-
-    .metric-box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      text-align: center;
-    }
-
-    .metric-box h3 {
-      margin-bottom: 10px;
-    }
-
-    .metric-box p {
-      color: #888;
-    }
-
-
-
-
-
-
-
-    .reviews {
-      background: #f1f5f9;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .reviews h2 {
-      margin-bottom: 30px;
-    }
-
-    .review {
-      background: #fff;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 600px;
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      text-align: left;
-    }
-
-    .review img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .review-content {
-      flex: 1;
-    }
-
-    .review-content strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    footer {
-      background: #1e293b;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-open {
+            transform: translateX(0);
+        }
+        .mobile-menu-closed {
+            transform: translateX(100%);
+        }
+    </style>
 </head>
 <body>
 
-  <div class="cta-bar">
-    <span>Pay KES 617 to CEO/ MPESA NO.0704195290 and start earning instantly. Renewable yearly. We invest heavily to win jobs for you with a dedicated team.</span>
-    <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-  </div>
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-3xl font-extrabold text-[--kapita-blue]">KAPITA</a>
 
-  <header>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex space-x-8 items-center">
+                <a href="C:\Kapita\contact.html" class="text-gray-600 hover:text-[--kapita-blue] transition duration-150">Contact us</a>
+                <a href="C:\Kapita\industrypoweredai.html" class="text-gray-600 hover:text-[--kapita-blue] transition duration-150">Industries</a>
+                <a href="C:\Kapita\pricing.html" class="text-gray-600 hover:text-[--kapita-blue] transition duration-150">Pricing</a>
+                <a href="C:\Kapita\kapita\aboutus.html" class="text-gray-600 hover:text-[--kapita-blue] transition duration-150">About</a>
+                <a href="C:\Kapita\kapita\overalllogin.html" class="text-gray-600 hover:text-[--kapita-blue] font-semibold transition duration-150">Log In</a>
+                <a href="C:\Kapita\kapita\404.html" class="px-6 py-3 bg-[--kapita-green] text-white font-bold rounded-xl shadow-lg hover:bg-opacity-90 transition duration-150 inline-block text-center">
+    Request Demo
+</a>
+            </nav>
+            
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button id="menu-toggle" class="lg:hidden text-[--kapita-navy]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+    <a href="C:\Kapita\kapita\overalllogin.html">
+        <button class="mt-8 w-full py-3 bg-[--kapita-green] text-white font-bold rounded-xl shadow-md hover:bg-opacity-90">
+            Log In
+        </button>
+    </a>
+    </div>
 
-    <div class="logo">Ankai Writers</div>
-    <div class="hamburger" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
-    <nav id="navMenu">
-      <a href="index.html">Home</a>
-      <a href="services.html">Our Services</a>
-      <a href="aboutus.html">About Us</a>
-      <a href="contactus.html">Contact</a>
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-      <a href="starttasking.html">Start Tasking</a>
-    </nav>
-  </header>
+    <!-- Hero Section -->
+    <section class="hero-bg-gradient text-white pt-24 pb-20 md:pt-40 md:pb-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Hero Text Content -->
+            <div>
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                    Transforming Africa’s Financial Infrastructure with AI
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 text-gray-300">
+                    Payments, procurement, risk scoring, forecasting, and digital economic intelligence—built for governments, banks, MSMEs, and enterprises.
+                </p>
+                <div class="flex space-x-4">
+                    <button class="px-8 py-4 bg-[--kapita-green] text-white font-bold text-lg rounded-xl shadow-2xl hover:bg-opacity-90 transition duration-300">
+                        Request Demo
+                    </button>
+                    <a href="#solutions" class="px-8 py-4 text-[--kapita-blue] border-2 border-[--kapita-blue] bg-white font-bold text-lg rounded-xl hover:bg-gray-100 transition duration-300">
+                        Explore Solutions
+                    </a>
+                </div>
+            </div>
 
-  <section class="hero">
-    <h1>Earn Over KES 5,000 Weekly with Ankai Writers</h1>
-    <p>We pay over KES 600 per 800 words. Weekly payouts. No delays. High quality work = high rewards.</p>
-    <div class="beep-indicator">
-      <div class="beep-dot"></div>
-      <strong>10K+ jobs available</strong>
-    </div>
-  </section>
+            <!-- Hero Illustration Placeholder -->
+            <div class="hidden lg:block">
+                <div class="w-full h-96 rounded-3xl bg-gray-900 border border-[--kapita-blue] flex flex-col justify-end overflow-hidden shadow-[0_0_50px_rgba(0,87,212,0.4)]">
+                    <!-- Placeholder for Futuristic African City, AI data streams, Financial dashboards -->
+                    <div class="p-8 text-white font-mono">
+                        <div class="h-4 bg-gradient-to-r from-[--kapita-blue] to-[--kapita-green] w-1/2 mb-4 rounded-full"></div>
+                        <p class="text-sm text-gray-400"># Dashboard: Transaction Flow</p>
+                        <div class="bg-gray-800 p-4 rounded-lg text-xs">
+                            <span class="text-[--kapita-green]">/api/payments/stream/</span> <span class="text-gray-400">Status: 200 OK</span><br>
+                            <span class="text-yellow-400">RiskScore</span>: 0.05, <span class="text-red-400">FraudAlert</span>: 0<br>
+                            <span class="text-gray-400">Latency</span>: 45ms
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <section class="dashboard-metrics">
-    <div class="metric-box">
-      <h3><i class="fas fa-wallet"></i> Your Earnings This Week</h3>
-      <p>You don’t have an account</p>
-    </div>
-    <div class="metric-box">
-      <h3><i class="fas fa-money-bill-wave"></i> Available for Withdrawal</h3>
-      <p>You don’t have an account</p>
-    </div>
-    <div class="metric-box">
-      <h3><i class="fas fa-check-circle"></i> Total Tasks Completed</h3>
-      <p>You don’t have an account</p>
-    </div>
-    <div class="metric-box">
-      <h3><i class="fas fa-mobile-alt"></i> Payment Method</h3>
-      <p><i class="fab fa-cc-mastercard" style="color: green;"></i> M-Pesa every Friday</p>
-    </div>
-  </section>
-  
+        </div>
+    </section>
 
-  <section class="reviews">
-    <h2>Success Stories</h2>
-    <div class="review">
-      <img src="KW2.PNG" alt="Christine">
-      <div class="review-content">
-        <strong>Christine Wanjiku</strong>
-        "I earned over KES 15,000 in my first three weeks with Ankai Writers! Reliable and transparent team."
-      </div>
-    </div>
-    <div class="review">
-      <img src="KM3.PNG" alt="Brian">
-      <div class="review-content">
-        <strong>Brian Otieno</strong>
-        "I love how Ankai pays weekly without delays. They value quality and always keep you updated."
-      </div>
-    </div>
-    <div class="review">
-      <img src="KM1.PNG" alt="Moses">
-      <div class="review-content">
-        <strong>Moses Kiprono</strong>
-        "Thanks to Ankai, I cleared my college fee through writing. Real deal!"
-      </div>
-    </div>
-  </section>
+    <!-- Key Stats Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 text-[--kapita-navy]">Driving Quantifiable Impact</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Stat Card 1 -->
+                <div class="stat-card p-8 bg-white rounded-xl shadow-xl border-t-4 border-[--kapita-blue] text-center">
+                    <div class="text-[--kapita-blue] mb-4 mx-auto">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up mx-auto"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                    </div>
+                    <h3 class="text-5xl font-extrabold text-[--kapita-navy] mb-2">98%</h3>
+                    <p class="text-xl font-semibold text-gray-600">Automated Reconciliation</p>
+                </div>
 
-  <footer>
-    <p>&copy; 2025 Ankai Writers. All Rights Reserved.</p>
-    
-  </footer>
+                <!-- Stat Card 2 -->
+                <div class="stat-card p-8 bg-white rounded-xl shadow-xl border-t-4 border-[--kapita-green] text-center">
+                    <div class="text-[--kapita-green] mb-4 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3 mx-auto"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                    </div>
+                    <h3 class="text-5xl font-extrabold text-[--kapita-navy] mb-2">65%</h3>
+                    <p class="text-xl font-semibold text-gray-600">Improved Procurement Efficiency</p>
+                </div>
 
-  <script>
-    function toggleMenu() {
-      const nav = document.getElementById('navMenu');
-      nav.classList.toggle('show');
-    }
-  </script>
+                <!-- Stat Card 3 -->
+                <div class="stat-card p-8 bg-white rounded-xl shadow-xl border-t-4 border-[--kapita-blue] text-center">
+                    <div class="text-[--kapita-blue] mb-4 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale mx-auto"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 21V10"/></svg>
+                    </div>
+                    <h3 class="text-5xl font-extrabold text-[--kapita-navy] mb-2">AI-Driven</h3>
+                    <p class="text-xl font-semibold text-gray-600">Risk Scoring for MSMEs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Grid Section -->
+    <section id="solutions" class="py-20 bg-[--kapita-gray]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-[--kapita-navy]">The Kapita AI Solution Stack</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1: AI Payments -->
+                <div class="solution-card p-8 bg-white rounded-xl shadow-md border-b-4 border-gray-100">
+                    <div class="text-[--kapita-blue] mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[--kapita-navy] mb-2">AI Payments</h3>
+                    <p class="text-gray-600">Automate transaction reconciliation and provide instant, secure multi-channel payment processing.</p>
+                </div>
+                
+                <!-- Card 2: Smart Procurement -->
+                <div class="solution-card p-8 bg-white rounded-xl shadow-md border-b-4 border-gray-100">
+                    <div class="text-[--kapita-green] mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[--kapita-navy] mb-2">Smart Procurement</h3>
+                    <p class="text-gray-600">Reduce waste, prevent fraud, and optimize public and corporate spending using predictive AI.</p>
+                </div>
+                
+                <!-- Card 3: Credit Risk & Scoring -->
+                <div class="solution-card p-8 bg-white rounded-xl shadow-md border-b-4 border-gray-100">
+                    <div class="text-[--kapita-blue] mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote"><rect width="20" height="12" x="2" y="6" rx="2"/><path d="M12 12V9"/><path d="M15 15H9"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[--kapita-navy] mb-2">Credit Risk & Scoring</h3>
+                    <p class="text-gray-600">Generate real-time, non-traditional credit scores for MSMEs and underserved populations.</p>
+                </div>
+                
+                <!-- Card 4: Inventory Forecasting -->
+                <div class="solution-card p-8 bg-white rounded-xl shadow-md border-b-4 border-gray-100">
+                    <div class="text-[--kapita-green] mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-line-chart"><path d="M3 3v18h18"/><path d="m18 7-5 5-4-4-5 5"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[--kapita-navy] mb-2">Inventory Forecasting</h3>
+                    <p class="text-gray-600">Predict demand spikes and optimize logistics for retail, manufacturing, and agricultural supply chains.</p>
+                </div>
+                
+                <!-- Card 5: Government Data Intelligence -->
+                <div class="solution-card p-8 bg-white rounded-xl shadow-md border-b-4 border-gray-100">
+                    <div class="text-[--kapita-blue] mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-landmark"><line x1="12" x2="12" y1="22" y2="18"/><path d="M10 18h4"/><path d="M22 22H2"/><path d="m18 15-6-5-6 5"/><path d="M4 11v6"/><path d="M20 11v6"/><path d="M12 2v3"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[--kapita-navy] mb-2">Government Data Intelligence</h3>
+                    <p class="text-gray-600">Secure and govern national-scale data assets to drive informed, evidence-based policy making.</p>
+                </div>
+                
+                <!-- Card 6: Developer API Hub -->
+                <div class="solution-card p-8 bg-white rounded-xl shadow-md border-b-4 border-gray-100">
+                    <div class="text-[--kapita-green] mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[--kapita-navy] mb-2">Developer API Hub</h3>
+                    <p class="text-gray-600">Integrate powerful Kapita AI microservices directly into existing applications with simple, robust APIs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section id="industries" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-[--kapita-navy]">Built for the Backbone of the Economy</h2>
+            
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-8 text-center">
+                
+                <!-- Industry 1: Government -->
+                <a href="C:\Kapita\kapita\Governments\govcmdcente.html" class="block">
+    <div class="p-4 rounded-xl hover:bg-[--kapita-gray] transition duration-150">
+        <div class="text-[--kapita-blue] mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-landmark mx-auto"><line x1="12" x2="12" y1="22" y2="18"/><path d="M10 18h4"/><path d="M22 22H2"/><path d="m18 15-6-5-6 5"/><path d="M4 11v6"/><path d="M20 11v6"/><path d="M12 2v3"/></svg>
+        </div>
+        <p class="font-semibold text-[--kapita-navy]">Government</p>
+    </div>
+</a>
+
+<a href="C:\Kapita\kapita\Banks\automatedreconcilliation.html" class="block">
+    <div class="p-4 rounded-xl hover:bg-[--kapita-gray] transition duration-150">
+        <div class="text-[--kapita-blue] mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote mx-auto"><rect width="20" height="12" x="2" y="6" rx="2"/><path d="M12 12V9"/><path d="M15 15H9"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <p class="font-semibold text-[--kapita-navy]">Banks</p>
+    </div>
+</a>
+
+
+<a href="C:\Kapita\kapita\startups\startupshome.html" class="block">
+    <div class="p-4 rounded-xl hover:bg-[--kapita-gray] transition duration-150">
+        <div class="text-[--kapita-green] mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket mx-auto"><path d="M12 2v20"/><path d="M15 15l-3-3-3 3"/><path d="M15 11l-3-3-3 3"/><path d="M12 2l5 5L12 12 7 7 12 2z"/></svg>
+        </div>
+        <p class="font-semibold text-[--kapita-navy]">Startups</p>
+    </div>
+</a>
+
+
+
+<a href="C:\Kapita\kapita\Retail\home.html" class="block">
+    <div class="p-4 rounded-xl hover:bg-[--kapita-gray] transition duration-150">
+        <div class="text-[--kapita-green] mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart mx-auto"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.67 12.04a2 2 0 0 0 2 1.91h12a2 2 0 0 0 2-1.91l-1.27-5.73H8.3"/></svg>
+        </div>
+        <p class="font-semibold text-[--kapita-navy]">Retail</p>
+    </div>
+</a>
+
+<a href="C:\Kapita\kapita\MSMEs\Kapita MSME AI Financial  Operational Hub.html" class="block">
+    <div class="p-4 rounded-xl hover:bg-[--kapita-gray] transition duration-150">
+        <div class="text-[--kapita-blue] mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building-2 mx-auto"><path d="M6 3V19a2 2 0 0 0 2 2h14v-2c-.67 0-1.33-.03-2-.12a1 1 0 0 1-1-.87V13a1 1 0 0 1 1-1V5a1 1 0 0 1-1-1v-.12c.67-.09 1.33-.12 2-.12h2V3H8a2 2 0 0 0-2 2z"/></svg>
+        </div>
+        <p class="font-semibold text-[--kapita-navy]">MSMEs</p>
+    </div>
+</a>
+
+
+
+<a href="C:\Kapita\kapita\logistics\Kapita Logistics Operations Dashboard.html" class="block">
+    <div class="p-4 rounded-xl hover:bg-[--kapita-gray] transition duration-150">
+        <div class="text-[--kapita-green] mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck mx-auto"><path d="M14 18V6l-3-3H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3"/><path d="M17 18h2a2 2 0 0 0 2-2v-4h-5v6"/><circle cx="8" cy="18" r="2"/><path d="M10 18h4"/><circle cx="18" cy="18" r="2"/></svg>
+        </div>
+        <p class="font-semibold text-[--kapita-navy]">Logistics</p>
+    </div>
+</a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-[--kapita-navy] text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 border-b border-gray-700 pb-10 mb-8">
+                
+                <!-- Column 1: Solutions -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[--kapita-green]">Solutions</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="C:\Kapita\solutions.html" class="hover:text-white transition duration-150">AI Payments</a></li>
+                        <li><a href="C:\Kapita\solutions.html" class="hover:text-white transition duration-150">Smart Procurement</a></li>
+                        <li><a href="C:\Kapita\solutions.html" class="hover:text-white transition duration-150">Credit Risk & Scoring</a></li>
+                        <li><a href="C:\Kapita\solutions.html" class="hover:text-white transition duration-150">Data Intelligence</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Company -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[--kapita-green]">Company</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="C:\Kapita\kapita\aboutus.html" class="hover:text-white transition duration-150">About Us</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Careers</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Newsroom</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Security</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[--kapita-green]">Resources</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Documentation</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">API Status</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Partners</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Case Studies</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[--kapita-green]">Contact</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="C:\Kapita\kapita\demoaccountillustration.html" class="hover:text-white transition duration-150">Request Demo</a></li>
+                        <li><a href="C:\Kapita\contact.html" class="hover:text-white transition duration-150">Support</a></li>
+                        <li><a href="C:\Kapita\kapita\404.html" class="hover:text-white transition duration-150">Media Inquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Text -->
+            <div class="text-center text-gray-500 text-sm">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            if (mobileMenu.classList.contains('mobile-menu-closed')) {
+                mobileMenu.classList.remove('mobile-menu-closed');
+                mobileMenu.classList.add('mobile-menu-open');
+            } else {
+                mobileMenu.classList.remove('mobile-menu-open');
+                mobileMenu.classList.add('mobile-menu-closed');
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        
+        // Close menu if a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('mobile-menu-open')) {
+                     mobileMenu.classList.remove('mobile-menu-open');
+                     mobileMenu.classList.add('mobile-menu-closed');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
-
 

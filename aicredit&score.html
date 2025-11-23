@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita AI Credit & Risk Scoring - Fair, Fast Decisions</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-yellow: #FFC300; /* Used for medium risk/analytics */
+            --kapita-gray: #F3F4F6;
+        }
+
+        /* Set Inter as default font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* Hero Background with an analytical, trusted feel */
+        .hero-bg-risk {
+            background-color: var(--kapita-navy);
+            background-image: linear-gradient(135deg, rgba(0, 87, 212, 0.15) 0%, transparent 60%);
+        }
+
+        /* Dashboard Look & Feel */
+        .risk-dashboard {
+            background-color: #1a2a40; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dashboard-card {
+            background-color: #23354d;
+            border: 1px solid #3f526b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom progress bar for score */
+        .score-ring {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+        .score-circle {
+            fill: none;
+            stroke: #3f526b;
+            stroke-width: 12;
+        }
+        .score-progress {
+            fill: none;
+            stroke: var(--kapita-green);
+            stroke-width: 12;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    
+   <a href="C:\Kapita\index.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="C:\Kapita\kapita\index.html" class="text-3xl font-extrabold text-[#0057D4]">KAPITA</a>
+
+            <!-- Menu -->
+            <nav class="flex space-x-6 items-center">
+                <a href="C:\Kapita\kapita\404.html" class="text-gray-600 hover:text-[#0057D4] transition duration-150">Solutions</a>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-6 py-3 bg-[#0057D4] text-white font-bold rounded-xl shadow-lg hover:bg-opacity-90 transition duration-150">
+                    Contact Sales
+                </button>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg-risk text-white pt-24 pb-8 md:pt-32 md:pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                Fair, Fast, AI-Driven Credit Decisions.
+            </h1>
+            <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-4xl mx-auto">
+                Move beyond traditional credit data. Kapita uses alternative data and machine learning to unlock lending opportunities and reduce portfolio default rates globally.
+            </p>
+
+            <!-- Main CTA Button -->
+            
+            <a href="C:\Kapita\kapita\404.html">                
+            </a><button class="px-8 py-4 bg-[#00C389] text-white font-bold text-lg rounded-xl shadow-2xl shadow-[#00C389]/40 hover:bg-opacity-90 transition duration-300">
+                See Risk Engine Demo
+            </button>
+        </a>
+        </div>
+    </section>
+
+    <!-- Dashboard Imagery Mockup (Focus on Scoring and Analytics) -->
+    <section class="bg-white -mt-16 md:-mt-24 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="risk-dashboard p-4 md:p-8 rounded-3xl shadow-2xl shadow-[#0A1A2F]/50 overflow-hidden">
+                
+                <h2 class="text-2xl font-bold text-white mb-6">Real-Time MSME Risk Assessment</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+                    <!-- Card 1: Main Credit Score Ring -->
+                    <div class="dashboard-card p-6 rounded-xl text-white flex flex-col items-center justify-center">
+                        <h4 class="text-xl font-bold mb-4 text-[#0057D4]">Credit Score (0-900)</h4>
+                        <div class="score-ring">
+                            <svg class="w-full h-full" viewBox="0 0 40 40">
+                                <circle class="score-circle" cx="20" cy="20" r="17.5"></circle>
+                                <!-- Score: 760/900 = 84.4%. Dash array and offset calculated for 84.4% -->
+                                <circle class="score-progress" cx="20" cy="20" r="17.5" 
+                                    style="stroke-dasharray: 110; stroke-dashoffset: 17.16; stroke: var(--kapita-green);"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-5xl font-extrabold text-white">760</span>
+                                <span class="text-sm text-gray-400 mt-1">Excellent</span>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-4">Risk Band: <span class="text-[#00C389] font-bold">LOW</span></p>
+                        <p class="text-sm text-gray-400">Default Likelihood: 1.2%</p>
+                    </div>
+
+                    <!-- Card 2: Alternative Data Indicators -->
+                    <div class="dashboard-card p-6 rounded-xl text-white lg:col-span-1">
+                        <h4 class="text-xl font-bold mb-4 text-[#00C389] flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap-off mr-2"><polyline points="12.43 12.43 19 2 10 12 10.56 12.57"/><path d="M10 21l2-4"/><path d="M14.66 14.66 21 14.66"/></svg>
+                            Alternative Data Strength
+                        </h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex justify-between items-center text-gray-300"><span>Telecom Payment History</span> <span class="text-[#00C389]">98% On-Time</span></li>
+                            <li class="flex justify-between items-center text-gray-300"><span>Utility Bill Consistency</span> <span class="text-[#00C389]">High</span></li>
+                            <li class="flex justify-between items-center text-gray-300"><span>Trade Payable Age</span> <span class="text-yellow-500">Avg 45 Days</span></li>
+                            <li class="flex justify-between items-center text-gray-300"><span>E-commerce Sales Volume</span> <span class="text-[#00C389]">Growing +15%</span></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 3: Behavioral Analytics & Approval -->
+                    <div class="dashboard-card p-6 rounded-xl text-white lg:col-span-2">
+                        <h4 class="text-xl font-bold mb-4 text-[#0057D4] flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microscope mr-2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 13a4 4 0 0 0 4-4V5a2 2 0 0 0-2-2h-2"/><path d="M10 18h4"/><path d="M12 3v14"/><path d="M3 3l3 3"/><path d="M21 3l-3 3"/></svg>
+                            Approval Recommendation
+                        </h4>
+                        <p class="text-3xl font-extrabold text-[#00C389] mb-4">
+                            APPROVE (Tier 1)
+                        </p>
+                        <div class="text-sm text-gray-400 space-y-2">
+                            <p><strong>Behavioral Trend:</strong> <span class="text-[#00C389]">Strong upward trajectory</span> in account activity and savings accumulation over 12 months.</p>
+                            <p><strong>Stress Test Result:</strong> Business cash flow remains positive under a 25% market contraction scenario.</p>
+                            <p><strong>Recommended Limit:</strong> $50,000, 18-month term.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-[#0A1A2F]">Key Advantages for Lenders</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                
+                <!-- Feature 1: Built for Banks & Lenders -->
+                <div class="p-6 rounded-xl border-b-4 border-[#0057D4] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote mb-4"><rect width="20" height="12" x="2" y="6" rx="2"/><path d="M12 12V9"/><path d="M15 15H9"/><circle cx="12" cy="12" r="3"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Built for Banks & Lenders</h3>
+                    <p class="text-gray-600 text-sm">
+                        Enterprise-ready API scales to millions of assessments, fitting seamlessly into core banking systems and compliance frameworks.
+                    </p>
+                </div>
+
+                <!-- Feature 2: MSME Empowerment -->
+                <div class="p-6 rounded-xl border-b-4 border-[#00C389] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-line-chart mb-4"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-5 5"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">MSME Empowerment</h3>
+                    <p class="text-gray-600 text-sm">
+                        Safely extend credit to micro, small, and medium enterprises previously excluded due to lack of traditional credit history.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Reduce Default Rates -->
+                <div class="p-6 rounded-xl border-b-4 border-[#FFC300] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFC300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check mb-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Reduce Default Rates</h3>
+                    <p class="text-gray-600 text-sm">
+                        Leverage predictive AI to forecast risk with higher accuracy than legacy models, strengthening portfolio health.
+                    </p>
+                </div>
+
+                <!-- Feature 4: Real-Time Analysis -->
+                <div class="p-6 rounded-xl border-b-4 border-[#0057D4] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge mb-4"><path d="m12 14v4"/><path d="M3.34 10A10 10 0 1 1 20.78 10"/><path d="M4 14l-.3-.7"/><path d="M20 14l.3-.7"/><path d="M17.1 12.9a10 10 0 0 0-14.8 0"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Real-Time Analysis</h3>
+                    <p class="text-gray-600 text-sm">
+                        Instantly analyze data streams and deliver credit decisions in milliseconds, improving customer experience and flow.
+                    </p>
+                </div>
+
+                <!-- Feature 5: Secure & Compliant AI -->
+                <div class="p-6 rounded-xl border-b-4 border-[#00C389] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round mb-4"><path d="M2 18 18 2"/><path d="M7.5 15.5a4 4 0 0 0 4-4"/><path d="M15 7l.45-.45a1.5 1.5 0 0 0-1.06-2.58l-1.06 1.06L7 3 3 7l4.45 4.45 1.06-1.06a1.5 1.5 0 0 0 2.58 1.06L15 7z"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Secure & Compliant AI</h3>
+                    <p class="text-gray-600 text-sm">
+                        Our models maintain data sovereignty and adhere to strict financial regulatory standards across all operating regions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-[#0A1A2F] text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 border-b border-gray-700 pb-10 mb-8">
+            <!-- Bottom Text -->
+            <div class="text-center text-gray-500 text-sm">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>  

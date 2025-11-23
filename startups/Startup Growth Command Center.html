@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Startup Growth Command Center</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Kapita Brand Colors Definitions for CSS Variables */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-soft-gray: #F3F4F6;
+            --kapita-white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--kapita-navy);
+            background-color: var(--kapita-white);
+            scroll-behavior: smooth;
+        }
+
+        /* Enterprise Card Style */
+        .enterprise-card {
+            background-color: var(--kapita-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .enterprise-card:hover {
+             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn-green {
+            background-color: var(--kapita-green);
+            box-shadow: 0 4px 15px rgba(0, 195, 137, 0.4);
+        }
+        .btn-green:hover {
+            background-color: #00aa76;
+        }
+
+        /* Custom style for the circular score dial (86/100) */
+        .score-dial-86 {
+            stroke-dasharray: 283; /* 2 * PI * 45 (radius) */
+            /* 100% is 283. 86% is 283 * (1 - 0.86) = 39.62 */
+            stroke-dashoffset: 39.62;
+            transition: stroke-dashoffset 1s ease-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    
+   
+
+<a href="C:\Kapita\kapita\startups\startupshome.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+    <div class="min-h-screen flex flex-col">
+
+        <!-- HEADER (Top Nav) -->
+        <header class="bg-white shadow-md h-16 flex items-center justify-between px-6 lg:px-12 sticky top-0 z-50 border-b border-gray-100">
+            <!-- Left: Logo -->
+            <div class="text-2xl font-black text-[--kapita-navy]">
+                <span class="text-[--kapita-blue]">KA</span>PITA
+            </div>
+
+          
+                     </header>
+
+        <!-- HERO SECTION -->
+        <section class="pt-24 pb-16 bg-white overflow-hidden border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Text Content -->
+                <div class="space-y-6">
+                    <p class="text-lg font-semibold text-[--kapita-green] uppercase tracking-wider">Startup Growth Command Center</p>
+                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-[--kapita-navy]">
+                        AI-Powered Growth, Funding, and <span class="text-[--kapita-blue]">Investor Readiness.</span>
+                    </h1>
+                    <p class="text-xl text-gray-600">
+                        Centralize **metrics, validate traction, track runway, monitor CAC/LTV ratios**, and prepare investor-grade reports with AI-driven insights.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                        <!-- Start Growth Analysis (Emerald Green) -->
+                        <button class="px-8 py-3 text-lg font-bold text-white rounded-xl transition btn-green shadow-xl">
+                            Start Growth Analysis
+                        </button>
+                        <!-- Generate Investor Report (White outline) -->
+                        <button class="px-8 py-3 text-lg font-bold text-[#0057D4] bg-white border-2 border-[#0057D4] rounded-xl transition hover:bg-[#0057D4] hover:text-white">
+                            Generate Investor Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Visual: Hero Illustration Dashboard Mockup -->
+                <div class="enterprise-card p-6 bg-[--kapita-soft-gray] rounded-2xl shadow-2xl border border-gray-200">
+                    <h2 class="text-lg font-semibold text-[--kapita-navy] mb-4 flex justify-between items-center">
+                        Traction Overview
+                        <span class="text-xs font-normal text-[--kapita-blue] bg-[--kapita-blue]/10 px-2 py-1 rounded-full border border-[--kapita-blue]/30 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap mr-1"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            Live Metric Updates
+                        </span>
+                    </h2>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <!-- KPI Overview Card -->
+                        <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                            <p class="text-gray-400 text-sm">CAC:LTV Ratio</p>
+                            <p class="font-bold text-2xl text-[--kapita-green]">1 : 3.5</p>
+                        </div>
+                        <!-- Investor Readiness Score Dial -->
+                        <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm relative flex items-center justify-center">
+                            <div class="w-16 h-16">
+                                <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#E5E7EB" stroke-width="10"/>
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#0057D4" stroke-width="10" 
+                                            class="score-dial-86"/>
+                                </svg>
+                            </div>
+                            <div class="absolute text-center">
+                                <span class="text-lg font-bold text-[--kapita-blue]">86%</span>
+                            </div>
+                            <p class="absolute bottom-1 text-xs text-gray-500">Readiness Score</p>
+                        </div>
+                    </div>
+
+                    <!-- Traction Line Graph Placeholder -->
+                    <div class="bg-white rounded-lg p-4 border border-gray-200 shadow-inner">
+                        <h4 class="font-semibold text-sm mb-2">Monthly Active Users (MAU)</h4>
+                        <div class="h-24 bg-white rounded">
+                            <svg viewBox="0 0 100 30" class="w-full h-full" preserveAspectRatio="none">
+                                <!-- Blue Growth Line -->
+                                <path fill="none" stroke="#0057D4" stroke-width="1.5" stroke-linecap="round" d="M0 25 L20 18 L40 10 L60 5 L80 8 L100 2"/>
+                                <!-- Green AI Prediction Line -->
+                                <path fill="none" stroke="#00C389" stroke-dasharray="2" stroke-width="1.5" stroke-linecap="round" d="M80 8 L100 2"/>
+                            </svg>
+                        </div>
+                        <!-- AI Pitch Summary -->
+                        <div class="mt-4 p-2 bg-[--kapita-blue]/10 rounded-lg text-xs text-[--kapita-blue] font-medium">
+                            AI Pitch Summary: "Traction shows accelerating growth (MAU +30% QoQ) and strong retention."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1 — Startup KPI Dashboard -->
+        <section class="py-20 bg-[--kapita-soft-gray]">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 text-[--kapita-navy]">
+                    Real-Time <span class="text-[--kapita-blue]">Startup KPI Dashboard</span>
+                </h2>
+                
+                <!-- KPI Cards Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-12">
+                    <!-- MRR -->
+                    <div class="enterprise-card p-4 text-center border-t-4 border-[#0057D4]">
+                        <p class="text-sm text-gray-500">MRR</p>
+                        <p class="text-2xl font-bold text-[#00C389]">$85K</p>
+                    </div>
+                    <!-- CAC -->
+                    <div class="enterprise-card p-4 text-center border-t-4 border-[#0057D4]">
+                        <p class="text-sm text-gray-500">CAC</p>
+                        <p class="text-2xl font-bold text-red-500">$185</p>
+                    </div>
+                    <!-- LTV -->
+                    <div class="enterprise-card p-4 text-center border-t-4 border-[#0057D4]">
+                        <p class="text-sm text-gray-500">LTV</p>
+                        <p class="text-2xl font-bold text-[#00C389]">$648</p>
+                    </div>
+                    <!-- Burn Rate -->
+                    <div class="enterprise-card p-4 text-center border-t-4 border-[#0057D4]">
+                        <p class="text-sm text-gray-500">Burn Rate</p>
+                        <p class="text-2xl font-bold text-red-500">$30K</p>
+                    </div>
+                    <!-- Runway -->
+                    <div class="enterprise-card p-4 text-center border-t-4 border-[#0057D4]">
+                        <p class="text-sm text-gray-500">Cash Runway</p>
+                        <p class="text-2xl font-bold text-[#00C389]">15 mos</p>
+                    </div>
+                    <!-- Active Customers -->
+                    <div class="enterprise-card p-4 text-center border-t-4 border-[#0057D4]">
+                        <p class="text-sm text-gray-500">Customers</p>
+                        <p class="text-2xl font-bold text-[--kapita-blue]">459</p>
+                    </div>
+                </div>
+
+                <!-- Charts Area -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- MRR Growth Line Chart -->
+                    <div class="enterprise-card p-6 shadow-lg">
+                        <h3 class="font-bold mb-4">MRR Growth Trend</h3>
+                        <div class="h-40 bg-white">
+                             <svg viewBox="0 0 100 40" class="w-full h-full" preserveAspectRatio="none">
+                                <path fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" d="M0 30 L20 20 L40 10 L60 5 L80 15 L100 2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- CAC vs LTV Comparison Bars -->
+                    <div class="enterprise-card p-6 shadow-lg">
+                        <h3 class="font-bold mb-4">CAC vs LTV Ratio</h3>
+                        <div class="h-40 bg-white grid grid-cols-4 gap-4 items-end p-4">
+                            <!-- Placeholder Bar Chart -->
+                            <div class="text-center">
+                                <div class="h-24 bg-red-400 rounded-t-lg w-full"></div>
+                                <div class="h-32 bg-[#00C389] rounded-t-lg w-full mt-1"></div>
+                                <p class="text-xs text-gray-500 mt-2">Q1</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="h-28 bg-red-400 rounded-t-lg w-full"></div>
+                                <div class="h-36 bg-[#00C389] rounded-t-lg w-full mt-1"></div>
+                                <p class="text-xs text-gray-500 mt-2">Q2</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="h-20 bg-red-400 rounded-t-lg w-full"></div>
+                                <div class="h-40 bg-[#00C389] rounded-t-lg w-full mt-1"></div>
+                                <p class="text-xs text-gray-500 mt-2">Q3</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="h-16 bg-red-400 rounded-t-lg w-full"></div>
+                                <div class="h-48 bg-[#00C389] rounded-t-lg w-full mt-1"></div>
+                                <p class="text-xs text-gray-500 mt-2">Q4</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Burn Rate vs Revenue (Dual Axis) -->
+                    <div class="enterprise-card p-6 shadow-lg">
+                        <h3 class="font-bold mb-4">Burn vs. Revenue</h3>
+                        <div class="h-40 bg-white relative">
+                            <!-- Revenue (Line - Green) -->
+                            <svg viewBox="0 0 100 40" class="w-full h-full absolute top-0 left-0" preserveAspectRatio="none">
+                                <path fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" d="M0 35 L20 30 L40 20 L60 10 L80 5 L100 2"/>
+                            </svg>
+                            <!-- Burn Rate (Area - Red) -->
+                            <svg viewBox="0 0 100 40" class="w-full h-full absolute top-0 left-0 opacity-50" preserveAspectRatio="none">
+                                <path fill="rgb(239 68 68)" d="M0 40 L0 15 L20 18 L40 25 L60 30 L80 20 L100 10 L100 40 Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <span class="inline-block bg-[--kapita-blue]/10 text-[--kapita-blue] text-sm px-4 py-2 rounded-full font-medium">
+                        Powered by Kapita AI Predictive Engine
+                    </span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2 — Funding Readiness Scanner -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 text-[--kapita-navy]">
+                    <span class="text-[--kapita-green]">Funding Readiness</span> Scanner
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+                    
+                    <!-- Left: Readiness Score -->
+                    <div class="enterprise-card p-8 shadow-2xl border border-gray-100 flex flex-col items-center">
+                        <h3 class="text-xl font-bold mb-6">Your Current Readiness</h3>
+                        <div class="relative w-40 h-40">
+                            <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90">
+                                <!-- Background Circle -->
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#E5E7EB" stroke-width="10"/>
+                                <!-- Score Arc (86%) -->
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#00C389" stroke-width="10" 
+                                        class="score-dial-86"/>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-5xl font-extrabold text-[#00C389]">86</span>
+                                <span class="text-lg font-bold text-gray-500">/100</span>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-2xl font-bold text-center text-[--kapita-green]">Strong</p>
+                        <p class="text-sm text-gray-500">Target VCs: Seed - Series A</p>
+                    </div>
+
+                    <!-- Center/Right: Readiness Check Cards -->
+                    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="enterprise-card p-6 flex items-center space-x-4 border-l-4 border-[#00C389]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-presentation-chart"><path d="M12 2v2"/><path d="M10 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3"/><path d="M16 4h4"/><path d="M18 17a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/><path d="M16.5 14.5 18 16l1.5-1.5"/></svg>
+                            <div><p class="font-semibold">Pitch Deck Quality Score</p><p class="text-sm text-gray-500">Aesthetics and content structure are excellent.</p></div>
+                        </div>
+                        <div class="enterprise-card p-6 flex items-center space-x-4 border-l-4 border-[#00C389]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                            <div><p class="font-semibold">Market Traction Score</p><p class="text-sm text-gray-500">KPIs validate product-market fit (3.5x LTV/CAC).</p></div>
+                        </div>
+                        <div class="enterprise-card p-6 flex items-center space-x-4 border-l-4 border-[#0057D4]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calculator"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M11 14h1"/><path d="M11 18h1"/></svg>
+                            <div><p class="font-semibold">Financial Model Completeness</p><p class="text-sm text-gray-500">All 5-year projections included and compliant.</p></div>
+                        </div>
+                        <div class="enterprise-card p-6 flex items-center space-x-4 border-l-4 border-yellow-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-cog"><circle cx="12" cy="7" r="4"/><path d="M17.5 17.5a6 6 0 0 0-11 0"/><path d="M19.07 19.07a3.5 3.5 0 0 0-.5-4.5"/><path d="M21 16a3.5 3.5 0 0 0-3.5-3.5"/></svg>
+                            <div><p class="font-semibold">Team Strength Evaluation</p><p class="text-sm text-gray-500">Missing specific previous exits/key hires data (Medium Risk).</p></div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Recommended Actions Panel -->
+                    <div class="lg:col-span-3 enterprise-card p-6 mt-8 bg-[--kapita-blue]/5 border border-[--kapita-blue]/20">
+                        <h4 class="font-bold text-lg text-[--kapita-blue] mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target mr-2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                            AI Recommended Next Actions
+                        </h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm">
+                            <li>Improve CAC efficiency by **12%** by optimizing Facebook ad spend (High Impact).</li>
+                            <li>Update the team section in the pitch deck to include detailed advisor bios.</li>
+                            <li>**Review and finalize** the new legal compliance checklist before reaching out to institutional investors.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3 — Investor-Grade Reports Generator -->
+        <section class="py-20 bg-[--kapita-soft-gray]">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 text-[--kapita-navy]">
+                    Investor-Grade <span class="text-[--kapita-blue]">Reports Generator</span>
+                </h2>
+
+                <div class="enterprise-card p-6 shadow-xl grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Left: Report Editor Panel -->
+                    <div class="lg:col-span-1 space-y-4">
+                        <h3 class="text-xl font-bold text-[--kapita-navy]">Report Components</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="p-3 bg-white rounded-lg border border-[#00C389] text-[#00C389] font-medium flex justify-between items-center">
+                                Business Summary <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-gray-200 flex justify-between items-center">
+                                Market Opportunity <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-[#00C389] text-[#00C389] font-medium flex justify-between items-center">
+                                Traction Metrics <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-gray-200 flex justify-between items-center">
+                                Financial Forecast <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-[#00C389] text-[#00C389] font-medium flex justify-between items-center">
+                                Investor Fit Recommendations <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Generator Button -->
+                        <button class="w-full mt-6 px-4 py-2 text-base font-bold text-white rounded-lg transition btn-green">
+                            Generate AI Report
+                        </button>
+                    </div>
+
+                    <!-- Right: PDF Preview -->
+                    <div class="lg:col-span-2 space-y-4">
+                        <h3 class="text-xl font-bold text-[--kapita-navy]">PDF Report Preview (Q3 2025)</h3>
+                        <div class="p-4 h-96 bg-gray-50 border border-gray-300 rounded-lg overflow-y-auto">
+                            <!-- Mock PDF Content -->
+                            <div class="bg-white p-6 shadow-md mx-auto w-full h-full">
+                                <h1 class="text-2xl font-bold text-[--kapita-navy] mb-3">Kapita Q3 Investor Update</h1>
+                                <p class="text-sm text-gray-500 mb-6">Prepared by Gemini AI - Report Date: 10/25/2025</p>
+
+                                <h2 class="text-lg font-semibold text-[#0057D4] border-b pb-1 mb-2">Executive Summary</h2>
+                                <p class="text-xs mb-4">Q3 was marked by strong revenue acceleration (+20% QoQ) and successful expansion into the European market. LTV/CAC ratio has improved to 3.5x, confirming unit economics stability. Primary focus shifts to optimizing operational expenditures.</p>
+
+                                <h2 class="text-lg font-semibold text-[#0057D4] border-b pb-1 mb-2 mt-4">Traction Snapshot</h2>
+                                <table class="w-full text-left text-xs">
+                                    <thead class="bg-gray-100">
+                                        <tr><th class="p-1">Metric</th><th class="p-1">Q3 Value</th><th class="p-1">YoY Change</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="p-1">MRR</td><td class="p-1">$85,000</td><td class="p-1 text-[#00C389]">+85%</td></tr>
+                                        <tr><td class="p-1">CAC</td><td class="p-1">$185</td><td class="p-1 text-red-500">-5%</td></tr>
+                                        <tr><td class="p-1">Active Users</td><td class="p-1">459</td><td class="p-1 text-[#00C389]">+60%</td></tr>
+                                    </tbody>
+                                </table>
+                                <!-- End Mock PDF Content -->
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex space-x-4">
+                            <button class="flex items-center px-4 py-2 bg-[#0057D4] text-white font-medium rounded-lg hover:bg-[#0057D4]/90 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                                Export PDF
+                            </button>
+                            <button class="flex items-center px-4 py-2 bg-[#00C389]/10 text-[#00C389] font-medium rounded-lg hover:bg-[#00C389]/20 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-horizontal mr-2"><path d="m3 3 3 9-3 9 19-9Z"/><path d="M6 12h16"/></svg>
+                                Share with Investor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4 — AI Growth Suggestions (Chat Widget) -->
+        <section class="py-20 bg-[#F3F4F6]">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 text-[--kapita-navy]">
+                    <span class="text-[#00C389]">AI Growth Suggestions</span> & Strategy
+                </h2>
+                
+                <div class="enterprise-card p-6 shadow-xl border border-gray-100">
+                    <div class="h-64 space-y-4 overflow-y-auto pr-2">
+                        
+                        <!-- AI Message 1 -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-[#0057D4] rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">AI</div>
+                            <div class="bg-gray-100 p-4 rounded-xl rounded-tl-none max-w-lg text-sm">
+                                <span class="font-semibold text-red-600">Action Alert:</span> Optimize marketing spend, **CAC is 18% above** the ideal benchmark for your sector. Recommended reduction plan is available.
+                            </div>
+                        </div>
+                        
+                        <!-- AI Message 2 -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-[#0057D4] rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">AI</div>
+                            <div class="bg-gray-100 p-4 rounded-xl rounded-tl-none max-w-lg text-sm">
+                                Based on competitive data, you are currently **underpriced by 8%**. I recommend increasing your premium tier pricing immediately.
+                            </div>
+                        </div>
+
+                        <!-- AI Message 3 -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-[#0057D4] rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">AI</div>
+                            <div class="bg-gray-100 p-4 rounded-xl rounded-tl-none max-w-lg text-sm">
+                                Your highest-converting segment over the last 90 days remains **Logistics SMEs** (35% conversion rate). Double down on content targeting this group.
+                            </div>
+                        </div>
+                        
+                        <!-- AI Message 4 (Prediction) -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-[#0057D4] rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">AI</div>
+                            <div class="bg-gray-100 p-4 rounded-xl rounded-tl-none max-w-lg text-sm">
+                                **Predictive Forecast:** Expected MRR increase in the next 6 months is **+27%** if current growth vectors are maintained.
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="mt-6 flex space-x-3">
+                        <input type="text" placeholder="Ask Kapita AI a growth strategy question..." class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0057D4] focus:border-[#0057D4]"/>
+                        <button class="px-6 py-2 text-white font-semibold rounded-lg btn-green">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5 — Market Intelligence for Startups -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 text-[--kapita-navy]">
+                    Global <span class="text-[--kapita-blue]">Market Intelligence</span> for Startups
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 1. Industry Trends -->
+                    <div class="enterprise-card p-6 space-y-3 border-t-4 border-[#00C389]">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-area-chart"><path d="M3 3v18h18"/><path d="M7 15v-4"/><path d="M12 18v-8"/><path d="M17 14v-4"/></svg>
+                        <h3 class="text-xl font-bold">Industry Trends</h3>
+                        <p class="text-gray-600 text-sm">Real-time analysis of sector adoption rates and legislative changes affecting your TAM.</p>
+                    </div>
+
+                    <!-- 2. Competitor Benchmarks -->
+                    <div class="enterprise-card p-6 space-y-3 border-t-4 border-[#0057D4]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gantt-chart-square"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 8h7"/><path d="M7 12h9"/><path d="M11 16h6"/></svg>
+                        <h3 class="text-xl font-bold">Competitor Benchmarks</h3>
+                        <p class="text-gray-600 text-sm">Compare your CAC, LTV, and pricing against the top 10 competitors in your region.</p>
+                    </div>
+
+                    <!-- 3. Customer Behavior Heatmaps -->
+                    <div class="enterprise-card p-6 space-y-3 border-t-4 border-[#00C389]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer-2"><path d="m4 4 7.07 17 2.51-7.31L21 11.07z"/></svg>
+                        <h3 class="text-xl font-bold">Customer Behavior</h3>
+                        <p class="text-gray-600 text-sm">Identify high-value user actions and friction points to optimize funnel conversions.</p>
+                    </div>
+
+                    <!-- 4. Funding Activity -->
+                    <div class="enterprise-card p-6 space-y-3 border-t-4 border-[#0057D4]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <h3 class="text-xl font-bold">Funding Activity</h3>
+                        <p class="text-gray-600 text-sm">Monitor recent funding rounds and identify VCs showing interest in your specific sector.</p>
+                    </div>
+
+                    <!-- 5. AI-Predicted Market Opportunities -->
+                    <div class="enterprise-card p-6 space-y-3 border-t-4 border-[#00C389]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain-cog"><path d="M12 16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7a2 2 0 0 0 2 2z"/><path d="M15.5 16.5a2.5 2.5 0 0 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M22 17v-1"/><path d="M22 13v-1"/><path d="M22 9v-1"/><path d="M2 17v-1"/><path d="M2 13v-1"/><path d="M2 9v-1"/><path d="M18 21a4 4 0 0 0 4-4v-1"/><path d="M22 7a4 4 0 0 0-4-4h-1"/><path d="M15 3h-2"/><path d="M10 3H9"/><path d="M12 21a4 4 0 0 0 4-4v-1"/><path d="M16 3a4 4 0 0 0-4-4h-1"/><path d="M8 21a4 4 0 0 0 4-4v-1"/><path d="M18 21a4 4 0 0 0-4-4v-1"/><path d="M12 21a4 4 0 0 0 4-4v-1"/><path d="M8 3a4 4 0 0 0-4-4h-1"/><path d="M3 15h1"/><path d="M3 10h1"/><path d="M20 15h1"/><path d="M20 10h1"/></svg>
+                        <h3 class="text-xl font-bold">AI Market Opportunities</h3>
+                        <p class="text-gray-600 text-sm">Predictive modeling identifies unserved niche markets and feature gaps in competitor offerings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 — Traction Timeline -->
+        <section class="py-20 bg-[#F3F4F6]">
+            <div class="max-w-7xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 text-[--kapita-navy]">
+                    Your Company <span class="text-[#00C389]">Traction Timeline</span>
+                </h2>
+
+                <div class="flex flex-col md:flex-row justify-between items-center relative py-8">
+                    <!-- Central Blue Line -->
+                    <div class="absolute inset-y-0 md:inset-x-0 h-full w-0.5 md:h-0.5 md:w-full bg-[#0057D4]/50"></div>
+                    
+                    <!-- Milestone 1: Product Launch -->
+                    <div class="flex flex-col items-center z-10 p-4">
+                        <div class="w-8 h-8 rounded-full bg-[#00C389] flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket"><path d="M4.5 16.5A.5.5 0 0 1 5 16h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1z"/><path d="M9.5 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v3h-5v-3z"/><path d="M12 2v5"/><path d="M7.5 16v-2.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V16"/></svg>
+                        </div>
+                        <p class="mt-2 text-sm font-semibold">01/2024</p>
+                        <p class="text-xs text-gray-600 text-center">Product Launch</p>
+                    </div>
+
+                    <!-- Milestone 2: 100 Customers -->
+                    <div class="flex flex-col items-center z-10 p-4">
+                        <div class="w-8 h-8 rounded-full bg-[#00C389] flex items-center justify-center text-white">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <p class="mt-2 text-sm font-semibold">07/2024</p>
+                        <p class="text-xs text-gray-600 text-center">100 Active Customers</p>
+                    </div>
+
+                    <!-- Milestone 3: Seed Funding -->
+                    <div class="flex flex-col items-center z-10 p-4">
+                        <div class="w-8 h-8 rounded-full bg-[#00C389] flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <p class="mt-2 text-sm font-semibold">01/2025</p>
+                        <p class="text-xs text-gray-600 text-center">Seed Funding Round</p>
+                    </div>
+
+                    <!-- Milestone 4: ARR Milestone -->
+                    <div class="flex flex-col items-center z-10 p-4">
+                        <div class="w-8 h-8 rounded-full bg-[#00C389] flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge-circle"><path d="M15.94 17.5a7 7 0 1 0-7.88 0"/><path d="m14 14.5-2 2-2-2"/><path d="M12 7v2"/></svg>
+                        </div>
+                        <p class="mt-2 text-sm font-semibold">09/2025</p>
+                        <p class="text-xs text-gray-600 text-center">1M ARR Achieved</p>
+                    </div>
+
+                    <!-- Milestone 5: Upcoming Partnership (Blue/Upcoming) -->
+                    <div class="flex flex-col items-center z-10 p-4">
+                        <div class="w-8 h-8 rounded-full bg-[#0057D4] flex items-center justify-center text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-handshake"><path d="m12 17-6 5v-5"/><path d="m12 17 6 5v-5"/><path d="M17 17h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3a2 2 0 0 0-2 2v2"/><path d="M7 17H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/></svg>
+                        </div>
+                        <p class="mt-2 text-sm font-semibold">Q4 2025</p>
+                        <p class="text-xs text-gray-600 text-center font-bold">Major Partnership</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 7 — Get Funding-Ready Today (CTA) -->
+        <section class="py-24 bg-[--kapita-navy] text-white">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8">
+                    Prepare Your Startup for Funding — <span class="text-[--kapita-green]">With AI-Powered Precision.</span>
+                </h2>
+                <p class="text-xl text-gray-300 mb-10">
+                    From metrics centralization to generating compliant investor reports, Kapita equips startups with everything needed to impress VCs.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- Request Demo (Emerald Green) -->
+                     <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3 text-lg font-bold text-white rounded-xl transition btn-green shadow-xl">
+                        Request Demo
+                    </button>
+                    </a>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <!-- View Startup Solutions (White outline) -->
+                    <button class="px-8 py-3 text-lg font-bold text-white bg-transparent border-2 border-white rounded-xl transition hover:bg-white hover:text-[#0A1A2F]">
+                        View Startup Solutions
+                    </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-[--kapita-navy] text-white py-12 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-8">
+                
+                <!-- Logo/Branding -->
+                <div class="col-span-2 md:col-span-1">
+                    <h5 class="text-2xl font-black text-[#0057D4]">KAPITA</h5>
+                    <p class="text-sm text-gray-400 mt-2">AI Infrastructure for Modern Finance.</p>
+                </div>
+                
+               
+            
+            <div class="max-w-7xl mx-auto px-6 pt-8 mt-8 border-t border-gray-700 text-center">
+                <p class="text-xs text-gray-500">
+                    © 2025 KAPITA AI Infrastructure. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>

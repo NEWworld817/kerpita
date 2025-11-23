@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Logistics — Inventory & Warehouse Optimization</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom color configuration for Tailwind */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-soft-gray: #F3F4F6;
+        }
+
+        /* Custom animation for UI highlight pulse */
+        @keyframes subtle-pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 195, 137, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(0, 195, 137, 0); }
+        }
+        .animate-ai-pulse-green {
+            animation: subtle-pulse-green 3s infinite;
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',
+                        'kapita-navy': '#0A1A2F',
+                        'kapita-green': '#00C389',
+                        'kapita-soft-gray': '#F3F4F6',
+                        'kapita-dark-text': '#111827',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 40px rgba(0, 87, 212, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray text-kapita-dark-text font-sans antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    
+
+<a href="kapita/Retail/home.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Icon SVGs -->
+    <div style="display: none;">
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg id="cube-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10m0-10l-8 4" /></svg>
+        <svg id="warehouse-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h-3.586a1 1 0 01-.707-.293l-1.414-1.414a1 1 0 00-.707-.293h-1.414a1 1 0 00-.707.293l-1.414 1.414a1 1 0 01-.707.293H5m14 0h2M5 21h-2" /></svg>
+        <svg id="forecast-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6m3-3h.01M16 19V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v13m-4 0h.01M16 19h.01M19 7h3m0 0h3m0 0v3" /></svg>
+        <svg id="location-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243m10.606-10.606L14.121 13.39c-.5.5-.953.484-1.428.324-.474-.16-.883-.43-1.157-.75l-2.001-2.002M12 21a9 9 0 100-18 9 9 0 000 18z" /></svg>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                    <a href="kapita/404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150">Log In</a>
+                <a href="kapita/404.html">
+                    <button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+                </a>
+            </nav>
+
+        
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-24 pb-20 pt-10">
+
+        <!-- 🔷 HERO SECTION — “Smart Inventory & Warehouse Intelligence” -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left: Text Content -->
+            <div class="space-y-8">
+                <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                    <span class="text-kapita-green">AI-Powered Inventory</span> & Warehouse Optimization
+                </h1>
+                <p class="text-xl text-gray-600 font-light max-w-xl">
+                    Monitor stock levels, optimize storage, forecast demand, and reduce operational costs with Kapita AI, ensuring efficient storage and distribution.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-kapita-green text-white text-lg font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                        Request Demo
+                    </button>
+                    </a>
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-8 py-3.5 bg-white text-kapita-blue text-lg font-semibold rounded-xl border-2 border-kapita-blue hover:bg-kapita-soft-gray transition duration-300">
+                        Learn More
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Dashboard Mockup Illustration -->
+            <div class="relative w-full aspect-[4/3] rounded-2xl bg-white shadow-premium border border-gray-200 p-6 flex flex-col justify-between animate-ai-pulse-green">
+                
+                <!-- Warehouse Map / Heatmap Mockup -->
+                <div class="flex-grow bg-gray-100 rounded-lg relative overflow-hidden p-4">
+                    <p class="text-sm font-semibold text-kapita-navy mb-2">Warehouse 1: Stock Density Map</p>
+                    <!-- Grid representation of warehouse bins/sections -->
+                    <div class="grid grid-cols-5 gap-1 h-[90%]">
+                        <!-- High Density (Red) -->
+                        <div class="bg-red-500/80 rounded-sm flex items-center justify-center text-xs text-white">A1</div>
+                        <div class="bg-red-500/80 rounded-sm"></div>
+                        <!-- Medium Density (Yellow) -->
+                        <div class="bg-yellow-500/80 rounded-sm"></div>
+                        <div class="bg-kapita-green/80 rounded-sm"></div>
+                        <div class="bg-kapita-green/80 rounded-sm"></div>
+                        
+                        <!-- Low Density (Green) -->
+                        <div class="bg-yellow-500/80 rounded-sm"></div>
+                        <div class="bg-kapita-green/80 rounded-sm"></div>
+                        <div class="bg-kapita-blue/80 rounded-sm flex items-center justify-center text-xs text-white">AI Suggestion</div>
+                        <div class="bg-kapita-green/80 rounded-sm"></div>
+                        <div class="bg-yellow-500/80 rounded-sm"></div>
+
+                         <!-- Low Density (Green) -->
+                         <div class="bg-kapita-green/80 rounded-sm"></div>
+                         <div class="bg-red-500/80 rounded-sm"></div>
+                         <div class="bg-red-500/80 rounded-sm"></div>
+                         <div class="bg-yellow-500/80 rounded-sm"></div>
+                         <div class="bg-kapita-green/80 rounded-sm"></div>
+
+                          <!-- Low Density (Green) -->
+                          <div class="bg-kapita-green/80 rounded-sm"></div>
+                          <div class="bg-yellow-500/80 rounded-sm"></div>
+                          <div class="bg-kapita-green/80 rounded-sm"></div>
+                          <div class="bg-kapita-green/80 rounded-sm"></div>
+                          <div class="bg-kapita-green/80 rounded-sm"></div>
+                           <!-- Low Density (Green) -->
+                           <div class="bg-kapita-green/80 rounded-sm"></div>
+                           <div class="bg-kapita-green/80 rounded-sm"></div>
+                           <div class="bg-kapita-green/80 rounded-sm"></div>
+                           <div class="bg-yellow-500/80 rounded-sm"></div>
+                           <div class="bg-kapita-green/80 rounded-sm"></div>
+                    </div>
+
+                    <!-- AI Suggestion Callout -->
+                    <div class="absolute bottom-4 left-4 bg-kapita-blue text-white p-2 rounded-lg shadow-lg text-xs font-semibold">
+                        AI Recommends: Move SKU 1A to A3 (25% closer to shipping)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — INVENTORY PERFORMANCE CARDS -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Inventory & Storage Metrics</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Card 1: Stock Availability -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-green stroke-2"><use xlink:href="#cube-icon"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Stock Availability Rate</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-green mb-2">
+                        98.1<span class="text-3xl">%</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Percentage of required inventory currently in stock.</p>
+                    <div class="mt-4 flex justify-between text-sm font-semibold">
+                        <span>Low Stock SKUs</span>
+                        <span class="text-red-500">12 (Critical)</span>
+                    </div>
+                    <div class="h-2 bg-kapita-soft-gray rounded-full mt-1">
+                        <div class="h-2 bg-kapita-green rounded-full" style="width: 98%;"></div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Warehouse Utilization -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-kapita-blue stroke-2"><use xlink:href="#warehouse-icon"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Warehouse Utilization</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-kapita-blue mb-2">
+                        72<span class="text-3xl">%</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Space used vs the AI-calculated optimal capacity.</p>
+                    <ul class="mt-4 space-y-1 text-sm">
+                        <li class="flex justify-between">
+                            <span>Optimal Target:</span>
+                            <span class="font-bold text-kapita-green">75%</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Dead Space Detected:</span>
+                            <span class="font-bold text-yellow-500">3 areas</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Max Capacity:</span>
+                            <span class="font-bold text-kapita-navy">95%</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Restock Predictions -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft-xl border border-gray-200 flex flex-col hover:shadow-premium transition duration-300">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg viewBox="0 0 24 24" class="h-8 w-8 text-yellow-500 stroke-2"><use xlink:href="#forecast-icon"></use></svg>
+                        <h3 class="text-xl font-bold text-kapita-dark-text">Predictive Restock Alerts</h3>
+                    </div>
+                    <div class="text-5xl font-extrabold text-yellow-600 mb-2">
+                        15<span class="text-3xl"> POs Suggested</span>
+                    </div>
+                    <p class="text-sm text-gray-600">AI-suggested purchase orders to prevent stockouts.</p>
+                    
+                    <!-- Inventory Turnover vs Forecast Mini-Graph -->
+                    <div class="h-16 relative mt-4">
+                        <p class="absolute top-0 right-0 text-xs text-kapita-blue font-semibold">Forecast Error: 4.5%</p>
+                        <svg class="absolute inset-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <!-- Turnover (Green) -->
+                            <polyline points="0,80 20,60 40,70 60,50 80,65 100,55" fill="none" stroke="var(--kapita-green)" stroke-width="2.5"/>
+                            <!-- Demand Forecast (Blue dashed) -->
+                            <polyline points="0,50 20,40 40,30 60,35 80,25 100,10" fill="none" stroke="var(--kapita-blue)" stroke-width="1.5" stroke-dasharray="5 5"/>
+                        </svg>
+                        <div class="text-xs text-gray-500 flex justify-between mt-1">
+                            <span class="text-kapita-green">Turnover</span>
+                            <span class="text-kapita-blue">Forecast</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 SECTION — WAREHOUSE OPERATIONS PANEL -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 pt-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-8 text-kapita-navy">Warehouse Operations Overview</h2>
+            <div class="bg-white rounded-2xl shadow-premium border border-gray-200 overflow-hidden">
+                <!-- Table Header -->
+                <div class="grid grid-cols-6 p-4 border-b border-gray-100 font-bold text-sm text-kapita-navy bg-kapita-soft-gray">
+                    <div class="col-span-1">Warehouse ID</div>
+                    <div class="col-span-1">Location</div>
+                    <div class="col-span-1">Capacity Used</div>
+                    <div class="col-span-1">Stock Health</div>
+                    <div class="col-span-1">AI Alerts</div>
+                    <div class="col-span-1 text-right">Avg. Picker Route Time</div>
+                </div>
+
+                <!-- Tracking List Items -->
+                <div class="divide-y divide-gray-100">
+                    
+                    <!-- Row 1: Warning/Critical Alerts -->
+                    <div class="grid grid-cols-6 p-4 items-center hover:bg-red-500/5 transition duration-100 text-sm">
+                        <div class="col-span-1 font-semibold text-kapita-blue">WH-001</div>
+                        <div class="col-span-1 text-gray-600 flex items-center"><svg viewBox="0 0 24 24" class="w-4 h-4 mr-1 text-gray-400"><use xlink:href="#location-icon"></use></svg> Chicago, IL</div>
+                        <div class="col-span-1 font-medium text-red-500">89% (High Density)</div>
+                        <div class="col-span-1"><span class="px-3 py-1 text-xs font-medium bg-red-500/10 text-red-600 rounded-full">Critical</span></div>
+                        <div class="col-span-1"><span class="text-xs font-semibold text-red-500">2 Restock, 1 Reallocate</span></div>
+                        <div class="col-span-1 text-right font-medium text-red-500">12.5 min</div>
+                    </div>
+
+                    <!-- Row 2: Good Health -->
+                    <div class="grid grid-cols-6 p-4 items-center hover:bg-kapita-green/5 transition duration-100 text-sm">
+                        <div class="col-span-1 font-semibold text-kapita-blue">WH-004</div>
+                        <div class="col-span-1 text-gray-600 flex items-center"><svg viewBox="0 0 24 24" class="w-4 h-4 mr-1 text-gray-400"><use xlink:href="#location-icon"></use></svg> Dallas, TX</div>
+                        <div class="col-span-1 font-medium text-kapita-green">74% (Optimal)</div>
+                        <div class="col-span-1"><span class="px-3 py-1 text-xs font-medium bg-kapita-green/10 text-kapita-green rounded-full">Good</span></div>
+                        <div class="col-span-1"><span class="text-xs font-semibold text-kapita-green">None</span></div>
+                        <div class="col-span-1 text-right font-medium text-kapita-green">7.8 min</div>
+                    </div>
+
+                    <!-- Row 3: Warning/Minor Alerts -->
+                    <div class="grid grid-cols-6 p-4 items-center hover:bg-yellow-500/5 transition duration-100 text-sm">
+                        <div class="col-span-1 font-semibold text-kapita-blue">WH-002</div>
+                        <div class="col-span-1 text-gray-600 flex items-center"><svg viewBox="0 0 24 24" class="w-4 h-4 mr-1 text-gray-400"><use xlink:href="#location-icon"></use></svg> Los Angeles, CA</div>
+                        <div class="col-span-1 font-medium text-yellow-600">82% (Needs Review)</div>
+                        <div class="col-span-1"><span class="px-3 py-1 text-xs font-medium bg-yellow-500/10 text-yellow-600 rounded-full">Warning</span></div>
+                        <div class="col-span-1"><span class="text-xs font-semibold text-yellow-600">3 Restock (Low Priority)</span></div>
+                        <div class="col-span-1 text-right font-medium text-yellow-600">10.1 min</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 🔷 SECTION — CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20 mt-12">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white">
+                    Optimize Every Warehouse & Inventory with AI
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Logistics Onboarding
+                </button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <!-- Logo in Footer -->
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\solutions.html" class="hover:text-kapita-blue transition duration-150">Solutions</a>
+                    <a href="C:\Kapita\kapita\Retail\Kapita Pricing and Plans.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                    <a href="C:\Kapita\kapita\aboutus.html" class="hover:text-kapita-blue transition duration-150">About</a>
+                </div>
+            </div>
+            <!-- Bottom Line -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

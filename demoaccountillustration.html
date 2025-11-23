@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita – Choose Your Demo Experience</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Custom color configuration for Tailwind */
+        :root {
+            --kapita-blue: #0057D4;
+            --kapita-navy: #0A1A2F;
+            --kapita-green: #00C389;
+            --kapita-soft-gray: #F3F4F6;
+        }
+
+        /* Custom animation for demo card hover */
+        .demo-card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 87, 212, 0.2);
+            border-color: #0057D4;
+        }
+
+        /* Illustration style for the intro section */
+        .intro-illustration {
+            background: linear-gradient(135deg, #0A1A2F, #0057D4);
+            position: relative;
+            overflow: hidden;
+        }
+        .intro-illustration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 195, 137, 0.2) 0%, rgba(0, 87, 212, 0.1) 50%, rgba(10, 26, 47, 0) 100%);
+        }
+    </style>
+    <script>
+        // Configure Tailwind with Kapita brand colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kapita-blue': '#0057D4',
+                        'kapita-navy': '#0A1A2F',
+                        'kapita-green': '#00C389',
+                        'kapita-soft-gray': '#F3F4F6',
+                        'kapita-dark-text': '#111827',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+                        'premium': '0 15px 40px rgba(0, 87, 212, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05)',
+                        'green-glow': '0 4px 15px rgba(0, 195, 137, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kapita-soft-gray/50 text-kapita-dark-text font-sans antialiased">
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+  
+<a href="C:\Kapita\index.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Icon SVGs -->
+    <div style="display: none;">
+        <!-- Menu -->
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <!-- Government Icon (Building) -->
+        <svg id="government-icon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0l-4 4m4-4l-4-4m-6 17v-4m0 0v-4m0 4h4m0 0H6m16 0V6a2 2 0 00-2-2H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2z" /></svg>
+        <!-- Bank Icon (Vault/Chart) -->
+        <svg id="bank-icon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m0 0l3 3m0 0l-3 3M12 21V9m0 0l-3 3m3-3l3 3M21 12h-6m6 0v-2" /></svg>
+        <!-- Startup Icon (Rocket/Growth) -->
+        <svg id="startup-icon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8m-3 7H7a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v4M12 20v-4" /></svg>
+        <!-- Retail Icon (Shopping Cart) -->
+        <svg id="retail-icon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+        <!-- MSMEs Icon (Small Shop/Analytics) -->
+        <svg id="msmes-icon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7m7 7v10m7-7h-4M7 13h4M12 21h7a2 2 0 002-2v-2a2 2 0 00-2-2h-3l-2 2-2-2H5a2 2 0 00-2 2v2a2 2 0 002 2h7z" /></svg>
+        <!-- Logistics Icon (Delivery Truck) -->
+        <svg id="logistics-icon" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 21V5h14v10a2 2 0 01-2 2h-3l-2 2-2-2H5m0 0h14" /></svg>
+        
+        <!-- Placeholder for floating icons in illustration -->
+        <div id="illus-icons" style="display: none;">
+            <svg id="icon-a" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8h11m-11 4h11m-11 4h7" /></svg>
+            <svg id="icon-b" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg id="icon-c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /></svg>
+        </div>
+    </div>
+
+    <!-- 🔷 HEADER (Sticky Navigation) -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-lg transition-shadow duration-300">
+        <div class="max-w-8xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="text-3xl font-extrabold tracking-widest text-kapita-blue">
+                KAPITA
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+               
+                <a href="C:\Kapita\kapita\404.html" class="text-kapita-blue border border-kapita-blue px-4 py-2 rounded-lg hover:bg-kapita-soft-gray transition duration-150 ml-4">Log In</a>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-5 py-2.5 bg-kapita-green text-white font-bold rounded-lg shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Request Demo
+                </button>
+                </a>
+            </nav>
+
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="space-y-20 pb-20 pt-10">
+
+        <!-- 🔷 HERO / INTRO SECTION -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Left: Text Content -->
+            <div class="space-y-6">
+                <h1 class="text-5xl font-extrabold leading-tight tracking-tighter text-kapita-navy sm:text-6xl">
+                    <span class="text-kapita-blue">Choose</span> Your Demo Experience
+                </h1>
+                <p class="text-xl text-gray-600 font-light max-w-xl">
+                    Select the sector that represents your operations to explore Kapita’s AI capabilities, from real-time payments to predictive credit, in action.
+                </p>
+                <div class="pt-4">
+                    <a href="C:\Kapita\kapita\404.html">
+                    <button class="px-6 py-3 bg-kapita-green text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300">
+                        Quick Start Tour
+                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Illustration -->
+            <div class="w-full aspect-square rounded-3xl intro-illustration p-6 flex items-center justify-center">
+                <!-- Inner 3D Dashboard Mock -->
+                <div class="w-11/12 h-11/12 bg-white/10 backdrop-blur-sm rounded-2xl border border-kapita-green/30 relative flex items-center justify-center">
+                    <div class="text-white text-center">
+                        <p class="text-2xl font-bold mb-2">AI Simulation Active</p>
+                        <p class="text-sm text-gray-300">Select a card to load the relevant data stream.</p>
+                    </div>
+                    <!-- Floating Icons (Simulating Interactive 3D) -->
+                    <div class="absolute top-4 left-1/4 p-2 bg-kapita-blue/80 rounded-full text-white shadow-lg"><svg viewBox="0 0 24 24" class="w-5 h-5"><use xlink:href="#icon-a"></use></svg></div>
+                    <div class="absolute bottom-6 right-1/4 p-2 bg-kapita-green/80 rounded-full text-white shadow-lg"><svg viewBox="0 0 24 24" class="w-5 h-5"><use xlink:href="#icon-b"></use></svg></div>
+                    <div class="absolute top-1/2 right-1/4 p-2 bg-white/90 text-kapita-navy rounded-full shadow-lg"><svg viewBox="0 0 24 24" class="w-5 h-5"><use xlink:href="#icon-c"></use></svg></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🔷 DEMO SELECTION GRID -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Demo Card 1: Government -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border-2 border-transparent hover:border-kapita-blue transition duration-300 demo-card-hover cursor-pointer">
+                    <div class="p-3 mb-4 inline-block rounded-xl bg-kapita-blue/10 text-kapita-blue">
+                        <svg viewBox="0 0 24 24" class="w-10 h-10 stroke-[1.5]"><use xlink:href="#government-icon"></use></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-kapita-navy mb-2">Government</h3>
+                    <p class="text-gray-600 text-sm">Centralized economic intelligence and transparent payment processing.</p>
+                    <a href="C:\Kapita\kapita\Governments\govcmdcente.html">
+                    <button class="mt-4 text-kapita-blue font-semibold text-sm hover:text-kapita-green transition">Start Demo →</button>
+                    </a>
+                </div>
+
+                <!-- Demo Card 2: Bank -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border-2 border-transparent hover:border-kapita-blue transition duration-300 demo-card-hover cursor-pointer">
+                    <div class="p-3 mb-4 inline-block rounded-xl bg-kapita-blue/10 text-kapita-blue">
+                        <svg viewBox="0 0 24 24" class="w-10 h-10 stroke-[1.5]"><use xlink:href="#bank-icon"></use></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-kapita-navy mb-2">Bank / FinTech</h3>
+                    <p class="text-gray-600 text-sm">Advanced credit risk scoring and fraud detection systems.</p>
+                    <a href="C:\Kapita\kapita\startups\startupshome.html">
+                    <button class="mt-4 text-kapita-blue font-semibold text-sm hover:text-kapita-green transition">Start Demo →</button>
+                    </a>
+                </div>
+
+                <!-- Demo Card 3: Startup -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border-2 border-transparent hover:border-kapita-blue transition duration-300 demo-card-hover cursor-pointer">
+                    <div class="p-3 mb-4 inline-block rounded-xl bg-kapita-blue/10 text-kapita-blue">
+                        <svg viewBox="0 0 24 24" class="w-10 h-10 stroke-[1.5]"><use xlink:href="#startup-icon"></use></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-kapita-navy mb-2">Startup</h3>
+                    <p class="text-gray-600 text-sm">Rapid API integration for payment processing and financial services.</p>
+                    <a href="C:\Kapita\kapita\startups\startupshome.html">
+                    <button class="mt-4 text-kapita-blue font-semibold text-sm hover:text-kapita-green transition">Start Demo →</button>
+                    </a>
+                </div>
+
+                <!-- Demo Card 4: Retail -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border-2 border-transparent hover:border-kapita-blue transition duration-300 demo-card-hover cursor-pointer">
+                    <div class="p-3 mb-4 inline-block rounded-xl bg-kapita-blue/10 text-kapita-blue">
+                        <svg viewBox="0 0 24 24" class="w-10 h-10 stroke-[1.5]"><use xlink:href="#retail-icon"></use></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-kapita-navy mb-2">Retail</h3>
+                    <p class="text-gray-600 text-sm">AI-driven inventory, sales forecasting, and supply chain optimization.</p>
+                    <a href="C:\Kapita\kapita\Retail\home.html">
+                    <button class="mt-4 text-kapita-blue font-semibold text-sm hover:text-kapita-green transition">Start Demo →</button>
+                </a>
+                </div>
+
+                <!-- Demo Card 5: MSMEs -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border-2 border-transparent hover:border-kapita-blue transition duration-300 demo-card-hover cursor-pointer">
+                    <div class="p-3 mb-4 inline-block rounded-xl bg-kapita-blue/10 text-kapita-blue">
+                        <svg viewBox="0 0 24 24" class="w-10 h-10 stroke-[1.5]"><use xlink:href="#msmes-icon"></use></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-kapita-navy mb-2">MSMEs (Small/Medium Business)</h3>
+                    <p class="text-gray-600 text-sm">Automated cash flow, easy procurement, and business analytics.</p>
+                    <a href="C:\Kapita\kapita\MSMEs\Kapita MSME AI Financial  Operational Hub.html">
+                    <button class="mt-4 text-kapita-blue font-semibold text-sm hover:text-kapita-green transition">Start Demo →</button>
+                    </a>
+                </div>
+
+                <!-- Demo Card 6: Logistics -->
+                <div class="bg-white p-8 rounded-2xl shadow-soft-xl border-2 border-transparent hover:border-kapita-blue transition duration-300 demo-card-hover cursor-pointer">
+                    <div class="p-3 mb-4 inline-block rounded-xl bg-kapita-blue/10 text-kapita-blue">
+                        <svg viewBox="0 0 24 24" class="w-10 h-10 stroke-[1.5]"><use xlink:href="#logistics-icon"></use></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-kapita-navy mb-2">Logistics</h3>
+                    <p class="text-gray-600 text-sm">Supplier payment management and optimal route cost analysis.</p>
+                    <a href="C:\Kapita\kapita\logistics\Kapita Logistics Operations Dashboard.html">
+                    <button class="mt-4 text-kapita-blue font-semibold text-sm hover:text-kapita-green transition">Start Demo →</button>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Optional Subtext -->
+            <p class="text-center text-lg text-gray-600 mt-12 font-medium">
+                Explore dashboards, forecasting, AI analytics, and operational tools relevant to your sector.
+            </p>
+        </section>
+
+        <!-- 🔷 CALL TO ACTION -->
+        <section class="bg-kapita-navy py-20 mt-12">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white">
+                    Start Your Sector Demo Today
+                </h2>
+                <a href="C:\Kapita\kapita\404.html">
+                <button class="px-10 py-4 bg-kapita-green text-white text-xl font-bold rounded-xl shadow-green-glow hover:bg-green-600 transition duration-300">
+                    Launch Demo
+                </button>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 🔷 FOOTER -->
+    <footer class="bg-kapita-navy py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-6 mb-6">
+                <!-- Logo in Footer -->
+                <div class="text-2xl font-extrabold tracking-widest text-white mb-4 md:mb-0">KAPITA</div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-wrap space-x-6 text-sm font-medium text-gray-300">
+                    <a href="C:\Kapita\solutions.html" class="hover:text-kapita-blue transition duration-150">Solutions</a>
+                    <a href="C:\Kapita\industrypoweredai.html" class="hover:text-kapita-blue transition duration-150">Industries</a>
+                    <a href="C:\Kapita\pricing.html" class="hover:text-kapita-blue transition duration-150">Pricing</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Support</a>
+                    <a href="C:\Kapita\contact.html" class="hover:text-kapita-blue transition duration-150">Contact</a>
+                </div>
+            </div>
+            <!-- Bottom Line -->
+            <div class="text-center text-sm text-gray-500">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle the mobile menu (Hamburger functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

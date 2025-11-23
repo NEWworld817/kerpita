@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapita Inventory & Forecasting - Demand Prediction</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Colors from Brand Guide */
+        :root {
+            --kapita-blue: #0057D4; /* Main Brand Blue */
+            --kapita-navy: #0A1A2F; /* Dark Background */
+            --kapita-green: #00C389; /* Positive/Prediction Line */
+            --kapita-orange: #F97316; /* Alert/Stock-Out */
+            --kapita-gray: #F3F4F6;
+        }
+
+        /* Set Inter as default font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* Hero Background with an official, structured feel */
+        .hero-bg-inventory {
+            background-color: var(--kapita-navy);
+            background-image: linear-gradient(45deg, rgba(0, 87, 212, 0.1) 0%, transparent 60%);
+        }
+
+        /* Dashboard Look & Feel */
+        .inventory-dashboard {
+            background-color: #1a2a40; /* Darker Navy for dashboard contrast */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dashboard-card {
+            background-color: #23354d;
+            border: 1px solid #3f526b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Custom styles for the chart visualization */
+        .chart-area {
+            position: relative;
+            height: 200px;
+            padding: 1rem;
+        }
+        .chart-grid {
+            border-left: 1px solid #3f526b;
+            border-bottom: 1px solid #3f526b;
+        }
+
+    </style>
+</head>
+<body>
+     <!-- START Fixed Navigation Buttons -->
+    <!-- These buttons use fixed positioning and a high z-index (z-50) to always be visible. -->
+    
+    <!-- 1. SKIP BUTTON (Top Left Corner) -->
+    <a href="C:\Kapita\kapita\Banks\automatedreconcilliation.html" class="fixed top-6 left-6 z-50">
+    <button class="group flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-500 bg-white/50 backdrop-blur-sm border border-transparent rounded-full hover:bg-white hover:text-slate-800 hover:shadow-md hover:border-slate-200 transition-all duration-300 ease-in-out">
+        <span>Skip</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-0 h-4 opacity-0 group-hover:w-4 group-hover:opacity-100 group-hover:ml-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+    </button>
+</a>
+
+<a href="C:\Kapita\index.html" class="fixed bottom-6 left-6 z-50">
+    <button class="group flex items-center space-x-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-full shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-0.5 transition-all duration-300 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1 text-slate-500 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-semibold text-sm tracking-wide group-hover:text-slate-900">Go Back</span>
+    </button>
+</a>
+    <!-- END Fixed Navigation Buttons -->
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-3xl font-extrabold text-[#0057D4]">KAPITA</a>
+
+            <!-- Menu -->
+            <nav class="flex space-x-6 items-center">
+                <a href="#" class="text-gray-600 hover:text-[#0057D4] transition duration-150">Solutions</a>
+                <button class="px-6 py-3 bg-[#00C389] text-white font-bold rounded-xl shadow-lg hover:bg-opacity-90 transition duration-150">
+                    Contact Sales
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg-inventory text-white pt-24 pb-8 md:pt-32 md:pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                Forecast Demand. Prevent Losses.
+            </h1>
+            <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-4xl mx-auto">
+                Accurate, AI-driven demand forecasting that eliminates stock-outs, reduces capital tied up in inventory, and optimizes your entire supply chain.
+            </p>
+
+            <!-- Main CTA Button -->
+            <button class="px-8 py-4 bg-[#0057D4] text-white font-bold text-lg rounded-xl shadow-2xl shadow-[#0057D4]/40 hover:bg-opacity-90 transition duration-300">
+                Request Forecasting API Demo
+            </button>
+        </div>
+    </section>
+
+    <!-- Dashboard Imagery Mockup (Focus on Forecasting and Alerts) -->
+    <section class="bg-white -mt-16 md:-mt-24 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="inventory-dashboard p-4 md:p-8 rounded-3xl shadow-2xl shadow-[#0A1A2F]/50 overflow-hidden">
+                
+                <h2 class="text-2xl font-bold text-white mb-6">Inventory Health and Predictive Demand</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Card 1: Inventory Health Indicators -->
+                    <div class="dashboard-card p-6 rounded-xl text-white lg:col-span-1">
+                        <h4 class="text-xl font-bold mb-4 text-[#00C389] flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box mr-2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 9.4-5"/></svg>
+                            Inventory Health Check
+                        </h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex justify-between items-center text-gray-300"><span>Turnover Rate</span> <span class="text-[#00C389] font-bold">12x/yr (Excellent)</span></li>
+                            <li class="flex justify-between items-center text-gray-300"><span>Days of Supply</span> <span class="text-white font-bold">45 Days</span></li>
+                            <li class="flex justify-between items-center text-gray-300"><span>Obsolete Stock Risk</span> <span class="text-red-500 font-bold">3.1%</span></li>
+                            <li class="flex justify-between items-center text-gray-300"><span>Fill Rate</span> <span class="text-[#00C389] font-bold">99.5%</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Card 2: Predictive Stock Chart (Visual Focus) -->
+                    <div class="dashboard-card p-6 rounded-xl text-white lg:col-span-2">
+                        <h4 class="text-xl font-bold mb-4 text-[#0057D4] flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-area-chart mr-2"><path d="M3 3v18h18"/><path d="M7 15v-4"/><path d="M12 11v-4"/><path d="M17 15v-2"/></svg>
+                            Predicted vs. Actual Demand (Next 3 Months)
+                        </h4>
+                        
+                        <!-- Chart Mockup -->
+                        <div class="chart-area border rounded-lg border-gray-700 bg-gray-900/50">
+                            <!-- Visual representation of the chart -->
+                            <div class="h-full w-full relative">
+                                <!-- Grid Lines (Simplified) -->
+                                <div class="chart-grid absolute inset-0"></div>
+                                
+                                <!-- Legend -->
+                                <div class="absolute top-2 left-2 text-xs flex space-x-3">
+                                    <span class="flex items-center text-[#00C389]">
+                                        <div class="w-3 h-0.5 bg-[#00C389] mr-1"></div> AI Prediction
+                                    </span>
+                                    <span class="flex items-center text-[#0057D4]">
+                                        <div class="w-3 h-0.5 bg-[#0057D4] mr-1"></div> Actual Demand
+                                    </span>
+                                    <span class="flex items-center text-gray-400">
+                                        <div class="w-3 h-0.5 bg-gray-500 mr-1"></div> Current Stock
+                                    </span>
+                                </div>
+                                
+                                <!-- Mock Lines (using absolute positioning to simulate a graph) -->
+                                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <!-- Current Stock (Gray Line - Constant) -->
+                                    <polyline fill="none" stroke="#9CA3AF" stroke-width="0.5" stroke-dasharray="2" 
+                                        points="0,70 100,70"/>
+                                        
+                                    <!-- AI Prediction (Green Line - Future) -->
+                                    <polyline fill="none" stroke="var(--kapita-green)" stroke-width="1.5" 
+                                        points="10,60 35,45 60,30 85,50 100,40"/>
+                                        
+                                    <!-- Actual Demand (Blue Line - Historical/Current) -->
+                                    <polyline fill="none" stroke="var(--kapita-blue)" stroke-width="1.5" 
+                                        points="0,80 15,65 30,50 45,60 60,40"/>
+                                    
+                                    <!-- Simulated Stock-Out Alert -->
+                                    <circle cx="60" cy="40" r="1.5" fill="red"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Alert Banner -->
+                        <div class="p-3 bg-red-800/20 border-l-4 border-red-500 mt-4 rounded text-sm text-red-400 font-semibold flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell-ring mr-2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.37 21a2 2 0 0 0 3.26 0"/><path d="M10 2h4"/></svg>
+                            Stock-Out Alert: Product #203 projected to hit zero in 15 days due to seasonal spike. Reorder now.
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Seasonal Demand Patterns -->
+                <div class="dashboard-card p-6 rounded-xl text-white mt-6">
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389] flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-dim mr-2"><circle cx="12" cy="12" r="6"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m4.93 19.07 1.41-1.41"/><path d="m17.66 6.34 1.41-1.41"/></svg>
+                        Identified Seasonal Demand Pattern
+                    </h4>
+                    <p class="text-gray-400 text-sm">Product Group X sees a consistent **25% demand increase** every year starting mid-September (Back-to-School/Harvest Season). Kapita AI has automatically adjusted optimal safety stock levels for this period.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Sections -->
+    <section class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-16 text-[#0A1A2F]">Tailored Solutions for Every Business Type</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                
+                <!-- Feature 1: Retail & Wholesale -->
+                <div class="p-6 rounded-xl border-b-4 border-[#0057D4] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag mb-4"><path d="M6 2v20"/><path d="M18 2v20"/><path d="M3 7h18"/><path d="M6 12h12"/><path d="M6 17h12"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Retail & Wholesale</h3>
+                    <p class="text-gray-600 text-sm">
+                        Optimize SKU-level stocking across multiple warehouse and store locations to meet foot traffic and e-commerce spikes.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Agriculture & Supply Chain -->
+                <div class="p-6 rounded-xl border-b-4 border-[#00C389] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tractor mb-4"><path d="M10 21V16a2 2 0 0 1 2-2h10l-1-7h-5"/><path d="M18 5a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M22 21v-4"/><path d="M5 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Agriculture & Supply Chain</h3>
+                    <p class="text-gray-600 text-sm">
+                        Manage perishable goods and variable harvest yields using weather and commodity price signals for better logistics planning.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Manufacturing -->
+                <div class="p-6 rounded-xl border-b-4 border-[#0057D4] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cog mb-4"><circle cx="12" cy="12" r="3"/><path d="M19.39 12a1 1 0 0 0-1-1.73l-1.39-.8a1 1 0 0 0-.66-.19l-1.46-.25a1 1 0 0 0-.41-.75L12 3.39a1 1 0 0 0-1-1.73l-.8 1.39a1 1 0 0 0-.19.66l-.25 1.46a1 1 0 0 0-.75.41L3.39 12a1 1 0 0 0-1 1.73l1.39.8a1 1 0 0 0 .66.19l1.46.25a1 1 0 0 0 .41.75l.8 1.39a1 1 0 0 0 1 1.73l1.39-.8a1 1 0 0 0 .66-.19l.25-1.46a1 1 0 0 0 .75-.41l1.39-.8a1 1 0 0 0 1-1.73z"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Manufacturing</h3>
+                    <p class="text-gray-600 text-sm">
+                        Accurate raw material forecasts ensure JIT (Just-In-Time) efficiency, preventing production downtime and excess carrying costs.
+                    </p>
+                </div>
+
+                <!-- Feature 4: Exporters -->
+                <div class="p-6 rounded-xl border-b-4 border-[#00C389] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00C389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plane mb-4"><path d="M22 17H2l10-10 10 10z"/><path d="M18 17h-2.5a2.5 2.5 0 0 0-2.5 2.5v1.5H15l-3-3-3 3h-1.5v-1.5a2.5 2.5 0 0 0-2.5-2.5H2"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">Exporters</h3>
+                    <p class="text-gray-600 text-sm">
+                        Forecast international demand, buffer against long lead times, and optimize shipping container utilization based on AI models.
+                    </p>
+                </div>
+
+                <!-- Feature 5: MSMEs (Micro, Small, Medium Enterprises) -->
+                <div class="p-6 rounded-xl border-b-4 border-[#0057D4] shadow-xl hover:shadow-2xl transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0057D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale mb-4"><path d="M16 16.12V7.88l-6 3.46-6-3.46v8.24l6 3.46z"/><path d="M22 10.5L16 7.04M16 16.12l6 3.46M16 7.04l-6 3.46M10 10.5l-6 3.46"/><path d="M16 7.04V10.5L10 14V10.5z"/></svg>
+                    <h3 class="text-xl font-bold text-[#0A1A2F] mb-3">MSMEs</h3>
+                    <p class="text-gray-600 text-sm">
+                        Affordable, scalable access to high-precision forecasting tools previously only available to large multinational corporations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-[#0A1A2F] text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 border-b border-gray-700 pb-10 mb-8">
+                
+                <!-- Column 1: Solutions -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Solutions</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="font-semibold text-white"><a href="#" class="hover:text-white transition duration-150">AI Payments</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Smart Procurement</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Credit Risk & Scoring</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Data Intelligence</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Company -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Company</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="#" class="hover:text-white transition duration-150">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Newsroom</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Security</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Resources</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="#" class="hover:text-white transition duration-150">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">API Status</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Partners</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Case Studies</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[#00C389]">Contact</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="#" class="hover:text-white transition duration-150">Request Demo</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Support</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-150">Media Inquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Text -->
+            <div class="text-center text-gray-500 text-sm">
+                &copy; 2025 KAPITA AI Infrastructure. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
